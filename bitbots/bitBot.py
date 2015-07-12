@@ -65,7 +65,7 @@ class bitBot:
         for CurOutNode in self.NNet[4]:
             curOutNodeId += 1
             for CurMid in range(20):
-                CurOutNode += self.NNet[2] * self.NNet[3][CurMid][curOutNodeId]
+                CurOutNode += self.NNet[2][CurMid] * self.NNet[3][CurMid][curOutNodeId]
             self.NNet[4][curOutNodeId] = CurOutNode
 
         # Clamping all the color outputs to be inside 0-1
