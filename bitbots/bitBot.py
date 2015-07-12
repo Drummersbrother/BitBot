@@ -17,7 +17,7 @@ class bitBot:
         # (15) sound sensor [amount of shout from other bots in the area, not scaled] (16) back eye R (17) back eye G (18) back eye B (19) blood sensor [health of bots in front of it/included in the left or the right eye, this is scaled with totalHealth/numbots]
         # (20) amount of food needed until reproduction (21) age [in ticks](22) Clock 1 (23) Clock 2
         # Out/Actuators: (0) Wheel 1 [Right] (1) Wheel 2 [Left] (2) Red light emitted  (3) Green light emitted (4) Blue light emitted (5) How much of the available food at this location it should eat [0-3%]
-        # (6) Is it willing to give other bots the ability to take some of its food/health? (7) Spike length (8) Boost (9) Sound emitting (10) Memory, from the last tick
+        # (6) Is it willing to give other bots the ability to take some of its food/health? [if it is over 2.5 then it IS willing, otherwise it IS NOT willing] (7) Spike length (8) Boost (9) Sound emitting (10) Memory, from the last tick
         # Mid nodes: 20?
 
         self.NNet = [np.zeros((24)), np.ones((24, 20)), np.zeros((20)), np.ones((20, 11)), np.zeros((11))]
@@ -58,6 +58,57 @@ class bitBot:
             for CurMid in range(20):
                 CurOutNode += self.NNet[2] * self.NNet[3][CurMid][curOutNodeId]
             self.NNet[4][curOutNodeId] = CurOutNode
+
+        # Clamping all the color outputs to be inside 0-1
+
+        # Clamping Red
+        if self.NNet[4][2] < 0:
+            self.NNet[4][2] = 0
+
+        if self.NNet[4][2] > 1:
+            self.NNet[4][2] = 1
+
+        # Clamping Green
+        if self.NNet[4][3] < 0:
+            self.NNet[4][3] = 0
+
+        if self.NNet[4][3] > 1:
+            self.NNet[4][3] = 1
+
+        # Clamping Blue
+        if self.NNet[4][4] < 0:
+            self.NNet[4][4] = 0
+
+        if self.NNet[4][4] > 1:
+            self.NNet[4][4] = 1
+
+        # Clamping how much eating should be done
+        if self.NNet[4][5] < 0:
+            self.NNet[4][5] = 0
+
+        if self.NNet[4][5] > 1:
+            self.NNet[4][5] = 1
+
+        # Clamping spike length
+        if self.NNet[4][7] < 0:
+            self.NNet[4][7] = 0
+
+        if self.NNet[4][7] > 1:
+            self.NNet[4][7] = 1
+
+        # Clamping boost
+        if self.NNet[4][8] < 0:
+            self.NNet[4][8] = 0
+
+        if self.NNet[4][8] > 1:
+            self.NNet[4][8] = 1
+
+        # Clamping sound emitting
+        if self.NNet[4][9] < 0:
+            self.NNet[4][9] = 0
+
+        if self.NNet[4][9] > 1:
+            self.NNet[4][9] = 1
 
         return self.NNet[4]
 
