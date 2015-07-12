@@ -111,7 +111,7 @@ def gameLoop():
         pygame.display.set_caption("Bitbots test  Tick: " + str(tick) + ". TPS/FPS: " + str(curFps) + ".")
 
         # Updating the sensor values for all bots
-        bots = botMethods.updateSensors(bots)
+        bots = botMethods.updateSensors(bots, clock.get_time())
 
         for curBot in bots:
             curBot.NNet[4] = curBot.getOutputs()

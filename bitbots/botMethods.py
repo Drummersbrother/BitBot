@@ -1,3 +1,4 @@
+import math
 from bitbots.Vec2D import Vec2D
 
 __author__ = 'FamiljensMONSTER'
@@ -29,15 +30,18 @@ def midNodeFunction(nodeToUse):
 
 
 # Update the node list with new sensor values
-def updateSensors(bots):
+def updateSensors(bots, curTick):
     # Loop through all the bot entries in the bot list and give them some inputs and get some outputs
     for curBot in bots:
 
         # Initializing sensor variables
         leftEyeBots = []
         rightEyeBots = []
+        backEyeBots = []
         totalVibration = 0
         totalSmell = 0
+        totalSound = 0
+        totalEyeBotHealth = []
 
         # Main loop for all sensor that need loops
         for curSenseBot in bots:
@@ -55,31 +59,34 @@ def updateSensors(bots):
                 # We don't want some kind of dividing by zero
                 if relVector.getMagnitude() != 0:
 
-                    # Checking if the current eye bot is in range to be seen
                     if relVector.getMagnitude() < 50:
+                        # Checking if the current eye bot is able to be seen by the left eye (also adding the a bot to the totalHealth list)
                         if relVector.getDotProductFromUnitVec(curBot.velVector) > 0.5:
+                            totalEyeBotHealth.append(curSenseBot)
                             if relVector.getDotProductFromUnitVec(rightVector) < 0:
                                 leftEyeBots.append(curSenseBot)
 
-                    # Right eye sensor calculator
-
-                    # Checking if the current eye bot is in range to be seen
-                    if relVector.getMagnitude() < 50:
+                        # Checking if the current eye bot is able to be seen by the right eye
                         if relVector.getDotProductFromUnitVec(curBot.velVector) > 0.5:
                             if relVector.getDotProductFromUnitVec(rightVector) > 0:
                                 rightEyeBots.append(curSenseBot)
 
-                    # Vibration sensor and smell sensor calculator
+                        # Checking if the current eye bot is able to be seen by the back eye
+                        if relVector.getDotProductFromUnitVec(curBot.velVector) < -0.75:
+                            backEyeBots.append(curSenseBot)
+
+                    # Vibration sensor, sound sensor, and smell sensor calculator
 
                     if relVector.getMagnitude() < 100:
                         totalVibration += -(relVector.getMagnitude() / 100) + 1
                         totalSmell += 1
+                        totalSound += curSenseBot.NNet[4][9]
 
         # Making the left eye actual values
         leftEyeR = 0
         leftEyeG = 0
         leftEyeB = 0
-        leftEyeAvgProx = 50
+        leftEyeAvgProx = 0
         for curCalc in leftEyeBots:
             leftEyeR += curCalc.NNet[4][2]
             leftEyeG += curCalc.NNet[4][3]
@@ -106,7 +113,7 @@ def updateSensors(bots):
         rightEyeR = 0
         rightEyeG = 0
         rightEyeB = 0
-        rightEyeAvgProx = 50
+        rightEyeAvgProx = 0
         for curCalc in rightEyeBots:
             rightEyeR += curCalc.NNet[4][2]
             rightEyeG += curCalc.NNet[4][3]
@@ -129,6 +136,23 @@ def updateSensors(bots):
         curBot.NNet[0][6] = rightEyeB
         curBot.NNet[0][7] = rightEyeAvgProx
 
+        # Making the back eye actual values
+        backEyeR = 0
+        backEyeG = 0
+        backEyeB = 0
+        for curCalc in rightEyeBots:
+            backEyeR += curCalc.NNet[4][2]
+            backEyeG += curCalc.NNet[4][3]
+            backEyeB += curCalc.NNet[4][4]
+
+            relVector = Vec2D()
+            relVector.addX(curCalc.x - curBot.x)
+            relVector.addY(curCalc.y - curBot.y)
+
+        curBot.NNet[0][16] = backEyeR
+        curBot.NNet[0][17] = backEyeG
+        curBot.NNet[0][18] = backEyeB
+
         # Health sensor
         curBot.NNet[0][8] = curBot.health
 
@@ -145,5 +169,27 @@ def updateSensors(bots):
         curBot.NNet[0][12] = curBot.NNet[4][2]
         curBot.NNet[0][13] = curBot.NNet[4][3]
         curBot.NNet[0][14] = curBot.NNet[4][4]
+
+        # Sound sensor
+        curBot.NNet[0][15] = totalSound
+
+        # Calculating the blood sensor actual values
+        avgEyeBotHealth = 0
+        for curCalc in totalEyeBotHealth:
+            avgEyeBotHealth += curCalc.health
+        avgEyeBotHealth /= totalEyeBotHealth.__len__()
+        curBot.NNet[0][19] = avgEyeBotHealth
+
+        # Age sensor
+        curBot.NNet[0][21] = curTick
+
+        # Calculating clock 1
+        curBot.NNet[0][22] = math.sin(((curTick + 1) * curBot.clock1) / 100)
+
+        # Calculating clock 2
+        curBot.NNet[0][23] = math.sin(((curTick + 1) * curBot.clock2) / 100)
+
+        # Last tick memory
+        curBot.NNet[0][24] = curBot.NNet[4][10]
 
     return bots
