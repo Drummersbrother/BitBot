@@ -177,7 +177,9 @@ def updateSensors(bots, curTick):
         avgEyeBotHealth = 0
         for curCalc in totalEyeBotHealth:
             avgEyeBotHealth += curCalc.health
-        avgEyeBotHealth /= totalEyeBotHealth.__len__()
+
+        if totalEyeBotHealth.__len__() != 0:
+            avgEyeBotHealth /= totalEyeBotHealth.__len__()
         curBot.NNet[0][19] = avgEyeBotHealth
 
         # Age sensor
