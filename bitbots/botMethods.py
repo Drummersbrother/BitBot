@@ -46,8 +46,6 @@ def updateSensors(bots, curTick):
         # Main loop for all sensor that need loops
         for curSenseBot in bots:
             if curSenseBot != curBot:
-                # Left eye sensor calculator
-
                 # Setting up the vector that points from the current bot to the current eye bot
                 relVector = Vec2D()
                 relVector.addX(curSenseBot.x - curBot.x)
@@ -60,15 +58,12 @@ def updateSensors(bots, curTick):
                 if relVector.getMagnitude() != 0:
 
                     if relVector.getMagnitude() < 50:
-                        # Checking if the current eye bot is able to be seen by the left eye (also adding the a bot to the totalHealth list)
+                        # Checking if the current eye bot is able to be seen by the left eye or right eye (also adding the a bot to the totalHealth list)
                         if relVector.getDotProductFromUnitVec(curBot.velVector) > 0.5:
                             totalEyeBotHealth.append(curSenseBot)
                             if relVector.getDotProductFromUnitVec(rightVector) < 0:
                                 leftEyeBots.append(curSenseBot)
-
-                        # Checking if the current eye bot is able to be seen by the right eye
-                        if relVector.getDotProductFromUnitVec(curBot.velVector) > 0.5:
-                            if relVector.getDotProductFromUnitVec(rightVector) > 0:
+                            else:
                                 rightEyeBots.append(curSenseBot)
 
                         # Checking if the current eye bot is able to be seen by the back eye
