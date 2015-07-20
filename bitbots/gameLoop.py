@@ -130,7 +130,7 @@ def gameLoop():
         pygame.display.set_caption("Bitbots test  Tick: " + str(tick) + ". TPS/FPS: " + str(curFps) + ".")
 
         # Updating the sensor values for all bots
-        bots = botMethods.updateSensors(bots, clock.get_time())
+        bots = botMethods.updateSensors(bots, clock.get_time(), foodArray)
 
         for curBot in bots:
             curBot.NNet[4] = curBot.getOutputs()
@@ -155,6 +155,17 @@ def gameLoop():
                 updateGRec(updateRects)
         # Preventing memory leak
         updateRects = []
+
+        # Randomly adding some food to 5 places in the in the foodarray
+        for i in range(0, 5):
+            randX = random.randint(0, resX // 10)
+            randY = random.randint(0, resY // 10)
+            foodArray[randX][randY] += random.random * 10
+
+            # Checking and correcting the food value so that it is not above 100
+            if foodArray[randX][randY] > 100:
+                foodArray[randX][randY] = 100
+
     if shouldExit == True:
         print("Bitbots will now exit")
         pygame.quit()

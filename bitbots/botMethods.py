@@ -1,4 +1,5 @@
 import math
+
 from bitbots.Vec2D import Vec2D
 
 __author__ = 'FamiljensMONSTER'
@@ -30,7 +31,7 @@ def midNodeFunction(nodeToUse):
 
 
 # Update the node list with new sensor values
-def updateSensors(bots, curTick):
+def updateSensors(bots, curTick, foodArray):
     # Loop through all the bot entries in the bot list and give them some inputs and get some outputs
     for curBot in bots:
 
@@ -48,8 +49,8 @@ def updateSensors(bots, curTick):
             if curSenseBot != curBot:
                 # Setting up the vector that points from the current bot to the current eye bot
                 relVector = Vec2D()
-                relVector.addX(curSenseBot.x - curBot.x)
-                relVector.addY(curSenseBot.y - curBot.y)
+                relVector.addX(curSenseBot.posX - curBot.posX)
+                relVector.addY(curSenseBot.posY - curBot.posY)
 
                 # Vector that points to the right of the current bot
                 rightVector = curBot.velVector.getRotatedBy(90)
@@ -88,8 +89,8 @@ def updateSensors(bots, curTick):
             leftEyeB += curCalc.NNet[4][4]
 
             relVector = Vec2D()
-            relVector.addX(curCalc.x - curBot.x)
-            relVector.addY(curCalc.y - curBot.y)
+            relVector.addX(curCalc.posX - curBot.posX)
+            relVector.addY(curCalc.posY - curBot.posY)
 
             leftEyeAvgProx += relVector.getMagnitude()
 
@@ -115,8 +116,8 @@ def updateSensors(bots, curTick):
             rightEyeB += curCalc.NNet[4][4]
 
             relVector = Vec2D()
-            relVector.addX(curCalc.x - curBot.x)
-            relVector.addY(curCalc.y - curBot.y)
+            relVector.addX(curCalc.posX - curBot.posX)
+            relVector.addY(curCalc.posY - curBot.posY)
 
             rightEyeAvgProx += relVector.getMagnitude()
 
@@ -141,8 +142,8 @@ def updateSensors(bots, curTick):
             backEyeB += curCalc.NNet[4][4]
 
             relVector = Vec2D()
-            relVector.addX(curCalc.x - curBot.x)
-            relVector.addY(curCalc.y - curBot.y)
+            relVector.addX(curCalc.posX - curBot.posX)
+            relVector.addY(curCalc.posY - curBot.posY)
 
         curBot.NNet[0][16] = backEyeR
         curBot.NNet[0][17] = backEyeG
@@ -158,7 +159,7 @@ def updateSensors(bots, curTick):
         curBot.NNet[0][10] = totalSmell
 
         # Plantfood at the current location
-
+        curBot.NNet[0][11] = foodArray[curBot.posX // 10][curBot.posY // 10] / 100
 
         # Last tick R, G, and B
         curBot.NNet[0][12] = curBot.NNet[4][2]
