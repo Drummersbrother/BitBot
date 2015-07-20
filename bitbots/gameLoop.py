@@ -1,22 +1,28 @@
 __author__ = 'FamiljensMONSTER'
 # encoding: utf-8
+import random
+
 import pygame
+import numpy as np
 
 from bitbots import botMethods
 
 
+
 # Taking and storing input
 # It only accepts valid input
-resX = input("X resolution?")
-while not resX.isdigit() or (not float(resX) > 0):
-    resX = input("X resolution?")
-    print()
+resX = input("X resolution? (must be  multiple of 10)")
 print()
-resY = input("Y resolution?")
-while not resY.isdigit() or (not float(resY) > 0):
-    resY = input("Y resolution?")
+while not resX.isdigit() or (not float(resX) > 0) or (not float(resX) % 10 == 0):
+    resX = input("X resolution? (must be  multiple of 10)")
     print()
+
+resY = input("Y resolution? (must be  multiple of 10)")
 print()
+while not resY.isdigit() or (not float(resY) > 0) or (not float(resY) % 10 == 0):
+    resY = input("Y resolution? (must be  multiple of 10)")
+    print()
+
 # Converting the resolution variables to be ints and not strings
 resX = int(resX)
 resY = int(resY)
@@ -67,6 +73,19 @@ def gameLoop():
     global isGridMode
     global resX
     global resY
+
+    # Storing the food amount array
+    # Food at each location will be within (0-100) represented as an float
+    # Each array entry represents a 10 x 10 area
+
+    # We use floor division here to skip type conversion and basically silently swallowing errors from the input checker
+    foodArray = np.array((resX // 10, resY // 10))
+
+    # Randomizing the amount of food availiable at each tile (1 tile = one 10 x 10 area)
+
+    # We use numpy's built in multidimensional iterator instead of nested for loops and then just setting the current value to a random one
+    for (curX, curY), curVal in np.ndenumerate(foodArray):
+        foodArray[curX][curY] = random.randrange[0, 100]
 
     # Storing the background color
     bgColor = (255, 255, 255)
