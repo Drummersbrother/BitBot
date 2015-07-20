@@ -162,14 +162,28 @@ def gameLoop():
             # Adding the scaled left pointing vector
             workVector.addX(curBot.velVector.getRotatedBy(45).getX * abs(curBot.NNet[4][0]))
             workVector.addY(curBot.velVector.getRotatedBy(45).getY * abs(curBot.NNet[4][0]))
-            # Normalizing the vector to 1
-            workVector.normalizeTo(1)
+            # Normalizing the vector to 1 +  BoostVal (limited to be between 0-1) and applying sprint+boost health decrease (and the default 0.01 health decrease)
+            if curBot.NNet[0][8] >= 1:
+                workVector.normalizeTo(2)
+                curBot.health -= 0.11
+            elif curBot.NNet[0][8] <= 0:
+                workVector.normalizeTo(1)
+                curBot.health -= 0.01
+            else:
+                workVector.normalizeTo(1 + curBot.NNet[0][8])
+                curBot.health -= (curBot.NNet[0][8] / 10) + 0.01
 
             curBot.velVector = workVector
 
             # Actually changing the position of the bot
             curBot.posX += workVector.x
             curBot.posY += workVector.y
+
+        # Apply eating logic
+        # Apply health checks
+        # Apply spike logic
+        # Apply health giving logic
+
 
         # Checking if it should draw something this tick
         if shouldDraw or updateFull:
