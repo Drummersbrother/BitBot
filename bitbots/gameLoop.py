@@ -1,3 +1,5 @@
+from bitbots.Vec2D import Vec2D
+
 __author__ = 'FamiljensMONSTER'
 # encoding: utf-8
 import random
@@ -145,7 +147,29 @@ def gameLoop():
                     if event.key == pygame.K_ESCAPE:
                         shouldExit = True
 
+        # Apply NN outputs
+
         # Apply velocities
+        for curBot in bots:
+            # Calculate direction vector based on the ratio of left to right output from the NN
+            workVector = Vec2D()
+            workVector.setX(0)
+            workVector.setY(0)
+
+            # Adding the scaled right pointing vector
+            workVector.addX(curBot.velVector.getRotatedBy(45).getX * abs(curBot.NNet[4][0]))
+            workVector.addY(curBot.velVector.getRotatedBy(45).getY * abs(curBot.NNet[4][0]))
+            # Adding the scaled left pointing vector
+            workVector.addX(curBot.velVector.getRotatedBy(45).getX * abs(curBot.NNet[4][0]))
+            workVector.addY(curBot.velVector.getRotatedBy(45).getY * abs(curBot.NNet[4][0]))
+            # Normalizing the vector to 1
+            workVector.normalizeTo(1)
+
+            curBot.velVector = workVector
+
+            # Actually changing the position of the bot
+            curBot.posX += workVector.x
+            curBot.posY += workVector.y
 
         # Checking if it should draw something this tick
         if shouldDraw or updateFull:

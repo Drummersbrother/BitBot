@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e8550ea8-96af-4010-84f1-3d9d2309eda4" name="Default" comment="Implementing food map/representation and food sensor fully">
+    <list default="true" id="e8550ea8-96af-4010-84f1-3d9d2309eda4" name="Default" comment="Food map bugfixes">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitbots/Vec2D.py" afterPath="$PROJECT_DIR$/bitbots/Vec2D.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitbots/bitBot.py" afterPath="$PROJECT_DIR$/bitbots/bitBot.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitbots/botMethods.py" afterPath="$PROJECT_DIR$/bitbots/botMethods.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitbots/gameLoop.py" afterPath="$PROJECT_DIR$/bitbots/gameLoop.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -41,11 +44,9 @@
       <file leaf-file-name="gameLoop.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bitbots/gameLoop.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.86095506">
-              <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
-              <folding>
-                <element signature="e#50#63#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.8328652">
+              <caret line="167" column="41" selection-start-line="167" selection-start-column="41" selection-end-line="167" selection-end-column="41" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -74,8 +75,10 @@
         <entry file="file://$PROJECT_DIR$/bitbots/botMethods.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="161" column="82" selection-start-line="161" selection-start-column="82" selection-end-line="161" selection-end-column="82" />
-              <folding />
+              <caret line="11" column="26" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -84,8 +87,10 @@
         <entry file="file://$PROJECT_DIR$/bitbots/bitBot.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-              <folding />
+              <caret line="34" column="37" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
+              <folding>
+                <element signature="e#50#63#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -94,7 +99,7 @@
         <entry file="file://$PROJECT_DIR$/bitbots/Vec2D.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+              <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
               <folding>
                 <element signature="e#50#61#0" expanded="true" />
               </folding>
@@ -128,11 +133,11 @@
         <option value="E:/Python/Lib/site-packages/pygame/__init__.py" />
         <option value="$USER_HOME$/.PyCharm40/system/python_stubs/-1052162567/pygame/time.py" />
         <option value="$PROJECT_DIR$/.gitattributes" />
-        <option value="$PROJECT_DIR$/bitbots/Vec2D.py" />
         <option value="$PROJECT_DIR$/bitbots/__init__.py" />
-        <option value="$PROJECT_DIR$/bitbots/bitBot.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/bitbots/Vec2D.py" />
         <option value="$PROJECT_DIR$/bitbots/botMethods.py" />
+        <option value="$PROJECT_DIR$/bitbots/bitBot.py" />
         <option value="$PROJECT_DIR$/bitbots/gameLoop.py" />
       </list>
     </option>
@@ -516,7 +521,13 @@
       <option name="project" value="LOCAL" />
       <updated>1437419970015</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Food map bugfixes">
+      <created>1437422858090</created>
+      <option name="number" value="00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1437422858090</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -564,7 +575,8 @@
     <MESSAGE value="Fixed multiplying value by sequence" />
     <MESSAGE value="Added initialization of food map/representation&#10;Added input checker to require (resolution MOD 10 == 0)" />
     <MESSAGE value="Implementing food map/representation and food sensor fully" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implementing food map/representation and food sensor fully" />
+    <MESSAGE value="Food map bugfixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Food map bugfixes" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -579,9 +591,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#50#63#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -628,9 +638,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#50#63#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -677,9 +685,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#50#63#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -919,16 +925,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bitbots/Vec2D.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
-          <folding>
-            <element signature="e#50#61#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -953,22 +949,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bitbots/bitBot.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bitbots/botMethods.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="161" column="82" selection-start-line="161" selection-start-column="82" selection-end-line="161" selection-end-column="82" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://E:/Python/Lib/turtledemo/nim.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33286518">
@@ -985,13 +965,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bitbots/gameLoop.py">
+    <entry file="file://$PROJECT_DIR$/bitbots/Vec2D.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.86095506">
-          <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+          <folding>
+            <element signature="e#50#61#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bitbots/bitBot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="34" column="37" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
           <folding>
             <element signature="e#50#63#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bitbots/botMethods.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="26" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bitbots/gameLoop.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.8328652">
+          <caret line="167" column="41" selection-start-line="167" selection-start-column="41" selection-end-line="167" selection-end-column="41" />
+          <folding />
         </state>
       </provider>
     </entry>

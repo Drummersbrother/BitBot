@@ -48,6 +48,12 @@ class Vec2D:
     def addY(self, Y):
         self.y += Y
 
+    def setX(self, X):
+        self.x = X
+
+    def setY(self, Y):
+        self.y = Y
+
     def getDotProductTo(self, other) -> float:
         dotProduct = (self.x * other.x) + (self.y * other.y)
         return dotProduct

@@ -10,8 +10,6 @@ from bitbots import bitBot
 
 def makeBots(numBots, isGridMode, resX, resY, genNr):
     numBots = int(numBots)
-    resX = int(resX)
-    resY = int(resY)
     print("Spawning and creating bitbots")
 
     # List to store the bot entries
@@ -49,8 +47,8 @@ def updateSensors(bots, curTick, foodArray):
             if curSenseBot != curBot:
                 # Setting up the vector that points from the current bot to the current eye bot
                 relVector = Vec2D()
-                relVector.addX(curSenseBot.posX - curBot.posX)
-                relVector.addY(curSenseBot.posY - curBot.posY)
+                relVector.setX(curSenseBot.posX - curBot.posX)
+                relVector.setY(curSenseBot.posY - curBot.posY)
 
                 # Vector that points to the right of the current bot
                 rightVector = curBot.velVector.getRotatedBy(90)
