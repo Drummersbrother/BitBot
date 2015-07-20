@@ -53,7 +53,7 @@ else:
 
 pygame.init()
 
-curScr = pygame.display.set_mode((int(resX), int(resY)))
+curScr = pygame.display.set_mode((resX, resY))
 
 pygame.display.set_caption("Bitbots test")
 
@@ -79,13 +79,13 @@ def gameLoop():
     # Each array entry represents a 10 x 10 area
 
     # We use floor division here to skip type conversion and basically silently swallowing errors from the input checker
-    foodArray = np.array((resX // 10, resY // 10))
+    foodArray = np.zeros((resX // 10, resY // 10))
 
     # Randomizing the amount of food availiable at each tile (1 tile = one 10 x 10 area)
 
     # We use numpy's built in multidimensional iterator instead of nested for loops and then just setting the current value to a random one
-    for (curX, curY), curVal in np.ndenumerate(foodArray):
-        foodArray[curX][curY] = random.randrange[0, 100]
+    for index, curVal in np.ndenumerate(foodArray):
+        foodArray[index[0]][index[1]] = random.randrange(0, 100)
 
     # Storing the background color
     bgColor = (255, 255, 255)
@@ -158,9 +158,9 @@ def gameLoop():
 
         # Randomly adding some food to 5 places in the in the foodarray
         for i in range(0, 5):
-            randX = random.randint(0, resX // 10)
-            randY = random.randint(0, resY // 10)
-            foodArray[randX][randY] += random.random * 10
+            randX = random.randint(0, (resX // 10) - 1)
+            randY = random.randint(0, (resY // 10) - 1)
+            foodArray[randX][randY] += random.random() * 10
 
             # Checking and correcting the food value so that it is not above 100
             if foodArray[randX][randY] > 100:
