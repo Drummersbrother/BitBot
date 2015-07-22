@@ -157,11 +157,11 @@ def gameLoop():
             workVector.setY(0)
 
             # Adding the scaled right pointing vector
-            workVector.addX(curBot.velVector.getRotatedBy(45).getX * abs(curBot.NNet[4][0]))
-            workVector.addY(curBot.velVector.getRotatedBy(45).getY * abs(curBot.NNet[4][0]))
+            workVector.addX(curBot.velVector.getRotatedBy(45).getX() * abs(curBot.NNet[4][0]))
+            workVector.addY(curBot.velVector.getRotatedBy(45).getY() * abs(curBot.NNet[4][0]))
             # Adding the scaled left pointing vector
-            workVector.addX(curBot.velVector.getRotatedBy(45).getX * abs(curBot.NNet[4][0]))
-            workVector.addY(curBot.velVector.getRotatedBy(45).getY * abs(curBot.NNet[4][0]))
+            workVector.addX(curBot.velVector.getRotatedBy(45).getX() * abs(curBot.NNet[4][0]))
+            workVector.addY(curBot.velVector.getRotatedBy(45).getY() * abs(curBot.NNet[4][0]))
             # Normalizing the vector to 1 +  BoostVal (limited to be between 0-1) and applying sprint+boost health decrease (and the default 0.01 health decrease)
             if curBot.NNet[0][8] >= 1:
                 workVector.normalizeTo(2)
@@ -176,8 +176,8 @@ def gameLoop():
             curBot.velVector = workVector
 
             # Actually changing the position of the bot
-            curBot.posX += workVector.x
-            curBot.posY += workVector.y
+            curBot.posX += workVector.getX()
+            curBot.posY += workVector.getY()
 
         # Apply eating logic and eating health toll
 
