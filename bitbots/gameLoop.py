@@ -179,11 +179,34 @@ def gameLoop():
             curBot.posX += workVector.x
             curBot.posY += workVector.y
 
-        # Apply eating logic
-        # Apply health checks
+        # Apply eating logic and eating health toll
+
+        # Checking if it should eat this tick
+        if curBot.NNet[4][5] > 2.5:
+            # Clamping the food actuator value so it is not above 5
+            if curBot.NNet[4][5] > 5:
+                curBot.NNet[4][5] = 5
+
+            scaledSensor = (curBot.NNet[4][5] - 2.5) / 2.5
+
+            # Applying eating health toll
+            curBot.health -= (scaledSensor / 3) + 0.1
+
+            # The food logic
+            foodEaten = foodArray[curBot.posX // 10][curBot.posY // 10] * ((scaledSensor / 100) * 3)
+
+            # Increasing the health of the current bot by the amount of food the bot ate
+            curBot.health += foodEaten
+
+            # Decreasing the amount of food available where the bot ate by the amount that the bot ate
+            foodArray[curBot.posX // 10][curBot.posY // 10] -= foodEaten
+
+            # Telling the bot how much it has eaten
+            curBot.hasEaten(foodEaten)
+
         # Apply spike logic
         # Apply health giving logic
-
+        # Apply health checks
 
         # Checking if it should draw something this tick
         if shouldDraw or updateFull:
