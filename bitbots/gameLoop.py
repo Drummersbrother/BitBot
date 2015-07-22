@@ -149,7 +149,7 @@ def gameLoop():
 
         # Apply NN outputs
 
-        # Apply velocities
+        # Apply velocities (This is done separately from the others to prevent inconsistencies based on the list order)
         for curBot in bots:
             # Calculate direction vector based on the ratio of left to right output from the NN
             workVector = Vec2D()
@@ -179,34 +179,66 @@ def gameLoop():
             curBot.posX += workVector.getX()
             curBot.posY += workVector.getY()
 
-        # Apply eating logic and eating health toll
+        for curBot in bots:
+            # Apply eating logic and eating health toll
 
-        # Checking if it should eat this tick
-        if curBot.NNet[4][5] > 2.5:
-            # Clamping the food actuator value so it is not above 5
-            if curBot.NNet[4][5] > 5:
-                curBot.NNet[4][5] = 5
+            # Checking if it should eat this tick
+            if curBot.NNet[4][5] > 2.5:
+                # Clamping the food actuator value so it is not above 5
+                if curBot.NNet[4][5] > 5:
+                    curBot.NNet[4][5] = 5
 
-            scaledSensor = (curBot.NNet[4][5] - 2.5) / 2.5
+                scaledSensor = (curBot.NNet[4][5] - 2.5) / 2.5
 
-            # Applying eating health toll
-            curBot.health -= (scaledSensor / 3) + 0.1
+                # Applying eating health toll
+                curBot.health -= (scaledSensor / 3) + 0.1
 
-            # The food logic
-            foodEaten = foodArray[curBot.posX // 10][curBot.posY // 10] * ((scaledSensor / 100) * 3)
+                # The food logic
+                foodEaten = foodArray[curBot.posX // 10][curBot.posY // 10] * ((scaledSensor / 100) * 3)
 
-            # Increasing the health of the current bot by the amount of food the bot ate
-            curBot.health += foodEaten
+                # Increasing the health of the current bot by the amount of food the bot ate
+                curBot.health += foodEaten
 
-            # Decreasing the amount of food available where the bot ate by the amount that the bot ate
-            foodArray[curBot.posX // 10][curBot.posY // 10] -= foodEaten
+                # Decreasing the amount of food available where the bot ate by the amount that the bot ate
+                foodArray[curBot.posX // 10][curBot.posY // 10] -= foodEaten
 
-            # Telling the bot how much it has eaten
-            curBot.hasEaten(foodEaten)
+                # Telling the bot how much it has eaten
+                curBot.hasEaten(foodEaten)
 
-        # Apply spike logic
-        # Apply health giving logic
-        # Apply health checks
+            # Apply spike logic
+
+            # Clamping the spike length actuator so it is not above 5 and not below 0
+            if curBot.NNet[4][7] <= 0:
+                curBot.NNet[4][7] = 0
+            if curBot.NNet[4][7] > 0:
+                if curBot.NNet[4][7] > 5:
+                    curBot.NNet[4][7] = 5
+
+                scaledSensor = curBot.NNet[4][7] / 5
+
+                # Checking all bots except the current to see if it is in range to be damaged
+                for curSpikeBot in bots:
+                    if curSpikeBot != curBot:
+
+                        # Setting up a vector that points from the current vector to the current spike bot
+                        relVector = Vec2D()
+                        relVector.setX(curSpikeBot.velVector.getX() - curBot.velVector.getX())
+                        relVector.setY(curSpikeBot.velVector.getY() - curBot.velVector.getY())
+
+                        # We dont want any division by zero
+                        if relVector.getMagnitude() != 0:
+
+                            # Checking if the current bot can damage the current spike bot (range within 50 and dot product less than 0.75)
+                            if (relVector.getMagnitude() < (scaledSensor * 50)) and (
+                                curBot.velVector.getDotProductFromUnitVec(relVector) > 0.75):
+                                # Apply the damage
+                                curSpikeBot.health -= scaledSensor
+                                curBot.health += scaledSensor
+
+                                # Telling the current bot that it has eaten
+                                curBot.hasEaten(scaledSensor)
+                                # Apply health checks
+                                # Apply health giving logic
 
         # Checking if it should draw something this tick
         if shouldDraw or updateFull:
