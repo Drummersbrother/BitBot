@@ -28,7 +28,7 @@ class bitBot:
         self.posY = 0
         self.velVector = Vec2D.Vec2D()
         self.velVector.setX(0)
-        self.velVector.setY(0)
+        self.velVector.setY(1)
         self.genNr = genNr
         self.health = 100
         self.clock1 = random.random()
