@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e8550ea8-96af-4010-84f1-3d9d2309eda4" name="Default" comment="Implement movement boost and movement boost health cost">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitbots/gameLoop.py" afterPath="$PROJECT_DIR$/bitbots/gameLoop.py" />
+    <list default="true" id="e8550ea8-96af-4010-84f1-3d9d2309eda4" name="Default" comment="Implement eating and eating health toll logic">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitbots/bitBot.py" afterPath="$PROJECT_DIR$/bitbots/bitBot.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Python Files.iws" />
@@ -38,11 +38,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gameLoop.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="gameLoop.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bitbots/gameLoop.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.42696628">
-              <caret line="192" column="53" selection-start-line="192" selection-start-column="53" selection-end-line="192" selection-end-column="53" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="198" column="38" selection-start-line="198" selection-start-column="38" selection-end-line="198" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -80,11 +80,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bitBot.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="bitBot.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bitbots/bitBot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="14" column="35" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.40589887">
+              <caret line="23" column="30" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
               <folding>
                 <element signature="e#50#63#0" expanded="true" />
               </folding>
@@ -134,8 +134,8 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/bitbots/Vec2D.py" />
         <option value="$PROJECT_DIR$/bitbots/botMethods.py" />
-        <option value="$PROJECT_DIR$/bitbots/bitBot.py" />
         <option value="$PROJECT_DIR$/bitbots/gameLoop.py" />
+        <option value="$PROJECT_DIR$/bitbots/bitBot.py" />
       </list>
     </option>
   </component>
@@ -536,7 +536,13 @@
       <option name="project" value="LOCAL" />
       <updated>1437432443949</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Implement eating and eating health toll logic">
+      <created>1437574692183</created>
+      <option name="number" value="00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1437574692183</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -587,7 +593,8 @@
     <MESSAGE value="Food map bugfixes" />
     <MESSAGE value="Improved Vec2D class&#10;Implemented position NN output" />
     <MESSAGE value="Implement movement boost and movement boost health cost" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement movement boost and movement boost health cost" />
+    <MESSAGE value="Implement eating and eating health toll logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement eating and eating health toll logic" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -976,16 +983,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bitbots/botMethods.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="26" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bitbots/Vec2D.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -996,21 +993,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bitbots/bitBot.py">
+    <entry file="file://$PROJECT_DIR$/bitbots/gameLoop.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="35" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
+          <caret line="198" column="38" selection-start-line="198" selection-start-column="38" selection-end-line="198" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bitbots/botMethods.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="26" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
           <folding>
-            <element signature="e#50#63#0" expanded="true" />
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bitbots/gameLoop.py">
+    <entry file="file://$PROJECT_DIR$/bitbots/bitBot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42696628">
-          <caret line="192" column="53" selection-start-line="192" selection-start-column="53" selection-end-line="192" selection-end-column="53" />
-          <folding />
+        <state vertical-scroll-proportion="0.40589887">
+          <caret line="23" column="30" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
+          <folding>
+            <element signature="e#50#63#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

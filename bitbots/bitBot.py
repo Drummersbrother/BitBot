@@ -21,7 +21,7 @@ class bitBot:
         # Mid nodes: 20?
 
         self.NNet = [np.zeros((25)), np.ones((25, 20)), np.zeros((20)), np.ones((20, 11)), np.zeros((11))]
-        self.NNet[0][20] = 1
+        self.NNet[0][20] = 100
 
         # Self explanatory
         self.posX = 0
