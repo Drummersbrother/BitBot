@@ -48,6 +48,12 @@ class Vec2D:
     def addY(self, Y):
         self.y += Y
 
+    def getX(self):
+        return self.x
+
+    def getY(self):
+        return self.y
+
     def setX(self, X):
         self.x = X
 
