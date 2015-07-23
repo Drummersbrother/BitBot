@@ -112,7 +112,7 @@ def gameLoop():
 
     print("Bitbots will now initiate game loop")
 
-    while shouldExit == False:
+    while not shouldExit:
         # wait for game tick to be at the appropritate time
         clock.tick(tFps)
         tick += 1
@@ -302,7 +302,7 @@ def gameLoop():
             if foodArray[randX][randY] > 100:
                 foodArray[randX][randY] = 100
 
-    if shouldExit == True:
+    if shouldExit:
         print("Bitbots will now exit")
         pygame.quit()
         print("Bitbots has now exited")
