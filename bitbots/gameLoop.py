@@ -147,9 +147,9 @@ def gameLoop():
                     if event.key == pygame.K_ESCAPE:
                         shouldExit = True
 
-        # Apply NN outputs
+        # Apply NN outputs (All steps are done separately to prevent inconsistencies based on list order)
 
-        # Apply velocities (This is done separately from the others to prevent inconsistencies based on the list order)
+        # Apply velocities
         for curBot in bots:
             # Calculate direction vector based on the ratio of left to right output from the NN
             workVector = Vec2D()
@@ -205,6 +205,7 @@ def gameLoop():
                 # Telling the bot how much it has eaten
                 curBot.hasEaten(foodEaten)
 
+        for curBot in bots:
             # Apply spike logic
 
             # Clamping the spike length actuator so it is not above 5 and not below 0
@@ -237,8 +238,50 @@ def gameLoop():
 
                                 # Telling the current bot that it has eaten
                                 curBot.hasEaten(scaledSensor)
-                                # Apply health checks
-                                # Apply health giving logic
+
+        for curBot in bots:
+            # Apply health checks
+
+            # Checking if the bot should be dead/removed
+            if curBot.health < 0:
+                bots.remove(curBot)
+
+            # Checking and correcting so the bot doesnt have health over 100
+            if curBot.health > 100:
+                curBot.health = 100
+
+        for curBot in bots:
+            # Apply health giving logic (health giving does ont have a health toll)
+
+            # Checking the eat sensor so it is not below 2.5 (we have already scaled to be under 5 in the regular eat logic)
+            if curBot.NNet[4][5] > 2.5:
+                scaledEatActuator = (curBot.NNet[4][5] - 2.5) / 2.5
+
+                for curGiveBot in bots:
+                    if curGiveBot != curBot:
+
+                        # Checking if the current give bot wants to give health
+                        if curGiveBot.NNet[4][6] > 2.5:
+                            # Do the health exchange logic (the current bot takes 0-0.5% of the other bots health based on the current bots eating actuator)
+                            healthGiven = (curGiveBot.health * scaledEatActuator) / 200
+
+                            # Applying the health change
+                            curBot.health += healthGiven
+                            curGiveBot.health -= healthGiven
+
+                            # Telling the current bot that it has eaten
+                            curBot.hasEaten(healthGiven)
+
+        for curBot in bots:
+            # Apply health checks again
+
+            # Checking if the bot should be dead/removed
+            if curBot.health < 0:
+                bots.remove(curBot)
+
+            # Checking and correcting so the bot doesnt have health over 100
+            if curBot.health > 100:
+                curBot.health = 100
 
         # Checking if it should draw something this tick
         if shouldDraw or updateFull:
