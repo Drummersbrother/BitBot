@@ -283,6 +283,8 @@ def gameLoop():
             if curBot.health > 100:
                 curBot.health = 100
 
+        # TODO Do bot drawing/graphics
+
         # Checking if it should draw something this tick
         if shouldDraw or updateFull:
             if updateFull:
