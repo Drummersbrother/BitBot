@@ -21,11 +21,11 @@ class bitBot:
         # Mid nodes: 20?
 
         self.NNet = [np.zeros((25)), np.ones((25, 20)), np.zeros((20)), np.ones((20, 11)), np.zeros((11))]
-        self.NNet[0][20] = 100
+        self.NNet[0][20] = 30
 
         # Self explanatory
-        self.posX = 0
-        self.posY = 0
+        self.posX = 500
+        self.posY = 500
         self.velVector = Vec2D.Vec2D()
         self.velVector.setX(0)
         self.velVector.setY(1)
@@ -68,29 +68,6 @@ class bitBot:
                 CurOutNode += self.NNet[2][CurMid] * self.NNet[3][CurMid][curOutNodeId]
             self.NNet[4][curOutNodeId] = CurOutNode
 
-        # Clamping all the color outputs to be inside 0-1
-
-        # Clamping Red
-        if self.NNet[4][2] < 0:
-            self.NNet[4][2] = 0
-
-        if self.NNet[4][2] > 1:
-            self.NNet[4][2] = 1
-
-        # Clamping Green
-        if self.NNet[4][3] < 0:
-            self.NNet[4][3] = 0
-
-        if self.NNet[4][3] > 1:
-            self.NNet[4][3] = 1
-
-        # Clamping Blue
-        if self.NNet[4][4] < 0:
-            self.NNet[4][4] = 0
-
-        if self.NNet[4][4] > 1:
-            self.NNet[4][4] = 1
-
         return self.NNet[4]
 
     # Returns a new bitbot with possible mutations
@@ -100,7 +77,6 @@ class bitBot:
         newBot.posX = self.posX
         newBot.posY = self.posY
         newBot.velVector = self.velVector
-        newBot.health = self.health
         newBot.clock1 = random.random()
         newBot.clock2 = random.random()
 

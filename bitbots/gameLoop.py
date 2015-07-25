@@ -15,47 +15,68 @@ from bitbots import botMethods
 
 # Taking and storing input
 # It only accepts valid input
-resX = input("X resolution? (must be  multiple of 10)")
+useDefSettings = input("Use default settings?")
 print()
-while not resX.isdigit() or (not float(resX) > 0) or (not float(resX) % 10 == 0):
-    resX = input("X resolution? (must be  multiple of 10)")
+
+while not ((useDefSettings == "Y" or useDefSettings == "N") or (useDefSettings == "y" or useDefSettings == "n")):
+    useDefSettings = input("Use default settings?")
     print()
 
-resY = input("Y resolution? (must be  multiple of 10)")
-print()
-while not resY.isdigit() or (not float(resY) > 0) or (not float(resY) % 10 == 0):
-    resY = input("Y resolution? (must be  multiple of 10)")
+if (useDefSettings == "N") or (useDefSettings == "n"):
+    useDefSettings = False
+else:
+    useDefSettings = True
+
+if not useDefSettings:
+    resX = input("X resolution? (must be  multiple of 50)")
     print()
+    while not resX.isdigit() or (not float(resX) > 0) or (not float(resX) % 50 == 0):
+        resX = input("X resolution? (must be  multiple of 50)")
+        print()
 
-# Converting the resolution variables to be ints and not strings
-resX = int(resX)
-resY = int(resY)
-# Just checking and correcting resolution so it is not below 200x200
-if resX < 200:
-    resX = 200
-if resY < 200:
-    resY = 200
+    resY = input("Y resolution? (must be  multiple of 50)")
+    print()
+    while not resY.isdigit() or (not float(resY) > 0) or (not float(resY) % 50 == 0):
+        resY = input("Y resolution? (must be  multiple of 50)")
+        print()
 
-numBots = input("How many bitbots should exist?")
-print()
+    # Converting the resolution variables to be ints and not strings
+    resX = int(resX)
+    resY = int(resY)
+    # Just checking and correcting resolution so it is not below 200x200
+    if resX < 200:
+        resX = 200
+    if resY < 200:
+        resY = 200
 
-while not numBots.isdigit() or (not float(numBots) > 0):
     numBots = input("How many bitbots should exist?")
     print()
 
-isGridMode = input("Should they be spawned in a grid pattern? Y/N")
-print()
+    while not numBots.isdigit() or (not float(numBots) > 0):
+        numBots = input("How many bitbots should exist?")
+        print()
 
-while not ((isGridMode == "Y" or isGridMode == "N") or (isGridMode == "y" or isGridMode == "n")):
     isGridMode = input("Should they be spawned in a grid pattern? Y/N")
     print()
 
-if isGridMode == "Y":
-    isGridMode = True
+    while not ((isGridMode == "Y" or isGridMode == "N") or (isGridMode == "y" or isGridMode == "n")):
+        isGridMode = input("Should they be spawned in a grid pattern? Y/N")
+        print()
+
+    if isGridMode == "Y" or isGridMode == "y":
+        isGridMode = True
+    else:
+        isGridMode = False
+
 else:
-    isGridMode = False
+    isGridMode = "n"
+    resX = 1000
+    resY = 720
+    numBots = 10
 
 pygame.init()
+
+textFont = pygame.font.SysFont("Monospace", 15)
 
 curScr = pygame.display.set_mode((resX, resY))
 
@@ -63,10 +84,6 @@ pygame.display.set_caption("Bitbots test")
 
 # Setting up, initializing and storing the bitbots
 bots = botMethods.makeBots(numBots, isGridMode, resX, resY, 0)
-
-
-def updateGRec(dirtyRects):
-    pygame.display.update(dirtyRects)
 
 
 def gameLoop():
@@ -77,22 +94,24 @@ def gameLoop():
     global isGridMode
     global resX
     global resY
+    global shouldDraw
+    global textFont
 
     # Storing the food amount array
     # Food at each location will be within (0-100) represented as an float
-    # Each array entry represents a 10 x 10 area
+    # Each array entry represents a 50 x 50 area
 
     # We use floor division here to skip type conversion and basically silently swallowing errors from the input checker
-    foodArray = np.zeros((resX // 10, resY // 10))
+    foodArray = np.zeros((resX // 50, resY // 50))
 
-    # Randomizing the amount of food availiable at each tile (1 tile = one 10 x 10 area)
+    # Randomizing the amount of food availiable at each tile (1 tile = one 50 x 50 area)
 
     # We use numpy's built in multidimensional iterator instead of nested for loops and then just setting the current value to a random one
     for index, curVal in np.ndenumerate(foodArray):
         foodArray[index[0]][index[1]] = random.randrange(0, 100)
 
     # Storing the background color
-    bgColor = (255, 255, 255)
+    bgColor = (0, 0, 0)
 
     # Filling the background with white and updating the whole screen
     curScr.fill(bgColor)
@@ -115,15 +134,15 @@ def gameLoop():
     print("Bitbots will now initiate game loop")
 
     while not shouldExit:
+        updateRects.append(pygame.draw.rect(curScr, bgColor, pygame.Rect(0, 0, resX, resY)))
+        shouldDraw = True
+
         # wait for game tick to be at the appropritate time
         clock.tick(tFps)
         tick += 1
 
         # This is used to check if it should draw anything after this tick
         shouldDraw = False
-
-        # If this is true then it will update the whole screen instead of k´just the update rectangles list
-        updateFull = False
 
         # Do game tick here
 
@@ -151,8 +170,12 @@ def gameLoop():
 
         # Apply NN outputs (All steps are done separately to prevent inconsistencies based on list order)
 
-        # Apply velocities
         for curBot in bots:
+            # Apply velocities
+
+            # Health decrease constant
+            healthDecrease = 0.0001
+
             # Calculate direction vector based on the ratio of left to right output from the NN
             workVector = Vec2D()
             workVector.setX(0)
@@ -162,18 +185,18 @@ def gameLoop():
             workVector.addX(curBot.velVector.getRotatedBy(45).getX() * abs(curBot.NNet[4][0]))
             workVector.addY(curBot.velVector.getRotatedBy(45).getY() * abs(curBot.NNet[4][0]))
             # Adding the scaled left pointing vector
-            workVector.addX(curBot.velVector.getRotatedBy(45).getX() * abs(curBot.NNet[4][0]))
-            workVector.addY(curBot.velVector.getRotatedBy(45).getY() * abs(curBot.NNet[4][0]))
+            workVector.addX(curBot.velVector.getRotatedBy(-45).getX() * abs(curBot.NNet[4][1]))
+            workVector.addY(curBot.velVector.getRotatedBy(-45).getY() * abs(curBot.NNet[4][1]))
             # Normalizing the vector to 1 +  BoostVal (limited to be between 0-1) and applying sprint+boost health decrease (and the default 0.01 health decrease)
             if curBot.NNet[0][8] >= 1:
                 workVector.normalizeTo(2)
-                curBot.health -= 0.11
+                curBot.health -= 0.1 + healthDecrease
             elif curBot.NNet[0][8] <= 0:
                 workVector.normalizeTo(1)
-                curBot.health -= 0.01
+                curBot.health -= healthDecrease
             else:
                 workVector.normalizeTo(1 + curBot.NNet[0][8])
-                curBot.health -= (curBot.NNet[0][8] / 10) + 0.01
+                curBot.health -= (curBot.NNet[0][8] / 10) + healthDecrease
 
             curBot.velVector = workVector
 
@@ -185,24 +208,24 @@ def gameLoop():
             # Apply eating logic and eating health toll
 
             # Checking if it should eat this tick
-            if curBot.NNet[4][5] > 2.5:
+            if curBot.NNet[4][5] > 0:
                 # Clamping the food actuator value so it is not above 5
                 if curBot.NNet[4][5] > 5:
                     curBot.NNet[4][5] = 5
 
-                scaledSensor = (curBot.NNet[4][5] - 2.5) / 2.5
+                scaledSensor = curBot.NNet[4][5] / 5
 
                 # Applying eating health toll
                 curBot.health -= (scaledSensor / 3) + 0.1
 
                 # The food logic
-                foodEaten = foodArray[curBot.posX // 10][curBot.posY // 10] * ((scaledSensor / 100) * 3)
+                foodEaten = foodArray[curBot.posX // 50][curBot.posY // 50] * ((scaledSensor / 100) * 3)
 
                 # Increasing the health of the current bot by the amount of food the bot ate
                 curBot.health += foodEaten
 
                 # Decreasing the amount of food available where the bot ate by the amount that the bot ate
-                foodArray[curBot.posX // 10][curBot.posY // 10] -= foodEaten
+                foodArray[curBot.posX // 50][curBot.posY // 50] -= foodEaten
 
                 # Telling the bot how much it has eaten
                 curBot.hasEaten(foodEaten)
@@ -310,25 +333,62 @@ def gameLoop():
             if curBot.posY > resY - 1:
                 curBot.posY = resY - 1
 
-        # TODO Do bot drawing/graphics
+        for curBot in bots:
+            # Clamp color output to be inside 0-15
+
+            if curBot.NNet[4][2] < 0:
+                curBot.NNet[4][2] = 0
+
+            if curBot.NNet[4][2] > 15:
+                curBot.NNet[4][2] = 15
+
+            if curBot.NNet[4][3] < 0:
+                curBot.NNet[4][3] = 0
+
+            if curBot.NNet[4][3] > 15:
+                curBot.NNet[4][3] = 15
+
+            if curBot.NNet[4][4] < 0:
+                curBot.NNet[4][4] = 0
+
+            if curBot.NNet[4][4] > 15:
+                curBot.NNet[4][4] = 15
+
+        # TODO Improve bot drawing / graphics
+
+        # Drawing the amount of food available
+        for index, curVal in np.ndenumerate(foodArray):
+            updateRects.append(
+                pygame.draw.rect(curScr, ((curVal / 100) * 255, (curVal / 100) * 255, (curVal / 100) * 255),
+                                 pygame.Rect(index[0] * 50, index[1] * 50, (index[0] * 50) + 50, (index[1] * 50) + 50)))
+
         for curBot in bots:
             # Drawing the current bot as a circle
-            pygame.draw.circle(curScr, (curBot.NNet[4][2], curBot.NNet[4][3], curBot.NNet[4][4]),
-                               (curBot.posX, curBot.posY), 10)
+            circleRect1 = pygame.draw.circle(curScr, (
+            curBot.NNet[4][2] * (255 / 15), curBot.NNet[4][3] * (255 / 15), curBot.NNet[4][4] * (255 / 15)),
+                                             (int(curBot.posX), int(curBot.posY)), 10)
+            updateRects.append(circleRect1)
+
+            # Draw a white pixel at each bot so we can see them even when they're black
+            pixelRect1 = pygame.draw.circle(curScr, (255, 255, 255), (int(curBot.posX), int(curBot.posY)), 0)
+            updateRects.append(circleRect1)
+
+            shouldDraw = True
+
+        # Display how many bots are alive (blitting a font render to the curScr)
+        curScr.blit(textFont.render((str(bots.__len__())), True, (0, 255, 0)), (0, 0))
+        shouldDraw = True
 
         # Checking if it should draw something this tick
-        if shouldDraw or updateFull:
-            if updateFull:
-                pygame.display.update(pygame.Rect((0, 0), (resX, resY)))
-            else:
-                updateGRec(updateRects)
+        if shouldDraw:
+            pygame.display.update(updateRects)
         # Preventing memory leak
         updateRects = []
 
         # Randomly adding some food to 5 places in the in the foodarray
         for i in range(0, 5):
-            randX = random.randint(0, (resX // 10) - 1)
-            randY = random.randint(0, (resY // 10) - 1)
+            randX = random.randint(0, (resX // 50) - 1)
+            randY = random.randint(0, (resY // 50) - 1)
             foodArray[randX][randY] += random.random() * 10
 
             # Checking and correcting the food value so that it is not above 100

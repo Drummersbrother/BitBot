@@ -101,7 +101,8 @@ def updateSensors(bots, curTick, foodArray):
         curBot.NNet[0][0] = leftEyeR
         curBot.NNet[0][1] = leftEyeG
         curBot.NNet[0][2] = leftEyeB
-        curBot.NNet[0][3] = leftEyeAvgProx
+        # Scaling the avg proximity to be in a good range for the NN
+        curBot.NNet[0][3] = leftEyeAvgProx / 10
 
         # Making the right eye actual values
         rightEyeR = 0
@@ -128,7 +129,8 @@ def updateSensors(bots, curTick, foodArray):
         curBot.NNet[0][4] = rightEyeR
         curBot.NNet[0][5] = rightEyeG
         curBot.NNet[0][6] = rightEyeB
-        curBot.NNet[0][7] = rightEyeAvgProx
+        # Scaling the avg proximity to be in a good range for the NN
+        curBot.NNet[0][7] = rightEyeAvgProx / 10
 
         # Making the back eye actual values
         backEyeR = 0
@@ -157,7 +159,7 @@ def updateSensors(bots, curTick, foodArray):
         curBot.NNet[0][10] = totalSmell
 
         # Plantfood at the current location
-        curBot.NNet[0][11] = foodArray[curBot.posX // 10][curBot.posY // 10] / 100
+        curBot.NNet[0][11] = foodArray[curBot.posX // 50][curBot.posY // 50] / 100
 
         # Last tick R, G, and B
         curBot.NNet[0][12] = curBot.NNet[4][2]
