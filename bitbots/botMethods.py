@@ -1,4 +1,5 @@
 import math
+import random
 
 from bitbots.Vec2D import Vec2D
 
@@ -19,6 +20,11 @@ def makeBots(numBots, isGridMode, resX, resY, genNr):
     for curBotId in range(0, numBots):
         curBot = bitBot.bitBot(genNr)
         botList.append(curBot)
+
+    if not isGridMode:
+        for curBot in botList:
+            curBot.posX = int(random.random() * resX)
+            curBot.posY = int(random.random() * resY)
     return botList
 
 
@@ -41,6 +47,7 @@ def updateSensors(bots, curTick, foodArray):
         totalSmell = 0
         totalSound = 0
         totalEyeBotHealth = []
+        eyeRange = 100
 
         # Main loop for all sensor that need loops
         for curSenseBot in bots:
@@ -56,7 +63,7 @@ def updateSensors(bots, curTick, foodArray):
                 # We don't want some kind of dividing by zero
                 if relVector.getMagnitude() != 0:
 
-                    if relVector.getMagnitude() < 50:
+                    if relVector.getMagnitude() < eyeRange:
                         # Checking if the current eye bot is able to be seen by the left eye or right eye (also adding the a bot to the totalHealth list)
                         if relVector.getDotProductFromUnitVec(curBot.velVector) > 0.5:
                             totalEyeBotHealth.append(curSenseBot)
@@ -102,7 +109,7 @@ def updateSensors(bots, curTick, foodArray):
         curBot.NNet[0][1] = leftEyeG
         curBot.NNet[0][2] = leftEyeB
         # Scaling the avg proximity to be in a good range for the NN
-        curBot.NNet[0][3] = leftEyeAvgProx / 10
+        curBot.NNet[0][3] = leftEyeAvgProx / 20
 
         # Making the right eye actual values
         rightEyeR = 0
@@ -130,7 +137,7 @@ def updateSensors(bots, curTick, foodArray):
         curBot.NNet[0][5] = rightEyeG
         curBot.NNet[0][6] = rightEyeB
         # Scaling the avg proximity to be in a good range for the NN
-        curBot.NNet[0][7] = rightEyeAvgProx / 10
+        curBot.NNet[0][7] = rightEyeAvgProx / 20
 
         # Making the back eye actual values
         backEyeR = 0

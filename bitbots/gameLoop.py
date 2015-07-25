@@ -27,6 +27,18 @@ if (useDefSettings == "N") or (useDefSettings == "n"):
 else:
     useDefSettings = True
 
+drawFood = input("Draw food?")
+print()
+
+while not ((drawFood == "Y" or drawFood == "N") or (drawFood == "y" or drawFood == "n")):
+    drawFood = input("Draw food?")
+    print()
+
+if (drawFood == "N") or (drawFood == "n"):
+    drawFood = False
+else:
+    drawFood = True
+
 if not useDefSettings:
     resX = input("X resolution? (must be  multiple of 50)")
     print()
@@ -69,10 +81,10 @@ if not useDefSettings:
         isGridMode = False
 
 else:
-    isGridMode = "n"
+    isGridMode = False
     resX = 1000
     resY = 720
-    numBots = 10
+    numBots = 20
 
 pygame.init()
 
@@ -102,7 +114,8 @@ def gameLoop():
     # Each array entry represents a 50 x 50 area
 
     # We use floor division here to skip type conversion and basically silently swallowing errors from the input checker
-    foodArray = np.zeros((resX // 50, resY // 50))
+    # We use one extra wor and column to prevent errors
+    foodArray = np.zeros(((resX // 50) + 1, (resY // 50) + 1))
 
     # Randomizing the amount of food availiable at each tile (1 tile = one 50 x 50 area)
 
@@ -118,7 +131,7 @@ def gameLoop():
     pygame.display.update()
 
     # Target fps NOTE THAT THIS WILL NEVER BE REACHED, IT LIMITS FPS TO ALWAYS BE BELOW THIS
-    tFps = 80
+    tFps = 200
 
     shouldExit = False
 
@@ -152,6 +165,21 @@ def gameLoop():
 
         pygame.display.set_caption("Bitbots test  Tick: " + str(tick) + ". TPS/FPS: " + str(curFps) + ".")
 
+        for curBot in bots:
+            # Apply position correcting/clamping so the bots are not outside the screen
+
+            if curBot.posX < 0:
+                curBot.posX = 0
+
+            if curBot.posX > resX - 1:
+                curBot.posX = resX - 1
+
+            if curBot.posY < 0:
+                curBot.posY = 0
+
+            if curBot.posY > resY - 1:
+                curBot.posY = resY - 1
+
         # Updating the sensor values for all bots
         bots = botMethods.updateSensors(bots, clock.get_time(), foodArray)
 
@@ -174,7 +202,7 @@ def gameLoop():
             # Apply velocities
 
             # Health decrease constant
-            healthDecrease = 0.0001
+            healthDecrease = 0.001
 
             # Calculate direction vector based on the ratio of left to right output from the NN
             workVector = Vec2D()
@@ -182,11 +210,11 @@ def gameLoop():
             workVector.setY(0)
 
             # Adding the scaled right pointing vector
-            workVector.addX(curBot.velVector.getRotatedBy(45).getX() * abs(curBot.NNet[4][0]))
-            workVector.addY(curBot.velVector.getRotatedBy(45).getY() * abs(curBot.NNet[4][0]))
+            workVector.addX(curBot.velVector.getRotatedBy(15).getX() * abs(curBot.NNet[4][0]))
+            workVector.addY(curBot.velVector.getRotatedBy(15).getY() * abs(curBot.NNet[4][0]))
             # Adding the scaled left pointing vector
-            workVector.addX(curBot.velVector.getRotatedBy(-45).getX() * abs(curBot.NNet[4][1]))
-            workVector.addY(curBot.velVector.getRotatedBy(-45).getY() * abs(curBot.NNet[4][1]))
+            workVector.addX(curBot.velVector.getRotatedBy(-15).getX() * abs(curBot.NNet[4][1]))
+            workVector.addY(curBot.velVector.getRotatedBy(-15).getY() * abs(curBot.NNet[4][1]))
             # Normalizing the vector to 1 +  BoostVal (limited to be between 0-1) and applying sprint+boost health decrease (and the default 0.01 health decrease)
             if curBot.NNet[0][8] >= 1:
                 workVector.normalizeTo(2)
@@ -216,7 +244,7 @@ def gameLoop():
                 scaledSensor = curBot.NNet[4][5] / 5
 
                 # Applying eating health toll
-                curBot.health -= (scaledSensor / 3) + 0.1
+                curBot.health -= (scaledSensor / 9)
 
                 # The food logic
                 foodEaten = foodArray[curBot.posX // 50][curBot.posY // 50] * ((scaledSensor / 100) * 3)
@@ -319,21 +347,6 @@ def gameLoop():
                 bots.append(curBot.getMutated())
 
         for curBot in bots:
-            # Apply position correcting/clamping so the bots are not outside the screen
-
-            if curBot.posX < 0:
-                curBot.posX = 0
-
-            if curBot.posX > resX - 1:
-                curBot.posX = resX - 1
-
-            if curBot.posY < 0:
-                curBot.posY = 0
-
-            if curBot.posY > resY - 1:
-                curBot.posY = resY - 1
-
-        for curBot in bots:
             # Clamp color output to be inside 0-15
 
             if curBot.NNet[4][2] < 0:
@@ -356,11 +369,13 @@ def gameLoop():
 
         # TODO Improve bot drawing / graphics
 
-        # Drawing the amount of food available
-        for index, curVal in np.ndenumerate(foodArray):
-            updateRects.append(
-                pygame.draw.rect(curScr, ((curVal / 100) * 255, (curVal / 100) * 255, (curVal / 100) * 255),
-                                 pygame.Rect(index[0] * 50, index[1] * 50, (index[0] * 50) + 50, (index[1] * 50) + 50)))
+        # Drawing the amount of food available if the user wanted to
+        if drawFood:
+            for index, curVal in np.ndenumerate(foodArray):
+                updateRects.append(
+                    pygame.draw.rect(curScr, ((curVal / 100) * 255, (curVal / 100) * 255, (curVal / 100) * 255),
+                                     pygame.Rect(index[0] * 50, index[1] * 50, (index[0] * 50) + 50,
+                                                 (index[1] * 50) + 50)))
 
         for curBot in bots:
             # Drawing the current bot as a circle

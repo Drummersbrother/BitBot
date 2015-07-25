@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e8550ea8-96af-4010-84f1-3d9d2309eda4" name="Default" comment="Implemented position clamping">
+    <list default="true" id="e8550ea8-96af-4010-84f1-3d9d2309eda4" name="Default" comment="Balancing and a whole lot more">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitbots/bitBot.py" afterPath="$PROJECT_DIR$/bitbots/bitBot.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitbots/botMethods.py" afterPath="$PROJECT_DIR$/bitbots/botMethods.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitbots/gameLoop.py" afterPath="$PROJECT_DIR$/bitbots/gameLoop.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -38,11 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gameLoop.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="gameLoop.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bitbots/gameLoop.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.37921348">
-              <caret line="311" column="0" selection-start-line="311" selection-start-column="0" selection-end-line="311" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="140" column="91" selection-start-line="140" selection-start-column="91" selection-end-line="140" selection-end-column="91" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -74,7 +76,7 @@
         <entry file="file://$PROJECT_DIR$/bitbots/botMethods.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="58" column="52" selection-start-line="58" selection-start-column="52" selection-end-line="58" selection-end-column="52" />
+              <caret line="140" column="48" selection-start-line="140" selection-start-column="48" selection-end-line="140" selection-end-column="48" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -82,11 +84,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bitBot.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="bitBot.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bitbots/bitBot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="122" selection-start-line="17" selection-start-column="122" selection-end-line="17" selection-end-column="122" />
+            <state vertical-scroll-proportion="0.18820225">
+              <caret line="17" column="140" selection-start-line="17" selection-start-column="140" selection-end-line="17" selection-end-column="140" />
               <folding>
                 <element signature="e#50#63#0" expanded="true" />
               </folding>
@@ -132,10 +134,10 @@
         <option value="$PROJECT_DIR$/.gitattributes" />
         <option value="$PROJECT_DIR$/bitbots/__init__.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/bitbots/botMethods.py" />
         <option value="$PROJECT_DIR$/bitbots/Vec2D.py" />
-        <option value="$PROJECT_DIR$/bitbots/bitBot.py" />
+        <option value="$PROJECT_DIR$/bitbots/botMethods.py" />
         <option value="$PROJECT_DIR$/bitbots/gameLoop.py" />
+        <option value="$PROJECT_DIR$/bitbots/bitBot.py" />
       </list>
     </option>
   </component>
@@ -306,28 +308,6 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
-    <configuration default="false" name="Unittests in Python Files" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="Python Files" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="METHOD_NAME" value="" />
-      <option name="FOLDER_NAME" value="$PROJECT_DIR$" />
-      <option name="TEST_TYPE" value="TEST_FOLDER" />
-      <option name="PATTERN" value="" />
-      <option name="USE_PATTERN" value="false" />
-      <option name="PUREUNITTEST" value="true" />
-      <option name="PARAMS" value="" />
-      <option name="USE_PARAM" value="false" />
-      <method />
-    </configuration>
     <configuration default="false" name="bitBot" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -341,6 +321,23 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="Python Files" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bitbots/bitBot.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="botMethods" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/bitbots" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="Python Files" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/bitbots/botMethods.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -471,16 +468,16 @@
       <item index="0" class="java.lang.String" itemvalue="Python.__init__" />
       <item index="1" class="java.lang.String" itemvalue="Python.Vec2D" />
       <item index="2" class="java.lang.String" itemvalue="Python.gameLoop" />
-      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittests in Python Files" />
-      <item index="4" class="java.lang.String" itemvalue="Python.bitBot" />
+      <item index="3" class="java.lang.String" itemvalue="Python.bitBot" />
+      <item index="4" class="java.lang.String" itemvalue="Python.botMethods" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.gameLoop" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Vec2D" />
-        <item index="2" class="java.lang.String" itemvalue="Python.bitBot" />
-        <item index="3" class="java.lang.String" itemvalue="Python.__init__" />
-        <item index="4" class="java.lang.String" itemvalue="Python tests.Unittests in Python Files" />
+        <item index="1" class="java.lang.String" itemvalue="Python.bitBot" />
+        <item index="2" class="java.lang.String" itemvalue="Python.botMethods" />
+        <item index="3" class="java.lang.String" itemvalue="Python.Vec2D" />
+        <item index="4" class="java.lang.String" itemvalue="Python.__init__" />
       </list>
     </recent_temporary>
   </component>
@@ -627,7 +624,19 @@
       <option name="project" value="LOCAL" />
       <updated>1437852658117</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Implemented extremely basic graphics">
+      <created>1437855378994</created>
+      <option name="number" value="00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1437855378994</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Balancing and a whole lot more">
+      <created>1437859893540</created>
+      <option name="number" value="00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1437859893540</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -690,7 +699,9 @@
     <MESSAGE value="Fixing actuator clamping&#10;Implementing bot division and mutating" />
     <MESSAGE value="Change bot division to inherit parent health&#10;Change division requirement to also require health to be above 50" />
     <MESSAGE value="Implemented position clamping" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented position clamping" />
+    <MESSAGE value="Implemented extremely basic graphics" />
+    <MESSAGE value="Balancing and a whole lot more" />
+    <option name="LAST_COMMIT_MESSAGE" value="Balancing and a whole lot more" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -1084,29 +1095,29 @@
     <entry file="file://$PROJECT_DIR$/bitbots/botMethods.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="58" column="52" selection-start-line="58" selection-start-column="52" selection-end-line="58" selection-end-column="52" />
+          <caret line="140" column="48" selection-start-line="140" selection-start-column="48" selection-end-line="140" selection-end-column="48" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bitbots/bitBot.py">
+    <entry file="file://$PROJECT_DIR$/bitbots/gameLoop.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="122" selection-start-line="17" selection-start-column="122" selection-end-line="17" selection-end-column="122" />
+          <caret line="140" column="91" selection-start-line="140" selection-start-column="91" selection-end-line="140" selection-end-column="91" />
           <folding>
-            <element signature="e#50#63#0" expanded="true" />
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bitbots/gameLoop.py">
+    <entry file="file://$PROJECT_DIR$/bitbots/bitBot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37921348">
-          <caret line="311" column="0" selection-start-line="311" selection-start-column="0" selection-end-line="311" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.18820225">
+          <caret line="17" column="140" selection-start-line="17" selection-start-column="140" selection-end-line="17" selection-end-column="140" />
           <folding>
-            <element signature="e#0#10#0" expanded="true" />
+            <element signature="e#50#63#0" expanded="true" />
           </folding>
         </state>
       </provider>
