@@ -1,3 +1,5 @@
+import sys
+
 from bitbots.Vec2D import Vec2D
 
 __author__ = 'FamiljensMONSTER'
@@ -293,6 +295,21 @@ def gameLoop():
                 # Duplicating and mutating the current bot
                 bots.append(curBot.getMutated())
 
+        for curBot in bots:
+            # Apply position correcting/clamping so the bots are not outside the screen
+
+            if curBot.posX < 0:
+                curBot.posX = 0
+
+            if curBot.posX > resX - 1:
+                curBot.posX = resX - 1
+
+            if curBot.posY < 0:
+                curBot.posY = 0
+
+            if curBot.posY > resY - 1:
+                curBot.posY = resY - 1
+
         # TODO Do bot drawing/graphics
 
         # Checking if it should draw something this tick
@@ -317,4 +334,5 @@ def gameLoop():
     if shouldExit:
         print("Bitbots will now exit")
         pygame.quit()
+        sys.exit()
         print("Bitbots has now exited")
