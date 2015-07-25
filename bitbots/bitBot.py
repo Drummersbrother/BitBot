@@ -100,10 +100,11 @@ class bitBot:
         newBot.posX = self.posX
         newBot.posY = self.posY
         newBot.velVector = self.velVector
+        newBot.health = self.health
         newBot.clock1 = random.random()
         newBot.clock2 = random.random()
 
-        # Mutates the new bot's weights
+        # Mutates the parent bot's weights
         for i in range(24):
             for i2 in range(20):
                 if random.random() > 0.999:
