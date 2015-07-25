@@ -311,6 +311,10 @@ def gameLoop():
                 curBot.posY = resY - 1
 
         # TODO Do bot drawing/graphics
+        for curBot in bots:
+            # Drawing the current bot as a circle
+            pygame.draw.circle(curScr, (curBot.NNet[4][2], curBot.NNet[4][3], curBot.NNet[4][4]),
+                               (curBot.posX, curBot.posY), 10)
 
         # Checking if it should draw something this tick
         if shouldDraw or updateFull:
