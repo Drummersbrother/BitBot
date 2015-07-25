@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e8550ea8-96af-4010-84f1-3d9d2309eda4" name="Default" comment="A lot of stuff man">
+    <list default="true" id="e8550ea8-96af-4010-84f1-3d9d2309eda4" name="Default" comment="Added TODO">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitbots/bitBot.py" afterPath="$PROJECT_DIR$/bitbots/bitBot.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -81,8 +81,8 @@
       <file leaf-file-name="bitBot.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bitbots/bitBot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.30758426">
-              <caret line="22" column="37" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
+            <state vertical-scroll-proportion="0.59410113">
+              <caret line="76" column="28" selection-start-line="76" selection-start-column="28" selection-end-line="76" selection-end-column="28" />
               <folding>
                 <element signature="e#50#63#0" expanded="true" />
               </folding>
@@ -636,7 +636,13 @@
       <option name="project" value="LOCAL" />
       <updated>1437861684440</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Added TODO">
+      <created>1437861749732</created>
+      <option name="number" value="00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1437861749732</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -695,14 +701,14 @@
     <MESSAGE value="Implemented spike and food logic for eating and attacking" />
     <MESSAGE value="Implemented health checks and food giving logic&#10;Changed actuator logic to be executed for each logic part and not for each bot" />
     <MESSAGE value="Simplified boolean expressions" />
-    <MESSAGE value="Added TODO" />
     <MESSAGE value="Fixing actuator clamping&#10;Implementing bot division and mutating" />
     <MESSAGE value="Change bot division to inherit parent health&#10;Change division requirement to also require health to be above 50" />
     <MESSAGE value="Implemented position clamping" />
     <MESSAGE value="Implemented extremely basic graphics" />
     <MESSAGE value="Balancing and a whole lot more" />
     <MESSAGE value="A lot of stuff man" />
-    <option name="LAST_COMMIT_MESSAGE" value="A lot of stuff man" />
+    <MESSAGE value="Added TODO" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added TODO" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -1105,8 +1111,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bitbots/bitBot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30758426">
-          <caret line="22" column="37" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.59410113">
+          <caret line="76" column="28" selection-start-line="76" selection-start-column="28" selection-end-line="76" selection-end-column="28" />
           <folding>
             <element signature="e#50#63#0" expanded="true" />
           </folding>

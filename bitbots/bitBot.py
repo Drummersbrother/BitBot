@@ -23,7 +23,7 @@ class bitBot:
         # TODO Implement NN constants
 
         self.NNet = [np.zeros((25)), np.ones((25, 20)), np.zeros((20)), np.ones((20, 11)), np.zeros((11))]
-        self.NNet[0][20] = 1.9
+        self.NNet[0][20] = 2
 
         # Self explanatory
         self.posX = 500
@@ -74,7 +74,7 @@ class bitBot:
 
     # Returns a new bitbot with possible mutations
     def getMutated(self):
-        self.NNet[0][20] = 1.9
+        self.NNet[0][20] = 2
 
         newBot = bitBot(self.genNr + 1)
 
