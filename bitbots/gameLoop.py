@@ -246,9 +246,10 @@ def gameLoop():
             if curBot.health < 0:
                 bots.remove(curBot)
 
-            # Checking and correcting so the bot doesnt have health over 100
-            if curBot.health > 100:
-                curBot.health = 100
+            else:
+                # Checking and correcting so the bot doesnt have health over 100
+                if curBot.health > 100:
+                    curBot.health = 100
 
         for curBot in bots:
             # Apply health giving logic (health giving does ont have a health toll)
@@ -279,9 +280,19 @@ def gameLoop():
             if curBot.health < 0:
                 bots.remove(curBot)
 
-            # Checking and correcting so the bot doesnt have health over 100
-            if curBot.health > 100:
-                curBot.health = 100
+            else:
+                # Checking and correcting so the bot doesnt have health over 100
+                if curBot.health > 100:
+                    curBot.health = 100
+
+        # TODO Implement division/mutating on division
+        for curBot in bots:
+            # Apply bot division
+
+            # Check if the current bot is able to duplicate and mutate
+            if curBot.NNet[0][20] <= 0:
+                # Duplicating and mutating the current bot
+                bots.append(curBot.getMutated())
 
         # TODO Do bot drawing/graphics
 

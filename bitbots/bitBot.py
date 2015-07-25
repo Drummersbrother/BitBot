@@ -91,34 +91,6 @@ class bitBot:
         if self.NNet[4][4] > 1:
             self.NNet[4][4] = 1
 
-        # Clamping how much eating should be done
-        if self.NNet[4][5] < 0:
-            self.NNet[4][5] = 0
-
-        if self.NNet[4][5] > 1:
-            self.NNet[4][5] = 1
-
-        # Clamping spike length
-        if self.NNet[4][7] < 0:
-            self.NNet[4][7] = 0
-
-        if self.NNet[4][7] > 1:
-            self.NNet[4][7] = 1
-
-        # Clamping boost
-        if self.NNet[4][8] < 0:
-            self.NNet[4][8] = 0
-
-        if self.NNet[4][8] > 1:
-            self.NNet[4][8] = 1
-
-        # Clamping sound emitting
-        if self.NNet[4][9] < 0:
-            self.NNet[4][9] = 0
-
-        if self.NNet[4][9] > 1:
-            self.NNet[4][9] = 1
-
         return self.NNet[4]
 
     # Returns a new bitbot with possible mutations
