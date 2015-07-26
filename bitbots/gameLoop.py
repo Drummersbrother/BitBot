@@ -403,6 +403,17 @@ def gameLoop():
             curBot.posX + int(curBot.velVector.getNormalizedTo(50).x * scaledSpikeActuator),
             curBot.posY + int(curBot.velVector.getNormalizedTo(50).y * scaledSpikeActuator)))
 
+            # Draw the bot's spike angular range as 2 lines
+            lineRect2 = pygame.draw.line(curScr, (0, 50, 0), (curBot.posX, curBot.posY), (
+                curBot.posX + int(curBot.velVector.getRotatedBy(22.5).getNormalizedTo(50).x),
+                curBot.posY + int(curBot.velVector.getRotatedBy(22.5).getNormalizedTo(50).y)))
+
+            lineRect3 = pygame.draw.line(curScr, (0, 50, 0), (curBot.posX, curBot.posY), (
+                curBot.posX + int(curBot.velVector.getRotatedBy(-22.5).getNormalizedTo(50).x),
+                curBot.posY + int(curBot.velVector.getRotatedBy(-22.5).getNormalizedTo(50).y)))
+
+            updateRects.append(lineRect3)
+            updateRects.append(lineRect2)
             updateRects.append(lineRect1)
 
             # Draw a white pixel at each bot so we can see them even when they're black
@@ -412,7 +423,8 @@ def gameLoop():
             # Draw the amount of health a bot has as a rectangle to the right of the bot
             healthRect1 = pygame.Rect(curBot.posX - 13, curBot.posY - 10, 3, int((curBot.health // 10) * 1.25))
             pygame.draw.rect(curScr,
-                             (int((((curBot.health / 100) * -1) + 1) * 255), int((curBot.health / 100) * 255), int(0)),
+                             (
+                             int((((curBot.health // 100) * -1) + 1) * 255), int((curBot.health // 100) * 255), int(0)),
                              healthRect1)
             updateRects.append(healthRect1)
 

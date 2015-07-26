@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e8550ea8-96af-4010-84f1-3d9d2309eda4" name="Default" comment="More graphics and some balancing">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitbots/bitBot.py" afterPath="$PROJECT_DIR$/bitbots/bitBot.py" />
+    <list default="true" id="e8550ea8-96af-4010-84f1-3d9d2309eda4" name="Default" comment="Implemented NN constants">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitbots/gameLoop.py" afterPath="$PROJECT_DIR$/bitbots/gameLoop.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Python Files.iws" />
@@ -38,11 +38,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gameLoop.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="gameLoop.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bitbots/gameLoop.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="281" column="59" selection-start-line="281" selection-start-column="59" selection-end-line="281" selection-end-column="59" />
+            <state vertical-scroll-proportion="1.127923">
+              <caret line="439" column="24" selection-start-line="439" selection-start-column="24" selection-end-line="439" selection-end-column="24" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -80,11 +80,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bitBot.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="bitBot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bitbots/bitBot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7895461">
-              <caret line="115" column="55" selection-start-line="115" selection-start-column="55" selection-end-line="115" selection-end-column="55" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="99" column="63" selection-start-line="99" selection-start-column="63" selection-end-line="99" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -130,8 +130,8 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/bitbots/botMethods.py" />
         <option value="$PROJECT_DIR$/bitbots/Vec2D.py" />
-        <option value="$PROJECT_DIR$/bitbots/gameLoop.py" />
         <option value="$PROJECT_DIR$/bitbots/bitBot.py" />
+        <option value="$PROJECT_DIR$/bitbots/gameLoop.py" />
       </list>
     </option>
   </component>
@@ -468,9 +468,9 @@
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.gameLoop" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Vec2D" />
-        <item index="2" class="java.lang.String" itemvalue="Python.__init__" />
-        <item index="3" class="java.lang.String" itemvalue="Python.bitBot" />
+        <item index="1" class="java.lang.String" itemvalue="Python.bitBot" />
+        <item index="2" class="java.lang.String" itemvalue="Python.Vec2D" />
+        <item index="3" class="java.lang.String" itemvalue="Python.__init__" />
         <item index="4" class="java.lang.String" itemvalue="Python.botMethods" />
       </list>
     </recent_temporary>
@@ -672,7 +672,13 @@
       <option name="project" value="LOCAL" />
       <updated>1437902936456</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Implemented NN constants">
+      <created>1437903170925</created>
+      <option name="number" value="00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1437903170925</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -713,7 +719,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added initialization of food map/representation&#10;Added input checker to require (resolution MOD 10 == 0)" />
     <MESSAGE value="Implementing food map/representation and food sensor fully" />
     <MESSAGE value="Food map bugfixes" />
     <MESSAGE value="Improved Vec2D class&#10;Implemented position NN output" />
@@ -738,7 +743,8 @@
     <MESSAGE value="Change def res Y to 700" />
     <MESSAGE value="Implemented bot maximum  amount" />
     <MESSAGE value="More graphics and some balancing" />
-    <option name="LAST_COMMIT_MESSAGE" value="More graphics and some balancing" />
+    <MESSAGE value="Implemented NN constants" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented NN constants" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -1134,21 +1140,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bitbots/gameLoop.py">
+    <entry file="file://$PROJECT_DIR$/bitbots/bitBot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="281" column="59" selection-start-line="281" selection-start-column="59" selection-end-line="281" selection-end-column="59" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
+          <caret line="99" column="63" selection-start-line="99" selection-start-column="63" selection-end-line="99" selection-end-column="63" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bitbots/bitBot.py">
+    <entry file="file://$PROJECT_DIR$/bitbots/gameLoop.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7895461">
-          <caret line="115" column="55" selection-start-line="115" selection-start-column="55" selection-end-line="115" selection-end-column="55" />
-          <folding />
+        <state vertical-scroll-proportion="1.127923">
+          <caret line="439" column="24" selection-start-line="439" selection-start-column="24" selection-end-line="439" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
