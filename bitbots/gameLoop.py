@@ -83,7 +83,7 @@ if not useDefSettings:
 else:
     isGridMode = False
     resX = 1000
-    resY = 720
+    resY = 700
     numBots = 20
 
 pygame.init()
