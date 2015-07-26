@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e8550ea8-96af-4010-84f1-3d9d2309eda4" name="Default" comment="Added TODO">
+    <list default="true" id="e8550ea8-96af-4010-84f1-3d9d2309eda4" name="Default" comment="Change division eating requirement to 200">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitbots/bitBot.py" afterPath="$PROJECT_DIR$/bitbots/bitBot.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitbots/gameLoop.py" afterPath="$PROJECT_DIR$/bitbots/gameLoop.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Python Files.iws" />
@@ -38,12 +39,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gameLoop.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="gameLoop.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bitbots/gameLoop.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="140" column="91" selection-start-line="140" selection-start-column="91" selection-end-line="140" selection-end-column="91" />
-              <folding />
+            <state vertical-scroll-proportion="0.6418539">
+              <caret line="382" column="104" selection-start-line="382" selection-start-column="104" selection-end-line="382" selection-end-column="104" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -78,11 +81,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="bitBot.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="bitBot.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bitbots/bitBot.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.59410113">
-              <caret line="76" column="28" selection-start-line="76" selection-start-column="28" selection-end-line="76" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding>
                 <element signature="e#50#63#0" expanded="true" />
               </folding>
@@ -95,7 +98,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="54" column="21" selection-start-line="54" selection-start-column="21" selection-end-line="54" selection-end-column="21" />
-              <folding />
+              <folding>
+                <element signature="e#50#61#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -130,8 +135,8 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/bitbots/Vec2D.py" />
         <option value="$PROJECT_DIR$/bitbots/botMethods.py" />
-        <option value="$PROJECT_DIR$/bitbots/gameLoop.py" />
         <option value="$PROJECT_DIR$/bitbots/bitBot.py" />
+        <option value="$PROJECT_DIR$/bitbots/gameLoop.py" />
       </list>
     </option>
   </component>
@@ -642,7 +647,13 @@
       <option name="project" value="LOCAL" />
       <updated>1437861749732</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Change division eating requirement to 200">
+      <created>1437861830889</created>
+      <option name="number" value="00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1437861830889</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -683,7 +694,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Reformat of all code using CTRL+L, O, I (separately)" />
     <MESSAGE value="Adding NN output clamping" />
     <MESSAGE value="Implementing all sensors except the plant sensor" />
     <MESSAGE value="Fixing division by zero" />
@@ -708,7 +718,8 @@
     <MESSAGE value="Balancing and a whole lot more" />
     <MESSAGE value="A lot of stuff man" />
     <MESSAGE value="Added TODO" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added TODO" />
+    <MESSAGE value="Change division eating requirement to 200" />
+    <option name="LAST_COMMIT_MESSAGE" value="Change division eating requirement to 200" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -723,7 +734,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -752,7 +765,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#50#61#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -768,7 +783,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -776,7 +793,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="25" column="38" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
-          <folding />
+          <folding>
+            <element signature="e#50#61#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -813,7 +832,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -821,7 +842,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="25" column="38" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
-          <folding />
+          <folding>
+            <element signature="e#50#61#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -858,7 +881,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="25" column="38" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
-          <folding />
+          <folding>
+            <element signature="e#50#61#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -895,7 +920,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="48" column="19" selection-start-line="48" selection-start-column="19" selection-end-line="48" selection-end-column="19" />
-          <folding />
+          <folding>
+            <element signature="e#50#61#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -932,7 +959,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
-          <folding />
+          <folding>
+            <element signature="e#50#61#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1085,14 +1114,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bitbots/Vec2D.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="54" column="21" selection-start-line="54" selection-start-column="21" selection-end-line="54" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bitbots/botMethods.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1101,20 +1122,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bitbots/gameLoop.py">
+    <entry file="file://$PROJECT_DIR$/bitbots/Vec2D.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="140" column="91" selection-start-line="140" selection-start-column="91" selection-end-line="140" selection-end-column="91" />
-          <folding />
+          <caret line="54" column="21" selection-start-line="54" selection-start-column="21" selection-end-line="54" selection-end-column="21" />
+          <folding>
+            <element signature="e#50#61#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bitbots/bitBot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.59410113">
-          <caret line="76" column="28" selection-start-line="76" selection-start-column="28" selection-end-line="76" selection-end-column="28" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
           <folding>
             <element signature="e#50#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bitbots/gameLoop.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6418539">
+          <caret line="382" column="104" selection-start-line="382" selection-start-column="104" selection-end-line="382" selection-end-column="104" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
           </folding>
         </state>
       </provider>

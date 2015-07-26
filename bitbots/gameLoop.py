@@ -352,20 +352,20 @@ def gameLoop():
             if curBot.NNet[4][2] < 0:
                 curBot.NNet[4][2] = 0
 
-            if curBot.NNet[4][2] > 15:
-                curBot.NNet[4][2] = 15
+            if curBot.NNet[4][2] > 25:
+                curBot.NNet[4][2] = 25
 
             if curBot.NNet[4][3] < 0:
                 curBot.NNet[4][3] = 0
 
-            if curBot.NNet[4][3] > 15:
-                curBot.NNet[4][3] = 15
+            if curBot.NNet[4][3] > 25:
+                curBot.NNet[4][3] = 25
 
             if curBot.NNet[4][4] < 0:
                 curBot.NNet[4][4] = 0
 
-            if curBot.NNet[4][4] > 15:
-                curBot.NNet[4][4] = 15
+            if curBot.NNet[4][4] > 25:
+                curBot.NNet[4][4] = 25
 
         # TODO Improve bot drawing / graphics
 
@@ -380,7 +380,7 @@ def gameLoop():
         for curBot in bots:
             # Drawing the current bot as a circle
             circleRect1 = pygame.draw.circle(curScr, (
-            curBot.NNet[4][2] * (255 / 15), curBot.NNet[4][3] * (255 / 15), curBot.NNet[4][4] * (255 / 15)),
+                curBot.NNet[4][2] * (255 / 25), curBot.NNet[4][3] * (255 / 25), curBot.NNet[4][4] * (255 / 25)),
                                              (int(curBot.posX), int(curBot.posY)), 10)
             updateRects.append(circleRect1)
 
