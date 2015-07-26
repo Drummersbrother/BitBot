@@ -286,11 +286,11 @@ def gameLoop():
                             if (relVector.getMagnitude() < (scaledSensor * 50)) and (
                                 curBot.velVector.getDotProductFromUnitVec(relVector) > 0.75):
                                 # Apply the damage
-                                curSpikeBot.health -= scaledSensor * 2
-                                curBot.health += scaledSensor * 2
+                                curSpikeBot.health -= scaledSensor
+                                curBot.health += scaledSensor
 
                                 # Telling the current bot that it has eaten
-                                curBot.hasEaten(scaledSensor * 2)
+                                curBot.hasEaten(scaledSensor)
 
         for curBot in bots:
             # Apply health checks

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e8550ea8-96af-4010-84f1-3d9d2309eda4" name="Default" comment="Implemented NN constants">
+    <list default="true" id="e8550ea8-96af-4010-84f1-3d9d2309eda4" name="Default" comment="Implement spike angular range drawing">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitbots/gameLoop.py" afterPath="$PROJECT_DIR$/bitbots/gameLoop.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -41,8 +41,8 @@
       <file leaf-file-name="gameLoop.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bitbots/gameLoop.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.127923">
-              <caret line="439" column="24" selection-start-line="439" selection-start-column="24" selection-end-line="439" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.51994497">
+              <caret line="288" column="66" selection-start-line="288" selection-start-column="66" selection-end-line="288" selection-end-column="66" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -678,7 +678,13 @@
       <option name="project" value="LOCAL" />
       <updated>1437903170925</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Implement spike angular range drawing">
+      <created>1437903659033</created>
+      <option name="number" value="00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1437903659033</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -719,7 +725,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Implementing food map/representation and food sensor fully" />
     <MESSAGE value="Food map bugfixes" />
     <MESSAGE value="Improved Vec2D class&#10;Implemented position NN output" />
     <MESSAGE value="Implement movement boost and movement boost health cost" />
@@ -744,7 +749,8 @@
     <MESSAGE value="Implemented bot maximum  amount" />
     <MESSAGE value="More graphics and some balancing" />
     <MESSAGE value="Implemented NN constants" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented NN constants" />
+    <MESSAGE value="Implement spike angular range drawing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement spike angular range drawing" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -1150,8 +1156,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bitbots/gameLoop.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.127923">
-          <caret line="439" column="24" selection-start-line="439" selection-start-column="24" selection-end-line="439" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.51994497">
+          <caret line="288" column="66" selection-start-line="288" selection-start-column="66" selection-end-line="288" selection-end-column="66" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>
