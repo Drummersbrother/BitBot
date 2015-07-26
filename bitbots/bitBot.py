@@ -22,7 +22,7 @@ class bitBot:
 
         # TODO Implement NN constants
 
-        self.NNet = [np.zeros((25)), np.ones((25, 20)), np.zeros((20)), np.ones((20, 11)), np.zeros((11))]
+        self.NNet = [np.zeros((30)), np.ones((30, 20)), np.zeros((20)), np.ones((20, 11)), np.zeros((11))]
         self.NNet[0][20] = 2
 
         # Self explanatory
@@ -35,6 +35,11 @@ class bitBot:
         self.health = 100
         self.clock1 = random.random()
         self.clock2 = random.random()
+        self.NNet[0][25] = random.random() * 5
+        self.NNet[0][26] = random.random() * 5
+        self.NNet[0][27] = random.random() * 5
+        self.NNet[0][28] = random.random() * 5
+        self.NNet[0][29] = random.random() * 5
 
         if self.clock1 < 0.1:
             self.clock1 += 0.1
@@ -43,7 +48,7 @@ class bitBot:
             self.clock2 += 0.1
 
         # Randomising the neural networks weights
-        for i in range(25):
+        for i in range(30):
             for i2 in range(20):
                 self.NNet[1][i][i2] = (random.random() * 10) - 5
 
@@ -57,7 +62,7 @@ class bitBot:
         curMidNodeId = -1
         for CurMidNode in self.NNet[2]:
             curMidNodeId += 1
-            for CurIn in range(25):
+            for CurIn in range(30):
                 CurMidNode += self.NNet[0][CurIn] * self.NNet[1][CurIn][curMidNodeId]
             CurMidNode = bitbots.botMethods.midNodeFunction(CurMidNode)
             self.NNet[2][curMidNodeId] = CurMidNode
@@ -102,6 +107,13 @@ class bitBot:
                 else:
                     # Just get the weight of the parent
                     newBot.NNet[3][i][i2] = self.NNet[3][i][i2]
+
+        # Mutates the parent bot's constants
+        self.NNet[0][25] += (random.random() / 5) - 0.1
+        self.NNet[0][26] += (random.random() / 5) - 0.1
+        self.NNet[0][27] += (random.random() / 5) - 0.1
+        self.NNet[0][28] += (random.random() / 5) - 0.1
+        self.NNet[0][29] += (random.random() / 5) - 0.1
 
         # Returns the new bot
         return newBot
