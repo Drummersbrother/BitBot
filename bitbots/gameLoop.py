@@ -346,6 +346,12 @@ def gameLoop():
                 # Duplicating and mutating the current bot
                 bots.append(curBot.getMutated())
 
+        # TODO User input this value
+        maxBots = 200
+        if bots.__len__() > maxBots:
+            for i in range(0, bots.__len__() - maxBots):
+                bots.pop()
+
         for curBot in bots:
             # Clamp color output to be inside 0-15
 
