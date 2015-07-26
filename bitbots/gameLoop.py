@@ -84,7 +84,7 @@ else:
     isGridMode = False
     resX = 1000
     resY = 700
-    numBots = 20
+    numBots = 50
 
 pygame.init()
 
@@ -286,11 +286,11 @@ def gameLoop():
                             if (relVector.getMagnitude() < (scaledSensor * 50)) and (
                                 curBot.velVector.getDotProductFromUnitVec(relVector) > 0.75):
                                 # Apply the damage
-                                curSpikeBot.health -= scaledSensor
-                                curBot.health += scaledSensor
+                                curSpikeBot.health -= scaledSensor * 2
+                                curBot.health += scaledSensor * 2
 
                                 # Telling the current bot that it has eaten
-                                curBot.hasEaten(scaledSensor)
+                                curBot.hasEaten(scaledSensor * 2)
 
         for curBot in bots:
             # Apply health checks
@@ -388,11 +388,33 @@ def gameLoop():
             circleRect1 = pygame.draw.circle(curScr, (
                 curBot.NNet[4][2] * (255 / 25), curBot.NNet[4][3] * (255 / 25), curBot.NNet[4][4] * (255 / 25)),
                                              (int(curBot.posX), int(curBot.posY)), 10)
+
+            # Drawing the eye range as a circle
+            eyeRange = 100
+            circleRect2 = pygame.draw.circle(curScr, (15, 15, 15), (int(curBot.posX), int(curBot.posY)), eyeRange // 2,
+                                             2)
+
+            updateRects.append(circleRect2)
             updateRects.append(circleRect1)
+
+            # Draw the bot's spike as a line
+            scaledSpikeActuator = curBot.NNet[4][7] / 5
+            lineRect1 = pygame.draw.line(curScr, (50, 0, 0), (curBot.posX, curBot.posY), (
+            curBot.posX + int(curBot.velVector.getNormalizedTo(50).x * scaledSpikeActuator),
+            curBot.posY + int(curBot.velVector.getNormalizedTo(50).y * scaledSpikeActuator)))
+
+            updateRects.append(lineRect1)
 
             # Draw a white pixel at each bot so we can see them even when they're black
             pixelRect1 = pygame.draw.circle(curScr, (255, 255, 255), (int(curBot.posX), int(curBot.posY)), 0)
-            updateRects.append(circleRect1)
+            updateRects.append(pixelRect1)
+
+            # Draw the amount of health a bot has as a rectangle to the right of the bot
+            healthRect1 = pygame.Rect(curBot.posX - 13, curBot.posY - 10, 3, int((curBot.health // 10) * 1.25))
+            pygame.draw.rect(curScr,
+                             (int((((curBot.health / 100) * -1) + 1) * 255), int((curBot.health / 100) * 255), int(0)),
+                             healthRect1)
+            updateRects.append(healthRect1)
 
             shouldDraw = True
 

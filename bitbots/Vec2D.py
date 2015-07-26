@@ -26,10 +26,10 @@ class Vec2D:
         self.y += other.y
 
     def getNormalizedTo(self, length):
-        mag = bitbots.Vec2D.getMagnitude(self)
+        mag = bitbots.Vec2D.Vec2D.getMagnitude(self)
         scale = mag / length
 
-        Return = bitbots.Vec2D()
+        Return = bitbots.Vec2D.Vec2D()
         Return.addX(self.x / scale)
         Return.addY(self.y / scale)
 
