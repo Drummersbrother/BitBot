@@ -20,8 +20,6 @@ class bitBot:
         # (6) Is it willing to give other bots the ability to take some of its food/health? [if it is over 2.5 then it IS willing, otherwise it IS NOT willing] (7) Spike length (8) Boost (9) Sound emitting (10) Memory, from the last tick
         # Mid nodes: 20?
 
-        # TODO Implement NN constants
-
         self.NNet = [np.zeros((30)), np.ones((30, 20)), np.zeros((20)), np.ones((20, 11)), np.zeros((11))]
         self.NNet[0][20] = 2
 

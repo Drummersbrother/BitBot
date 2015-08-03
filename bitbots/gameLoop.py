@@ -161,7 +161,7 @@ def gameLoop():
 
         # Fps calculation
         curFps = 1000 / clock.get_time()
-        curFps = round(curFps, 0)
+        curFps = round(curFps, 2)
 
         pygame.display.set_caption("Bitbots test  Tick: " + str(tick) + ". TPS/FPS: " + str(curFps) + ".")
 
@@ -391,7 +391,8 @@ def gameLoop():
 
             # Drawing the eye range as a circle
             eyeRange = 100
-            circleRect2 = pygame.draw.circle(curScr, (15, 15, 15), (int(curBot.posX), int(curBot.posY)), eyeRange // 2,
+            circleRect2 = pygame.draw.circle(curScr, (150, 150, 150), (int(curBot.posX), int(curBot.posY)),
+                                             eyeRange // 2,
                                              2)
 
             updateRects.append(circleRect2)
@@ -399,16 +400,16 @@ def gameLoop():
 
             # Draw the bot's spike as a line
             scaledSpikeActuator = curBot.NNet[4][7] / 5
-            lineRect1 = pygame.draw.line(curScr, (50, 0, 0), (curBot.posX, curBot.posY), (
+            lineRect1 = pygame.draw.line(curScr, (200, 0, 0), (curBot.posX, curBot.posY), (
             curBot.posX + int(curBot.velVector.getNormalizedTo(50).x * scaledSpikeActuator),
             curBot.posY + int(curBot.velVector.getNormalizedTo(50).y * scaledSpikeActuator)))
 
             # Draw the bot's spike angular range as 2 lines
-            lineRect2 = pygame.draw.line(curScr, (0, 50, 0), (curBot.posX, curBot.posY), (
+            lineRect2 = pygame.draw.line(curScr, (0, 200, 0), (curBot.posX, curBot.posY), (
                 curBot.posX + int(curBot.velVector.getRotatedBy(22.5).getNormalizedTo(50).x),
                 curBot.posY + int(curBot.velVector.getRotatedBy(22.5).getNormalizedTo(50).y)))
 
-            lineRect3 = pygame.draw.line(curScr, (0, 50, 0), (curBot.posX, curBot.posY), (
+            lineRect3 = pygame.draw.line(curScr, (0, 200, 0), (curBot.posX, curBot.posY), (
                 curBot.posX + int(curBot.velVector.getRotatedBy(-22.5).getNormalizedTo(50).x),
                 curBot.posY + int(curBot.velVector.getRotatedBy(-22.5).getNormalizedTo(50).y)))
 
@@ -420,7 +421,7 @@ def gameLoop():
             pixelRect1 = pygame.draw.circle(curScr, (255, 255, 255), (int(curBot.posX), int(curBot.posY)), 0)
             updateRects.append(pixelRect1)
 
-            # Draw the amount of health a bot has as a rectangle to the right of the bot
+            # Draw the amount of health a bot has as a rectangle to the left of the bot
             healthRect1 = pygame.Rect(curBot.posX - 13, curBot.posY - 10, 3, int((curBot.health // 10) * 1.25))
             pygame.draw.rect(curScr,
                              (
