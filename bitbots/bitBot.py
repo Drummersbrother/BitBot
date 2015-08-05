@@ -1,3 +1,5 @@
+import threading
+
 __author__ = 'FamiljensMONSTER'
 # encoding: utf-8
 import random
@@ -118,3 +120,11 @@ class bitBot:
 
     def hasEaten(self, amount):
         self.NNet[0][20] -= amount / 100
+
+
+# This class is used as a thread that calculates the output of the NN in a bitbot
+class NNCalcOutThread(threading.Thread):
+    def __init__(self):
+
+    def run(self):
+

@@ -52,6 +52,12 @@ if not useDefSettings:
         resY = input("Y resolution? (must be  multiple of 50)")
         print()
 
+    numThreads = input("How many threads should be used? (positive integer)")
+    print()
+    while not numThreads.isdigit() or not float(numThreads > 0):
+        numThreads = input("How many threads should be used? (positive integer)")
+        print()
+
     # Converting the resolution variables to be ints and not strings
     resX = int(resX)
     resY = int(resY)
@@ -85,6 +91,7 @@ else:
     resX = 1000
     resY = 700
     numBots = 50
+    numThreads = 4
 
 pygame.init()
 
@@ -96,6 +103,11 @@ pygame.display.set_caption("Bitbots test")
 
 # Setting up, initializing and storing the bitbots
 bots = botMethods.makeBots(numBots, isGridMode, resX, resY, 0)
+
+
+# A getter for the number of threads to use
+def getNumThreads() -> int:
+    return numThreads
 
 
 def gameLoop():
