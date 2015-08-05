@@ -431,7 +431,8 @@ def gameLoop():
             healthRect1 = pygame.Rect(curBot.posX - 13, curBot.posY - 10, 3, int((curBot.health // 10) * 1.25))
             pygame.draw.rect(curScr,
                              (
-                             int((((curBot.health // 100) * -1) + 1) * 255), int((curBot.health // 100) * 255), int(0)),
+                                 int((((curBot.health / 100) * -1) + 1) * 255), int((curBot.health / 100) * 255),
+                                 int(0)),
                              healthRect1)
             updateRects.append(healthRect1)
 
