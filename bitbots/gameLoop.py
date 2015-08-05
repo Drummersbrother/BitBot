@@ -190,7 +190,7 @@ def gameLoop():
         bots = botMethods.updateSensors(bots, clock.get_time(), foodArray)
 
         for curBot in bots:
-            curBot.NNet[4] = curBot.getOutputs()
+            curBot.updateOutputs()
 
         # Input checks
         # Checking to see if the program is getting OS keyboard input focus

@@ -57,8 +57,9 @@ class bitBot:
             for i2 in range(10):
                 self.NNet[3][i][i2] = (random.random() * 10) - 5
 
-    def getOutputs(self) -> np.array:
+    def updateOutputs(self):
 
+        """
         # TODO MAKE THIS PARALLEL!!!!!!!!!!!!!!!!!!!!
         queueLock = threading.Lock()
 
@@ -66,6 +67,7 @@ class bitBot:
         # This calculates the mid nodes' values
         curMidNodeId = -1
         for CurMidNode in self.NNet[2]:
+            CurMidNode = 0
             curMidNodeId += 1
             for CurIn in range(30):
                 CurMidNode += self.NNet[0][CurIn] * self.NNet[1][CurIn][curMidNodeId]
@@ -78,12 +80,14 @@ class bitBot:
         # This calculates the out nodes' values
         curOutNodeId = -1
         for CurOutNode in self.NNet[4]:
+            CurOutNode = 0
             curOutNodeId += 1
             for CurMid in range(20):
                 CurOutNode += self.NNet[2][CurMid] * self.NNet[3][CurMid][curOutNodeId]
             self.NNet[4][curOutNodeId] = CurOutNode
 
         return self.NNet[4]
+        """
 
     # Returns a new bitbot with possible mutations
     def getMutated(self):
@@ -131,12 +135,13 @@ class bitBot:
 
 
 # This class is used as a thread that calculates the mid nodes' values in the NN in a bitbot
-class NNCalcOutThread(threading.Thread):
-    def __init__(self, workQueue):
+class NNCalcMidThread(threading.Thread):
+    def __init__(self, workQueue, bitbot):
         self.queue = workQueue
+        self.bot = bitbot
 
     def run(self):
-        # Calculate a the mid nodes' values
+        # Calculate the mid nodes' values
 
         queueLock.acquire()
         # Checking that we have work left
@@ -144,6 +149,42 @@ class NNCalcOutThread(threading.Thread):
             # The midnode to calculate the value of
             calcNode = self.queue.get()
             queueLock.release
+
+            # Initializing the current node value
+            CurMidNode = 0
+
+            for CurIn in range(30):
+                CurMidNode += self.bot.NNet[0][CurIn] * self.bot.NNet[1][CurIn][calcNode]
+            CurMidNode = bitbots.botMethods.midNodeFunction(CurMidNode)
+            self.bot.NNet[2][calcNode] = CurMidNode
+
+            queueLock.acquire()
+
+        queueLock.release()
+
+
+# This class is used as a thread that calculates the out nodes' values in the NN in a bitbot
+class NNCalcOutThread(threading.Thread):
+    def __init__(self, workQueue, bitbot):
+        self.queue = workQueue
+        self.bot = bitbot
+
+    def run(self):
+        # Calculate the out nodes' values
+
+        queueLock.acquire()
+        # Checking that we have work left
+        while not self.queue.isEmpty():
+            # The outnode to calculate the value of
+            calcNode = self.queue.get()
+            queueLock.release
+
+            # Initializing the current node value
+            CurOutNode = 0
+
+            for CurMid in range(20):
+                CurOutNode += self.bot.NNet[2][CurMid] * self.bot.NNet[3][CurMid][calcNode]
+            self.bot.NNet[4][calcNode] = CurOutNode
 
             queueLock.acquire()
 
