@@ -9,7 +9,7 @@ from math import sqrt
 from bitbots import bitBot
 
 
-def makeBots(numBots, isGridMode, resX, resY, genNr):
+def makeBots(numBots, isGridMode, resX, resY, genNr, numThreads):
     numBots = int(numBots)
     print("Spawning and creating bitbots")
 
@@ -18,7 +18,7 @@ def makeBots(numBots, isGridMode, resX, resY, genNr):
 
     # Putting in a bot entry at every place they should be in
     for curBotId in range(0, numBots):
-        curBot = bitBot.bitBot(genNr)
+        curBot = bitBot.bitBot(genNr, numThreads)
         botList.append(curBot)
 
     if not isGridMode:

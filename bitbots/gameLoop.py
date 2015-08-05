@@ -102,13 +102,7 @@ curScr = pygame.display.set_mode((resX, resY))
 pygame.display.set_caption("Bitbots test")
 
 # Setting up, initializing and storing the bitbots
-bots = botMethods.makeBots(numBots, isGridMode, resX, resY, 0)
-
-
-# A getter for the number of threads to use
-def getNumThreads() -> int:
-    return numThreads
-
+bots = botMethods.makeBots(numBots, isGridMode, resX, resY, 0, numThreads)
 
 def gameLoop():
     # Making some variables global

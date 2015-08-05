@@ -11,7 +11,7 @@ import bitbots
 
 
 class bitBot:
-    def __init__(self, genNr):
+    def __init__(self, genNr, numThreads):
         # Describing the neural network
         # Sensors, note that all these are (or should be) between 0 and 1 (maybe not for some things though):
         # (0) left eye R (1) left eye G (2) left eye B (3) left eye average proximity (4) right eye R (5) right eye G (6) right eye B (7) right eye average proximity (8) health (9) vibration sensor [amount of bot movement around it, this is not scaled]
@@ -40,6 +40,7 @@ class bitBot:
         self.NNet[0][27] = random.random() * 5
         self.NNet[0][28] = random.random() * 5
         self.NNet[0][29] = random.random() * 5
+        self.numThreads = numThreads
 
         if self.clock1 < 0.1:
             self.clock1 += 0.1
@@ -58,6 +59,10 @@ class bitBot:
 
     def getOutputs(self) -> np.array:
 
+        # TODO MAKE THIS PARALLEL!!!!!!!!!!!!!!!!!!!!
+        queueLock = threading.Lock()
+
+
         # This calculates the mid nodes' values
         curMidNodeId = -1
         for CurMidNode in self.NNet[2]:
@@ -66,6 +71,9 @@ class bitBot:
                 CurMidNode += self.NNet[0][CurIn] * self.NNet[1][CurIn][curMidNodeId]
             CurMidNode = bitbots.botMethods.midNodeFunction(CurMidNode)
             self.NNet[2][curMidNodeId] = CurMidNode
+
+
+        # TODO MAKE THIS PARALLEL TOO!!!!!!!!!!!!!!!!!!!!
 
         # This calculates the out nodes' values
         curOutNodeId = -1
@@ -81,7 +89,7 @@ class bitBot:
     def getMutated(self):
         self.NNet[0][20] = 2
 
-        newBot = bitBot(self.genNr + 1)
+        newBot = bitBot(self.genNr + 1, self.numThreads)
 
         newBot.posX = self.posX
         newBot.posY = self.posY
@@ -122,9 +130,21 @@ class bitBot:
         self.NNet[0][20] -= amount / 100
 
 
-# This class is used as a thread that calculates the output of the NN in a bitbot
+# This class is used as a thread that calculates the mid nodes' values in the NN in a bitbot
 class NNCalcOutThread(threading.Thread):
-    def __init__(self):
+    def __init__(self, workQueue):
+        self.queue = workQueue
 
     def run(self):
+        # Calculate a the mid nodes' values
 
+        queueLock.acquire()
+        # Checking that we have work left
+        while not self.queue.isEmpty():
+            # The midnode to calculate the value of
+            calcNode = self.queue.get()
+            queueLock.release
+
+            queueLock.acquire()
+
+        queueLock.release()
