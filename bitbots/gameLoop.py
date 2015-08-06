@@ -11,8 +11,6 @@ import numpy as np
 
 from bitbots import botMethods
 
-
-
 # Taking and storing input
 # It only accepts valid input
 useDefSettings = input("Use default settings?")
