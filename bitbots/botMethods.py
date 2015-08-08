@@ -189,10 +189,10 @@ def updateSensors(bots, curTick, foodArray):
         curBot.NNet[0][21] = curTick
 
         # Calculating clock 1
-        curBot.NNet[0][22] = math.sin(((curTick + 1) * curBot.clock1) / 100)
+        curBot.NNet[0][22] = math.sin(((curTick + 1) * curBot.clock1) / 100) * 5
 
         # Calculating clock 2
-        curBot.NNet[0][23] = math.sin(((curTick + 1) * curBot.clock2) / 100)
+        curBot.NNet[0][23] = math.sin(((curTick + 1) * curBot.clock2) / 100) * 5
 
         # Last tick memory
         curBot.NNet[0][24] = curBot.NNet[4][10]
