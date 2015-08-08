@@ -39,8 +39,13 @@ class Vec2D:
         mag = self.getMagnitude()
         scale = mag / length
 
-        self.x /= scale
-        self.y /= scale
+        # No division by zero
+        if mag != 0:
+            self.x /= scale
+            self.y /= scale
+        else:
+            self.x = 0
+            self.y = length
 
     def addX(self, X):
         self.x += X

@@ -52,7 +52,7 @@ if not useDefSettings:
 
     numThreads = input("How many threads should be used? (positive integer)")
     print()
-    while not numThreads.isdigit() or not float(numThreads > 0):
+    while not numThreads.isdigit() or not (float(numThreads) > 0):
         numThreads = input("How many threads should be used? (positive integer)")
         print()
 
@@ -89,7 +89,6 @@ else:
     resX = 1000
     resY = 700
     numBots = 50
-    numThreads = 4
 
 pygame.init()
 
@@ -100,7 +99,7 @@ curScr = pygame.display.set_mode((resX, resY))
 pygame.display.set_caption("Bitbots test")
 
 # Setting up, initializing and storing the bitbots
-bots = botMethods.makeBots(numBots, isGridMode, resX, resY, 0, numThreads)
+bots = botMethods.makeBots(numBots, isGridMode, resX, resY, 0)
 
 def gameLoop():
     # Making some variables global
@@ -188,7 +187,7 @@ def gameLoop():
         bots = botMethods.updateSensors(bots, clock.get_time(), foodArray)
 
         for curBot in bots:
-            curBot.updateOutputs()
+            curBot.getOutputs()
 
         # Input checks
         # Checking to see if the program is getting OS keyboard input focus

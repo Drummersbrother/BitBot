@@ -1,8 +1,6 @@
 __author__ = 'FamiljensMONSTER'
 # encoding: utf-8
 import random
-import queue
-import multiprocessing
 
 import numpy as np
 
@@ -11,7 +9,7 @@ import bitbots
 
 
 class bitBot:
-    def __init__(self, genNr, numThreads):
+    def __init__(self, genNr):
         # Describing the neural network
         # Sensors, note that all these are (or should be) between 0 and 1 (maybe not for some things though):
         # (0) left eye R (1) left eye G (2) left eye B (3) left eye average proximity (4) right eye R (5) right eye G (6) right eye B (7) right eye average proximity (8) health (9) vibration sensor [amount of bot movement around it, this is not scaled]
@@ -40,7 +38,6 @@ class bitBot:
         self.NNet[0][27] = random.random() * 5
         self.NNet[0][28] = random.random() * 5
         self.NNet[0][29] = random.random() * 5
-        self.numThreads = numThreads
 
         if self.clock1 < 0.1:
             self.clock1 += 0.1
@@ -57,69 +54,32 @@ class bitBot:
             for i2 in range(10):
                 self.NNet[3][i][i2] = (random.random() * 10) - 5
 
-    def midCalcThread(self, calcNode):
-        # Initializing the current node value
-        CurMidNode = 0
+    def getOutputs(self) -> np.array:
 
-        for CurIn in range(20):
-            CurMidNode += self.NNet[0][CurIn] * self.NNet[1][CurIn][calcNode]
-        self.NNet[2][calcNode] = CurMidNode
+        # This calculates the mid nodes' values
+        curMidNodeId = -1
+        for CurMidNode in self.NNet[2]:
+            curMidNodeId += 1
+            for CurIn in range(30):
+                CurMidNode += self.NNet[0][CurIn] * self.NNet[1][CurIn][curMidNodeId]
+            CurMidNode = bitbots.botMethods.midNodeFunction(CurMidNode)
+            self.NNet[2][curMidNodeId] = CurMidNode
 
-        return
+        # This calculates the out nodes' values
+        curOutNodeId = -1
+        for CurOutNode in self.NNet[4]:
+            curOutNodeId += 1
+            for CurMid in range(20):
+                CurOutNode += self.NNet[2][CurMid] * self.NNet[3][CurMid][curOutNodeId]
+            self.NNet[4][curOutNodeId] = CurOutNode
 
-    def outCalcThread(self, calcNode):
-        # Initializing the current node value
-        CurOutNode = 0
-
-        for CurMid in range(20):
-            CurOutNode += self.NNet[2][CurMid] * self.NNet[3][CurMid][calcNode]
-        self.NNet[4][calcNode] = CurOutNode
-
-        return
-
-    def updateOutputs(self):
-
-        midPool = multiprocessing.Pool(processes=self.numThreads)
-
-        midPool.map(bitBot.midCalcThread, range(0, 20))
-
-        outPool = multiprocessing.Pool(processes=self.numThreads)
-
-        outPool.map(bitBot.outCalcThread, range(0, 11))
-
-        """
-        # Create the mid node threads and put them into the thread list AND then starting/running them
-        for i in range(0, self.numThreads):
-            # Create the thread with the appropriate arguments
-            curThread = multiprocessing.Process(target=bitBot.midCalcThread, args=(midWorkQueue, queueLock))
-
-            midThreads.append(curThread)
-
-            curThread.start()
-
-        # Waiting for all threads to finish so we can begin calculating the out nodes
-        for curThread in midThreads:
-            curThread.join()
-
-        # Create the out node threads and put them into the thread list AND then starting/running them
-        for i in range(0, self.numThreads):
-            # Create the thread with the appropriate arguments
-            curThread = multiprocessing.Process(target=bitBot.outCalcThread, args=(outWorkQueue, queueLock))
-
-            outThreads.append(curThread)
-
-            curThread.start()
-
-        # Waiting for all threads to finish so we can begin calculating the out nodes
-        for curThread in outThreads:
-            curThread.join()
-        """
+        return self.NNet[4]
 
     # Returns a new bitbot with possible mutations
     def getMutated(self):
         self.NNet[0][20] = 2
 
-        newBot = bitBot(self.genNr + 1, self.numThreads)
+        newBot = bitBot(self.genNr + 1)
 
         newBot.posX = self.posX
         newBot.posY = self.posY
