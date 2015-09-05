@@ -33,17 +33,17 @@
         <entry file="file://$PROJECT_DIR$/bitbots/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gameLoop.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="gameLoop.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bitbots/gameLoop.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8604651">
-              <caret line="232" column="0" selection-start-line="232" selection-start-column="0" selection-end-line="232" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -89,16 +89,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Vec2D.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Vec2D.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bitbots/Vec2D.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="27" column="32" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="32" />
+            <state vertical-scroll-proportion="0.65891474">
+              <caret line="31" column="37" selection-start-line="31" selection-start-column="37" selection-end-line="31" selection-end-column="37" />
               <folding>
-                <marker date="1441449985641" expanded="true" signature="92:457" placeholder="..." />
-                <marker date="1441449985641" expanded="true" signature="374:376" placeholder="..." />
-                <marker date="1441449985641" expanded="true" signature="1633:1635" placeholder="..." />
-                <marker date="1441449985641" expanded="true" signature="1777:1779" placeholder="..." />
+                <element signature="e#50#61#0" expanded="true" />
+                <marker date="1441451980800" expanded="true" signature="92:457" placeholder="..." />
+                <marker date="1441451980800" expanded="true" signature="374:376" placeholder="..." />
+                <marker date="1441451980800" expanded="true" signature="1582:1584" placeholder="..." />
+                <marker date="1441451980800" expanded="true" signature="1726:1728" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -114,6 +115,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Drummersbrother &lt;hb11002@icloud.com&gt;" />
+      </list>
+    </option>
     <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="PUSH_TAGS">
@@ -132,8 +138,8 @@
         <option value="$PROJECT_DIR$/bitbots/threadWorkers.py" />
         <option value="$PROJECT_DIR$/bitbots/bitBot.py" />
         <option value="$PROJECT_DIR$/bitbots/botMethods.py" />
-        <option value="$PROJECT_DIR$/bitbots/Vec2D.py" />
         <option value="$PROJECT_DIR$/bitbots/gameLoop.py" />
+        <option value="$PROJECT_DIR$/bitbots/Vec2D.py" />
       </list>
     </option>
   </component>
@@ -743,7 +749,13 @@
       <option name="project" value="LOCAL" />
       <updated>1439041062152</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Optimized getAddedTo and getNormalizedTo in Vec2D&#10;Added subtractBy and getSubtractedBy in Vec2D&#10;">
+      <created>1441451493717</created>
+      <option name="number" value="00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1441451493717</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -752,17 +764,17 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15747188" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20238096" sideWeight="0.509909" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24305555" sideWeight="0.6175683" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20238096" sideWeight="0.49009106" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20238096" sideWeight="0.49009106" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -784,7 +796,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Implemented health checks and food giving logic&#10;Changed actuator logic to be executed for each logic part and not for each bot" />
     <MESSAGE value="Simplified boolean expressions" />
     <MESSAGE value="Fixing actuator clamping&#10;Implementing bot division and mutating" />
     <MESSAGE value="Change bot division to inherit parent health&#10;Change division requirement to also require health to be above 50" />
@@ -809,7 +820,8 @@
     <MESSAGE value="synchronisation" />
     <MESSAGE value="Gave up parallelization&#10;Reverted to previous state with some improvements" />
     <MESSAGE value="increase clock power by one order of magnitude" />
-    <option name="LAST_COMMIT_MESSAGE" value="increase clock power by one order of magnitude" />
+    <MESSAGE value="Optimized getAddedTo and getNormalizedTo in Vec2D&#10;Added subtractBy and getSubtractedBy in Vec2D&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Optimized getAddedTo and getNormalizedTo in Vec2D&#10;Added subtractBy and getSubtractedBy in Vec2D&#10;" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -825,10 +837,11 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="47" column="27" selection-start-line="47" selection-start-column="27" selection-end-line="47" selection-end-column="27" />
           <folding>
-            <marker date="1441449985641" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1633:1635" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1777:1779" placeholder="..." />
+            <element signature="e#50#61#0" expanded="true" />
+            <marker date="1441451980800" expanded="true" signature="92:457" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="374:376" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1582:1584" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1726:1728" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -870,10 +883,11 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
           <folding>
-            <marker date="1441449985641" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1633:1635" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1777:1779" placeholder="..." />
+            <element signature="e#50#61#0" expanded="true" />
+            <marker date="1441451980800" expanded="true" signature="92:457" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="374:376" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1582:1584" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1726:1728" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -931,10 +945,11 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
           <folding>
-            <marker date="1441449985641" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1633:1635" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1777:1779" placeholder="..." />
+            <element signature="e#50#61#0" expanded="true" />
+            <marker date="1441451980800" expanded="true" signature="92:457" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="374:376" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1582:1584" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1726:1728" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -992,10 +1007,11 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
           <folding>
-            <marker date="1441449985641" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1633:1635" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1777:1779" placeholder="..." />
+            <element signature="e#50#61#0" expanded="true" />
+            <marker date="1441451980800" expanded="true" signature="92:457" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="374:376" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1582:1584" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1726:1728" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1053,10 +1069,11 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
           <folding>
-            <marker date="1441449985641" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1633:1635" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1777:1779" placeholder="..." />
+            <element signature="e#50#61#0" expanded="true" />
+            <marker date="1441451980800" expanded="true" signature="92:457" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="374:376" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1582:1584" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1726:1728" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1066,10 +1083,11 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding>
-            <marker date="1441449985641" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1633:1635" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1777:1779" placeholder="..." />
+            <element signature="e#50#61#0" expanded="true" />
+            <marker date="1441451980800" expanded="true" signature="92:457" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="374:376" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1582:1584" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1726:1728" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1095,10 +1113,11 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="25" column="38" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
           <folding>
-            <marker date="1441449985641" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1633:1635" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1777:1779" placeholder="..." />
+            <element signature="e#50#61#0" expanded="true" />
+            <marker date="1441451980800" expanded="true" signature="92:457" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="374:376" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1582:1584" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1726:1728" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1124,10 +1143,11 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="25" column="38" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
           <folding>
-            <marker date="1441449985641" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1633:1635" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1777:1779" placeholder="..." />
+            <element signature="e#50#61#0" expanded="true" />
+            <marker date="1441451980800" expanded="true" signature="92:457" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="374:376" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1582:1584" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1726:1728" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1145,10 +1165,11 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="25" column="38" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
           <folding>
-            <marker date="1441449985641" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1633:1635" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1777:1779" placeholder="..." />
+            <element signature="e#50#61#0" expanded="true" />
+            <marker date="1441451980800" expanded="true" signature="92:457" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="374:376" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1582:1584" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1726:1728" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1166,10 +1187,11 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="48" column="19" selection-start-line="48" selection-start-column="19" selection-end-line="48" selection-end-column="19" />
           <folding>
-            <marker date="1441449985641" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1633:1635" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1777:1779" placeholder="..." />
+            <element signature="e#50#61#0" expanded="true" />
+            <marker date="1441451980800" expanded="true" signature="92:457" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="374:376" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1582:1584" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1726:1728" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1187,10 +1209,11 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
           <folding>
-            <marker date="1441449985641" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1633:1635" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1777:1779" placeholder="..." />
+            <element signature="e#50#61#0" expanded="true" />
+            <marker date="1441451980800" expanded="true" signature="92:457" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="374:376" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1582:1584" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1726:1728" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1258,29 +1281,30 @@
     <entry file="file://$PROJECT_DIR$/bitbots/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bitbots/gameLoop.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bitbots/Vec2D.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="32" selection-start-line="27" selection-start-column="32" selection-end-line="27" selection-end-column="32" />
+        <state vertical-scroll-proportion="0.65891474">
+          <caret line="31" column="37" selection-start-line="31" selection-start-column="37" selection-end-line="31" selection-end-column="37" />
           <folding>
-            <marker date="1441449985641" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1633:1635" placeholder="..." />
-            <marker date="1441449985641" expanded="true" signature="1777:1779" placeholder="..." />
+            <element signature="e#50#61#0" expanded="true" />
+            <marker date="1441451980800" expanded="true" signature="92:457" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="374:376" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1582:1584" placeholder="..." />
+            <marker date="1441451980800" expanded="true" signature="1726:1728" placeholder="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bitbots/gameLoop.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8604651">
-          <caret line="232" column="0" selection-start-line="232" selection-start-column="0" selection-end-line="232" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>

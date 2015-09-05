@@ -15,10 +15,10 @@ class Vec2D:
     def getMagnitude(self) -> float:
         return math.sqrt((float(self.x) ** 2.0) + (float(self.y) ** 2.0))
 
-    def getAddedTo(self, other) -> bitbots.Vec2D:
+    def getAddedTo(self, other):
         return bitbots.Vec2D(self.x + other.x, self.y + other.y)
 
-    def getSubtractedBy(self, other) -> bitbots.Vec2D:
+    def getSubtractedBy(self, other):
         return bitbots.Vec2D(self.x - other.x, self.y - other.y)
 
     def addTo(self, other):
@@ -29,7 +29,7 @@ class Vec2D:
         self.x -= other.x
         self.y -= other.y
 
-    def getNormalizedTo(self, length) -> bitbots.Vec2D:
+    def getNormalizedTo(self, length):
         mag = bitbots.Vec2D.Vec2D.getMagnitude(self)
         scale = mag / length
 
