@@ -72,6 +72,13 @@ if not useDefSettings:
         numBots = input("How many bitbots should exist?")
         print()
 
+    maxBots = input("What should be the maximum amount of bots that can exist?")
+    print()
+
+    while not maxBots.isdigit() or (not float(maxBots) > 0):
+        maxBots = input("What should be the maximum amount of bots that can exist?")
+        print()
+
     isGridMode = input("Should they be spawned in a grid pattern? Y/N")
     print()
 
@@ -89,6 +96,7 @@ else:
     resX = 1000
     resY = 700
     numBots = 50
+    maxBots = 200
 
 pygame.init()
 
@@ -111,13 +119,14 @@ def gameLoop():
     global resY
     global shouldDraw
     global textFont
+    global maxBots
 
     # Storing the food amount array
     # Food at each location will be within (0-100) represented as an float
     # Each array entry represents a 50 x 50 area
 
     # We use floor division here to skip type conversion and basically silently swallowing errors from the input checker
-    # We use one extra wor and column to prevent errors
+    # We use one extra row and column to prevent errors
     foodArray = np.zeros(((resX // 50) + 1, (resY // 50) + 1))
 
     # Randomizing the amount of food availiable at each tile (1 tile = one 50 x 50 area)
@@ -133,7 +142,7 @@ def gameLoop():
     curScr.fill(bgColor)
     pygame.display.update()
 
-    # Target fps NOTE THAT THIS WILL NEVER BE REACHED, IT LIMITS FPS TO ALWAYS BE BELOW THIS
+    # Target fps BEWARE THAT THIS WILL NEVER BE REACHED, IT LIMITS FPS TO ALWAYS BE BELOW THIS
     tFps = 200
 
     shouldExit = False
@@ -146,6 +155,12 @@ def gameLoop():
 
     # Current tick counter
     tick = 0
+
+    # Storing if the user is currently moving/viewing a bot
+    isControllingBot = False
+
+    # Storing which bot the player is controlling
+    controlBot = -1
 
     print("Bitbots will now initiate game loop")
 
@@ -186,25 +201,58 @@ def gameLoop():
         # Updating the sensor values for all bots
         bots = botMethods.updateSensors(bots, clock.get_time(), foodArray)
 
+        # Updating the NNet of all bots
         for curBot in bots:
             curBot.getOutputs()
 
-        # Input checks
-        # Checking to see if the program is getting OS keyboard input focus
-        if True:  # pygame.key.get_focused(): This makes it freeze if it looses focus
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    shouldExit = True
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
-                        shouldExit = True
+        # User keyboard and mouse control handling
+        for event in pygame.event.get():
 
-        # Apply NN outputs (All steps are done separately to prevent inconsistencies based on list order)
+            if event.type == pygame.QUIT:
+                shouldExit = True
+            if event.type == pygame.KEYDOWN:
+                if event.type == pygame.K_ESCAPE:
+                    shouldExit = True
+            # Checking if the pygame window is focused (is the current window) or not
+            if pygame.mouse.get_focused():
+                # Checking for clicking
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1 and not isControllingBot:
+                        closestBotId = -1
+
+                        # This should be the drawing radius of the bots so that we get accurate clicking
+                        closestBotDist = 10
+
+                        # Looping through all the bots to find a bot that the user can select (this has inconsistencies based on list order in some cases)
+                        for i in range(bots.__len__()):
+                            # The distance between the click position and the bot position
+                            botDist = Vec2D(bots[i].posX - event.pos[0], bots[i].posY - event.pos[1]).getMagnitude()
+
+                            # Checking the current bot to see if it is the closest bot to the click pos
+                            if botDist <= closestBotDist:
+                                closestBotId = i
+                                closestBotDist = botDist
+
+                        if closestBotId != -1:
+                            controlBot = closestBotId
+                            isControllingBot = True
+
+                    # If the user rightclicks then the controlled bot will not be controlled anymore
+                    if event.button == 3 and isControllingBot:
+                        isControllingBot = False
+                        controlBot = -1
+
+        # Moving the controlled bot to the mouse position (if the player is controlling a bot)
+        if isControllingBot:
+            bots[controlBot].posX = pygame.mouse.get_pos()[0]
+            bots[controlBot].posY = pygame.mouse.get_pos()[1]
+
+        # Apply NN outputs (All steps are done separately to prevent inconsistencies based on list order (although there may still be some small inconsistencies))
 
         for curBot in bots:
             # Apply velocities
 
-            # Health decrease constant
+            # Health decrease constant (health decreases by this every tick)
             healthDecrease = 0.001
 
             # Calculate direction vector based on the ratio of left to right output from the NN
@@ -295,11 +343,16 @@ def gameLoop():
                                 # Telling the current bot that it has eaten
                                 curBot.hasEaten(scaledSensor)
 
+        if isControllingBot:
+            if bots[controlBot].health <= 0:
+                isControllingBot = False
+                controlBot = -1
+
         for curBot in bots:
             # Apply health checks
 
             # Checking if the bot should be dead/removed
-            if curBot.health < 0:
+            if curBot.health <= 0:
                 bots.remove(curBot)
 
             else:
@@ -349,14 +402,12 @@ def gameLoop():
                 # Duplicating and mutating the current bot
                 bots.append(curBot.getMutated())
 
-        # TODO User input this value
-        maxBots = 200
         if bots.__len__() > maxBots:
             for i in range(0, bots.__len__() - maxBots):
                 bots.pop()
 
         for curBot in bots:
-            # Clamp color output to be inside 0-15
+            # Clamp color output to be inside 0-25
 
             if curBot.NNet[4][2] < 0:
                 curBot.NNet[4][2] = 0
