@@ -88,7 +88,7 @@ class bitBot:
         newBot.clock2 = random.random()
 
         # Mutates the parent bot's weights
-        for i in range(24):
+        for i in range(30):
             for i2 in range(20):
                 if random.random() > 0.999:
                     # Mutate this weight
@@ -98,7 +98,7 @@ class bitBot:
                     newBot.NNet[1][i][i2] = self.NNet[1][i][i2]
 
         for i in range(20):
-            for i2 in range(10):
+            for i2 in range(11):
                 if random.random() > 0.999:
                     # Mutate this weight
                     newBot.NNet[3][i][i2] = self.NNet[3][i][i2] + ((random.random() * 1) - 0.5)

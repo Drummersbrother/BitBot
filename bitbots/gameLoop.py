@@ -50,12 +50,6 @@ if not useDefSettings:
         resY = input("Y resolution? (must be  multiple of 50)")
         print()
 
-    numThreads = input("How many threads should be used? (positive integer)")
-    print()
-    while not numThreads.isdigit() or not (float(numThreads) > 0):
-        numThreads = input("How many threads should be used? (positive integer)")
-        print()
-
     # Converting the resolution variables to be ints and not strings
     resX = int(resX)
     resY = int(resY)
@@ -91,12 +85,20 @@ if not useDefSettings:
     else:
         isGridMode = False
 
+    frameDivider = input("How many ticks per draw frame should there be?")
+    print()
+
+    while not frameDivider.isdigit() or (not float(frameDivider) > 0):
+        frameDivider = input("How many ticks per draw frame should there be?")
+        print()
+
 else:
     isGridMode = False
     resX = 1000
     resY = 700
     numBots = 50
     maxBots = 200
+    frameDivider = 1
 
 pygame.init()
 
@@ -120,6 +122,11 @@ def gameLoop():
     global shouldDraw
     global textFont
     global maxBots
+    global shouldDrawNN
+    global frameDivider
+
+    frameDivider = float(frameDivider)
+    shouldDrawNN = True
 
     # Storing the food amount array
     # Food at each location will be within (0-100) represented as an float
@@ -138,7 +145,7 @@ def gameLoop():
     # Storing the background color
     bgColor = (0, 0, 0)
 
-    # Filling the background with white and updating the whole screen
+    # Filling the background with the background color and updating the whole screen
     curScr.fill(bgColor)
     pygame.display.update()
 
@@ -152,6 +159,7 @@ def gameLoop():
 
     # List for all rects and places where a rect has been to update on the next update call
     updateRects = []
+    updateRectsNN = []
 
     # Current tick counter
     tick = 0
@@ -165,10 +173,10 @@ def gameLoop():
     print("Bitbots will now initiate game loop")
 
     while not shouldExit:
-        updateRects.append(pygame.draw.rect(curScr, bgColor, pygame.Rect(0, 0, resX, resY)))
-        shouldDraw = True
+        if tick % frameDivider == 0:
+            updateRects.append(pygame.draw.rect(curScr, bgColor, pygame.Rect(0, 0, resX, resY)))
 
-        # wait for game tick to be at the appropritate time
+        # wait for game tick to be at the appropriate time
         clock.tick(tFps)
         tick += 1
 
@@ -326,9 +334,7 @@ def gameLoop():
                     if curSpikeBot != curBot:
 
                         # Setting up a vector that points from the current vector to the current spike bot
-                        relVector = Vec2D()
-                        relVector.setX(curSpikeBot.velVector.getX() - curBot.velVector.getX())
-                        relVector.setY(curSpikeBot.velVector.getY() - curBot.velVector.getY())
+                        relVector = Vec2D(curSpikeBot.posX - curBot.posX, curSpikeBot.posY - curBot.posY)
 
                         # We dont want any division by zero
                         if relVector.getMagnitude() != 0:
@@ -402,7 +408,7 @@ def gameLoop():
                 # Duplicating and mutating the current bot
                 bots.append(curBot.getMutated())
 
-        if bots.__len__() > maxBots:
+        if bots.__len__() > float(maxBots):
             for i in range(0, bots.__len__() - maxBots):
                 bots.pop()
 
@@ -430,61 +436,64 @@ def gameLoop():
         # TODO Improve bot drawing / graphics
 
         # Drawing the amount of food available if the user wanted to
-        if drawFood:
+        if drawFood and tick % frameDivider == 0:
             for index, curVal in np.ndenumerate(foodArray):
                 updateRects.append(
                     pygame.draw.rect(curScr, ((curVal / 100) * 255, (curVal / 100) * 255, (curVal / 100) * 255),
                                      pygame.Rect(index[0] * 50, index[1] * 50, (index[0] * 50) + 50,
                                                  (index[1] * 50) + 50)))
 
-        for curBot in bots:
-            # Drawing the current bot as a circle
-            circleRect1 = pygame.draw.circle(curScr, (
-                curBot.NNet[4][2] * (255 / 25), curBot.NNet[4][3] * (255 / 25), curBot.NNet[4][4] * (255 / 25)),
-                                             (int(curBot.posX), int(curBot.posY)), 10)
+        if tick % frameDivider == 0:
+            for curBot in bots:
+                # Drawing the current bot as a circle
+                circleRect1 = pygame.draw.circle(curScr, (
+                    curBot.NNet[4][2] * (255 / 25), curBot.NNet[4][3] * (255 / 25), curBot.NNet[4][4] * (255 / 25)),
+                                                 (int(curBot.posX), int(curBot.posY)), 10)
 
-            # Drawing the eye range as a circle
-            eyeRange = 100
-            circleRect2 = pygame.draw.circle(curScr, (150, 150, 150), (int(curBot.posX), int(curBot.posY)),
-                                             eyeRange // 2,
-                                             2)
+                # Drawing the eye range as a circle
+                eyeRange = 100
+                circleRect2 = pygame.draw.circle(curScr, (150, 150, 150), (int(curBot.posX), int(curBot.posY)),
+                                                 eyeRange // 2,
+                                                 2)
 
-            updateRects.append(circleRect2)
-            updateRects.append(circleRect1)
+                updateRects.append(circleRect2)
+                updateRects.append(circleRect1)
 
-            # Draw the bot's spike as a line
-            scaledSpikeActuator = curBot.NNet[4][7] / 5
-            lineRect1 = pygame.draw.line(curScr, (200, 0, 0), (curBot.posX, curBot.posY), (
-            curBot.posX + int(curBot.velVector.getNormalizedTo(50).x * scaledSpikeActuator),
-            curBot.posY + int(curBot.velVector.getNormalizedTo(50).y * scaledSpikeActuator)))
+                # Draw the bot's spike as a line
+                scaledSpikeActuator = curBot.NNet[4][7] / 5
+                lineRect1 = pygame.draw.line(curScr, (200, 0, 0), (curBot.posX, curBot.posY), (
+                    curBot.posX + int(curBot.velVector.getNormalizedTo(50).x * scaledSpikeActuator),
+                    curBot.posY + int(curBot.velVector.getNormalizedTo(50).y * scaledSpikeActuator)))
 
-            # Draw the bot's spike angular range as 2 lines
-            lineRect2 = pygame.draw.line(curScr, (0, 200, 0), (curBot.posX, curBot.posY), (
-                curBot.posX + int(curBot.velVector.getRotatedBy(22.5).getNormalizedTo(50).x),
-                curBot.posY + int(curBot.velVector.getRotatedBy(22.5).getNormalizedTo(50).y)))
+                # Draw the bot's spike angular range as 2 lines
+                lineRect2 = pygame.draw.line(curScr, (0, 200, 0), (curBot.posX, curBot.posY), (
+                    curBot.posX + int(curBot.velVector.getRotatedBy(22.5).getNormalizedTo(50).x),
+                    curBot.posY + int(curBot.velVector.getRotatedBy(22.5).getNormalizedTo(50).y)))
 
-            lineRect3 = pygame.draw.line(curScr, (0, 200, 0), (curBot.posX, curBot.posY), (
-                curBot.posX + int(curBot.velVector.getRotatedBy(-22.5).getNormalizedTo(50).x),
-                curBot.posY + int(curBot.velVector.getRotatedBy(-22.5).getNormalizedTo(50).y)))
+                lineRect3 = pygame.draw.line(curScr, (0, 200, 0), (curBot.posX, curBot.posY), (
+                    curBot.posX + int(curBot.velVector.getRotatedBy(-22.5).getNormalizedTo(50).x),
+                    curBot.posY + int(curBot.velVector.getRotatedBy(-22.5).getNormalizedTo(50).y)))
 
-            updateRects.append(lineRect3)
-            updateRects.append(lineRect2)
-            updateRects.append(lineRect1)
+                updateRects.append(lineRect3)
+                updateRects.append(lineRect2)
+                updateRects.append(lineRect1)
 
-            # Draw a white pixel at each bot so we can see them even when they're black
-            pixelRect1 = pygame.draw.circle(curScr, (255, 255, 255), (int(curBot.posX), int(curBot.posY)), 0)
-            updateRects.append(pixelRect1)
+                # Draw a white pixel at each bot so we can see them even when they're black
+                pixelRect1 = pygame.draw.circle(curScr, (255, 255, 255), (int(curBot.posX), int(curBot.posY)), 2)
+                updateRects.append(pixelRect1)
 
-            # Draw the amount of health a bot has as a rectangle to the left of the bot
-            healthRect1 = pygame.Rect(curBot.posX - 13, curBot.posY - 10, 3, int((curBot.health // 10) * 1.25))
-            pygame.draw.rect(curScr,
-                             (
-                                 int((((curBot.health / 100) * -1) + 1) * 255), int((curBot.health / 100) * 255),
-                                 int(0)),
-                             healthRect1)
-            updateRects.append(healthRect1)
+                # Draw the amount of health a bot has as a rectangle to the left of the bot
+                healthRect1 = pygame.Rect(curBot.posX - 13, curBot.posY - 10, 3, int((curBot.health // 10) * 1.25))
+                pygame.draw.rect(curScr,
+                                 (
+                                     int((((curBot.health / 100) * -1) + 1) * 255), int((curBot.health / 100) * 255),
+                                     int(0)),
+                                 healthRect1)
+                updateRects.append(healthRect1)
 
-            shouldDraw = True
+                shouldDraw = True
+
+        # Drawing the NNet of the most recently selected bot in another window
 
         # Display how many bots are alive (blitting a font render to the curScr)
         curScr.blit(textFont.render((str(bots.__len__())), True, (0, 255, 0)), (0, 0))
@@ -493,8 +502,13 @@ def gameLoop():
         # Checking if it should draw something this tick
         if shouldDraw:
             pygame.display.update(updateRects)
+
+        if shouldDrawNN:
+            pygame.display.update(updateRectsNN)
+
         # Preventing memory leak
-        updateRects = []
+        updateRects.clear()
+        updateRectsNN.clear()
 
         # Randomly adding some food to 5 places in the in the foodarray
         for i in range(0, 5):
