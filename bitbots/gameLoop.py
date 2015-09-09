@@ -1,6 +1,6 @@
 import sys
 
-from bitbots.Vec2D import Vec2D
+from Vec2D import Vec2D
 
 __author__ = 'FamiljensMONSTER'
 # encoding: utf-8
@@ -103,10 +103,11 @@ else:
 pygame.init()
 
 textFont = pygame.font.SysFont("Monospace", 15)
+smallFont = pygame.font.SysFont("Monospace", 12)
 
-curScr = pygame.display.set_mode((resX, resY))
+curScr = pygame.display.set_mode((resX + 800, resY))
 
-pygame.display.set_caption("Bitbots test")
+pygame.display.set_caption("Bitbots")
 
 # Setting up, initializing and storing the bitbots
 bots = botMethods.makeBots(numBots, isGridMode, resX, resY, 0)
@@ -174,7 +175,7 @@ def gameLoop():
 
     while not shouldExit:
         if tick % frameDivider == 0:
-            updateRects.append(pygame.draw.rect(curScr, bgColor, pygame.Rect(0, 0, resX, resY)))
+            updateRects.append(pygame.draw.rect(curScr, bgColor, pygame.Rect(0, 0, resX + 800, resY)))
 
         # wait for game tick to be at the appropriate time
         clock.tick(tFps)
@@ -189,7 +190,12 @@ def gameLoop():
         curFps = 1000 / clock.get_time()
         curFps = round(curFps, 2)
 
-        pygame.display.set_caption("Bitbots test  Tick: " + str(tick) + ". TPS/FPS: " + str(curFps) + ".")
+        pygame.display.set_caption("Bitbots  Tick: " + str(tick) + ". TPS/FPS: " + str(curFps) + ".")
+
+        # Moving the controlled bot to the mouse position (if the player is controlling a bot)
+        if isControllingBot:
+            bots[controlBot].posX = pygame.mouse.get_pos()[0]
+            bots[controlBot].posY = pygame.mouse.get_pos()[1]
 
         for curBot in bots:
             # Apply position correcting/clamping so the bots are not outside the screen
@@ -207,7 +213,7 @@ def gameLoop():
                 curBot.posY = resY - 1
 
         # Updating the sensor values for all bots
-        bots = botMethods.updateSensors(bots, clock.get_time(), foodArray)
+        bots = botMethods.updateSensors(bots, (1 / tick) * 25, foodArray)
 
         # Updating the NNet of all bots
         for curBot in bots:
@@ -250,11 +256,6 @@ def gameLoop():
                         isControllingBot = False
                         controlBot = -1
 
-        # Moving the controlled bot to the mouse position (if the player is controlling a bot)
-        if isControllingBot:
-            bots[controlBot].posX = pygame.mouse.get_pos()[0]
-            bots[controlBot].posY = pygame.mouse.get_pos()[1]
-
         # Apply NN outputs (All steps are done separately to prevent inconsistencies based on list order (although there may still be some small inconsistencies))
 
         for curBot in bots:
@@ -274,7 +275,7 @@ def gameLoop():
             # Adding the scaled left pointing vector
             workVector.addX(curBot.velVector.getRotatedBy(-15).getX() * abs(curBot.NNet[4][1]))
             workVector.addY(curBot.velVector.getRotatedBy(-15).getY() * abs(curBot.NNet[4][1]))
-            # Normalizing the vector to 1 +  BoostVal (limited to be between 0-1) and applying sprint+boost health decrease (and the default 0.01 health decrease)
+            # Normalizing the vector to 1 + BoostVal (limited to be between 0-1) and applying sprint+boost health decrease (and the default 0.01 health decrease)
             if curBot.NNet[0][8] >= 1:
                 workVector.normalizeTo(2)
                 curBot.health -= 0.1 + healthDecrease
@@ -350,24 +351,30 @@ def gameLoop():
                                 curBot.hasEaten(scaledSensor)
 
         if isControllingBot:
-            if bots[controlBot].health <= 0:
-                isControllingBot = False
-                controlBot = -1
+            if controlBot >= bots.__len__():
+                if bots[controlBot].health <= 0:
+                    del bots[controlBot]
+                    isControllingBot = False
+                    controlBot = -1
+
+        for i in range(bots.__len__()):
+            # Apply health checks again
+
+            if i < bots.__len__():
+                curBot = bots[i]
+
+                # Checking if the bot should be dead/removed
+                if curBot.health <= 0:
+                    del bots[i]
+
+
+                else:
+                    # Checking and correcting so the bot doesnt have health over 100
+                    if curBot.health > 100:
+                        curBot.health = 100
 
         for curBot in bots:
-            # Apply health checks
-
-            # Checking if the bot should be dead/removed
-            if curBot.health <= 0:
-                bots.remove(curBot)
-
-            else:
-                # Checking and correcting so the bot doesnt have health over 100
-                if curBot.health > 100:
-                    curBot.health = 100
-
-        for curBot in bots:
-            # Apply health giving logic (health giving does ont have a health toll)
+            # Apply health giving logic (health giving does not have a health toll)
 
             # Checking the eat sensor so it is not below 2.5 (we have already scaled to be under 5 in the regular eat logic)
             if curBot.NNet[4][5] > 2.5:
@@ -388,17 +395,28 @@ def gameLoop():
                             # Telling the current bot that it has eaten
                             curBot.hasEaten(healthGiven)
 
-        for curBot in bots:
+        if isControllingBot:
+            if controlBot >= bots.__len__():
+                if bots[controlBot].health <= 0:
+                    del bots[controlBot]
+                    isControllingBot = False
+                    controlBot = -1
+
+        for i in range(bots.__len__()):
             # Apply health checks again
 
-            # Checking if the bot should be dead/removed
-            if curBot.health < 0:
-                bots.remove(curBot)
+            if i < bots.__len__():
+                curBot = bots[i]
 
-            else:
-                # Checking and correcting so the bot doesnt have health over 100
-                if curBot.health > 100:
-                    curBot.health = 100
+                # Checking if the bot should be dead/removed
+                if curBot.health <= 0:
+                    del bots[i]
+
+
+                else:
+                    # Checking and correcting so the bot doesnt have health over 100
+                    if curBot.health > 100:
+                        curBot.health = 100
 
         for curBot in bots:
             # Apply bot division
@@ -452,7 +470,7 @@ def gameLoop():
 
                 # Drawing the eye range as a circle
                 eyeRange = 100
-                circleRect2 = pygame.draw.circle(curScr, (150, 150, 150), (int(curBot.posX), int(curBot.posY)),
+                circleRect2 = pygame.draw.circle(curScr, (50, 50, 50), (int(curBot.posX), int(curBot.posY)),
                                                  eyeRange // 2,
                                                  2)
 
@@ -486,14 +504,63 @@ def gameLoop():
                 healthRect1 = pygame.Rect(curBot.posX - 13, curBot.posY - 10, 3, int((curBot.health // 10) * 1.25))
                 pygame.draw.rect(curScr,
                                  (
-                                     int((((curBot.health / 100) * -1) + 1) * 255), int((curBot.health / 100) * 255),
+                                     int((((curBot.health / 100) * -1) + 1) * 255 % 256),
+                                     int((curBot.health / 100) * 255 % 256),
                                      int(0)),
                                  healthRect1)
                 updateRects.append(healthRect1)
 
                 shouldDraw = True
 
-        # Drawing the NNet of the most recently selected bot in another window
+        # Drawing the selected bot's NN and parameters
+        if controlBot != -1:
+            drawBot = bots[controlBot]
+
+            # Drawing the input nodes
+            for i in range(30):
+                nodeRect = pygame.draw.circle(curScr, (
+                int((abs(drawBot.NNet[0][i]) * 50) % 255), int((abs(drawBot.NNet[0][i]) * 50) % 255),
+                int((abs(drawBot.NNet[0][i]) * 50) % 255)), (resX + 60 + i * 20, 20), 5)
+                updateRectsNN.append(nodeRect)
+
+            # Drawing the mid nodes
+            for i in range(20):
+                nodeRect = pygame.draw.circle(curScr, (
+                int((abs(drawBot.NNet[2][i]) * 1000 - 200) % 255), int((abs(drawBot.NNet[2][i]) * 1000 - 200) % 255),
+                int((abs(drawBot.NNet[2][i]) * 1000 - 200) % 255)), (resX + 230 + i * 20, 220), 5)
+                updateRectsNN.append(nodeRect)
+
+            # Drawing the out nodes
+            for i in range(11):
+                nodeRect = pygame.draw.circle(curScr, (
+                int((abs(drawBot.NNet[4][i]) * 50) % 255), int((abs(drawBot.NNet[4][i]) * 50) % 255),
+                int((abs(drawBot.NNet[4][i]) * 50) % 255)), (resX + 140 + i * 60, 420), 5)
+                updateRectsNN.append(nodeRect)
+
+            # Drawing all the in-mid node links
+            for i in range(30):
+                for i2 in range(20):
+                    linkRect = pygame.draw.aaline(curScr, (int(abs(drawBot.NNet[0][i] * drawBot.NNet[1][i][i2]) % 255),
+                                                           int(abs(drawBot.NNet[0][i] * drawBot.NNet[1][i][i2]) % 255),
+                                                           int(abs(drawBot.NNet[0][i] * drawBot.NNet[1][i][i2]) % 255)),
+                                                  (resX + 60 + i * 20, 20), (resX + 230 + i2 * 20, 220))
+                    updateRectsNN.append(linkRect)
+
+            # Drawing all the mid-end node links
+            for i in range(20):
+                for i2 in range(11):
+                    linkRect = pygame.draw.aaline(curScr, (
+                    int(abs(drawBot.NNet[2][i] * drawBot.NNet[3][i][i2]) * 50 % 255),
+                    int(abs(drawBot.NNet[2][i] * drawBot.NNet[3][i][i2]) * 50 % 255),
+                    int(abs(drawBot.NNet[2][i] * drawBot.NNet[3][i][i2]) * 50 % 255)), (resX + 230 + i * 20, 220),
+                                                  (resX + 140 + i2 * 60, 420))
+                    updateRectsNN.append(linkRect)
+
+            # Drawing all important values as red text
+            updateRectsNN.append(
+                curScr.blit(smallFont.render(drawBot.displayString(), True, (255, 0, 0)), (resX + 60, 30)))
+
+            shouldDrawNN == True
 
         # Display how many bots are alive (blitting a font render to the curScr)
         curScr.blit(textFont.render((str(bots.__len__())), True, (0, 255, 0)), (0, 0))

@@ -80,12 +80,13 @@ class bitBot:
         self.NNet[0][20] = 2
 
         newBot = bitBot(self.genNr + 1)
+        newBot.NNet[0][20] = 2
 
         newBot.posX = self.posX
         newBot.posY = self.posY
         newBot.velVector = self.velVector
-        newBot.clock1 = random.random()
-        newBot.clock2 = random.random()
+        newBot.clock1 = random.random() * 5
+        newBot.clock2 = random.random() * 5
 
         # Mutates the parent bot's weights
         for i in range(30):
@@ -118,3 +119,6 @@ class bitBot:
 
     def hasEaten(self, amount):
         self.NNet[0][20] -= amount / 100
+
+    def displayString(self):
+        return str(str(round(self.NNet[0][20], 1)) + " | " + str(round(self.health, 1)))

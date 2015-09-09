@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e8550ea8-96af-4010-84f1-3d9d2309eda4" name="Default" comment="Added drag-drop of bots and also user input of max number of bots&#10;Fixed some typos">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitbots/bitBot.py" afterPath="$PROJECT_DIR$/bitbots/bitBot.py" />
+    <list default="true" id="e8550ea8-96af-4010-84f1-3d9d2309eda4" name="Default" comment="Added bot NNet drawing on selected bot">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitbots/Vec2D.py" afterPath="$PROJECT_DIR$/bitbots/Vec2D.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitbots/__init__.py" afterPath="$PROJECT_DIR$/bitbots/__init__.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bitbots/gameLoop.py" afterPath="$PROJECT_DIR$/bitbots/gameLoop.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -39,11 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gameLoop.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="gameLoop.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bitbots/gameLoop.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8398385">
-              <caret line="349" column="60" selection-start-line="349" selection-start-column="60" selection-end-line="349" selection-end-column="60" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="286" column="0" selection-start-line="286" selection-start-column="0" selection-end-line="286" selection-end-column="0" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -51,20 +52,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pydevd.py" pinned="false" current-in-tab="false">
-        <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="2357" column="0" selection-start-line="2357" selection-start-column="0" selection-end-line="2357" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0">
+            <state vertical-scroll-proportion="0.0">
               <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding />
             </state>
@@ -85,7 +76,7 @@
         <entry file="file://$PROJECT_DIR$/bitbots/botMethods.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="117" column="27" selection-start-line="117" selection-start-column="27" selection-end-line="117" selection-end-column="27" />
+              <caret line="32" column="46" selection-start-line="32" selection-start-column="46" selection-end-line="32" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -95,23 +86,20 @@
         <entry file="file://$PROJECT_DIR$/bitbots/bitBot.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="100" column="30" selection-start-line="100" selection-start-column="30" selection-end-line="100" selection-end-column="30" />
+              <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Vec2D.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Vec2D.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bitbots/Vec2D.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.4713217">
+              <caret line="21" column="24" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
               <folding>
                 <element signature="e#50#61#0" expanded="true" />
-                <marker date="1441453093721" expanded="true" signature="92:457" placeholder="..." />
-                <marker date="1441453093721" expanded="true" signature="374:376" placeholder="..." />
-                <marker date="1441453093721" expanded="true" signature="1600:1602" placeholder="..." />
-                <marker date="1441453093721" expanded="true" signature="1744:1746" placeholder="..." />
+                <marker date="1441868479955" expanded="true" signature="92:373" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -148,10 +136,10 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/bitbots/__init__.py" />
         <option value="$PROJECT_DIR$/bitbots/threadWorkers.py" />
-        <option value="$PROJECT_DIR$/bitbots/botMethods.py" />
-        <option value="$PROJECT_DIR$/bitbots/Vec2D.py" />
         <option value="$PROJECT_DIR$/bitbots/bitBot.py" />
+        <option value="$PROJECT_DIR$/bitbots/botMethods.py" />
         <option value="$PROJECT_DIR$/bitbots/gameLoop.py" />
+        <option value="$PROJECT_DIR$/bitbots/Vec2D.py" />
       </list>
     </option>
   </component>
@@ -159,9 +147,9 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="53" />
+    <option name="x" value="51" />
     <option name="y" value="24" />
-    <option name="width" value="1867" />
+    <option name="width" value="1869" />
     <option name="height" value="1056" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
@@ -209,6 +197,8 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -243,8 +233,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -767,26 +755,38 @@
       <option name="project" value="LOCAL" />
       <updated>1441453105703</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Fixing mutation and spike logic">
+      <created>1441527214842</created>
+      <option name="number" value="00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1441527214842</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Added bot NNet drawing on selected bot">
+      <created>1441817046470</created>
+      <option name="number" value="00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1441817046470</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="53" y="24" width="1867" height="1056" extended-state="6" />
-    <editor active="true" />
+    <frame x="51" y="24" width="1869" height="1056" extended-state="6" />
+    <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15747188" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15730338" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20238096" sideWeight="0.5163364" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2559524" sideWeight="0.49812534" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17460318" sideWeight="0.5270198" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24305555" sideWeight="0.6175683" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20238096" sideWeight="0.48366362" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17460318" sideWeight="0.4729802" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3184524" sideWeight="0.8366363" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2559524" sideWeight="0.49812534" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -808,8 +808,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Simplified boolean expressions" />
-    <MESSAGE value="Fixing actuator clamping&#10;Implementing bot division and mutating" />
     <MESSAGE value="Change bot division to inherit parent health&#10;Change division requirement to also require health to be above 50" />
     <MESSAGE value="Implemented position clamping" />
     <MESSAGE value="Implemented extremely basic graphics" />
@@ -833,7 +831,9 @@
     <MESSAGE value="Gave up parallelization&#10;Reverted to previous state with some improvements" />
     <MESSAGE value="increase clock power by one order of magnitude" />
     <MESSAGE value="Added drag-drop of bots and also user input of max number of bots&#10;Fixed some typos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added drag-drop of bots and also user input of max number of bots&#10;Fixed some typos" />
+    <MESSAGE value="Fixing mutation and spike logic" />
+    <MESSAGE value="Added bot NNet drawing on selected bot" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added bot NNet drawing on selected bot" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -882,10 +882,7 @@
           <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
           <folding>
             <element signature="e#50#61#0" expanded="true" />
-            <marker date="1441453093721" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="1600:1602" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="1744:1746" placeholder="..." />
+            <marker date="1441868479955" expanded="true" signature="92:373" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -946,10 +943,7 @@
           <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
           <folding>
             <element signature="e#50#61#0" expanded="true" />
-            <marker date="1441453093721" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="1600:1602" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="1744:1746" placeholder="..." />
+            <marker date="1441868479955" expanded="true" signature="92:373" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1010,10 +1004,7 @@
           <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
           <folding>
             <element signature="e#50#61#0" expanded="true" />
-            <marker date="1441453093721" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="1600:1602" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="1744:1746" placeholder="..." />
+            <marker date="1441868479955" expanded="true" signature="92:373" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1074,10 +1065,7 @@
           <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
           <folding>
             <element signature="e#50#61#0" expanded="true" />
-            <marker date="1441453093721" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="1600:1602" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="1744:1746" placeholder="..." />
+            <marker date="1441868479955" expanded="true" signature="92:373" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1088,10 +1076,7 @@
           <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding>
             <element signature="e#50#61#0" expanded="true" />
-            <marker date="1441453093721" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="1600:1602" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="1744:1746" placeholder="..." />
+            <marker date="1441868479955" expanded="true" signature="92:373" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1120,10 +1105,7 @@
           <caret line="25" column="38" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
           <folding>
             <element signature="e#50#61#0" expanded="true" />
-            <marker date="1441453093721" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="1600:1602" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="1744:1746" placeholder="..." />
+            <marker date="1441868479955" expanded="true" signature="92:373" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1152,10 +1134,7 @@
           <caret line="25" column="38" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
           <folding>
             <element signature="e#50#61#0" expanded="true" />
-            <marker date="1441453093721" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="1600:1602" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="1744:1746" placeholder="..." />
+            <marker date="1441868479955" expanded="true" signature="92:373" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1174,10 +1153,7 @@
           <caret line="25" column="38" selection-start-line="25" selection-start-column="38" selection-end-line="25" selection-end-column="38" />
           <folding>
             <element signature="e#50#61#0" expanded="true" />
-            <marker date="1441453093721" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="1600:1602" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="1744:1746" placeholder="..." />
+            <marker date="1441868479955" expanded="true" signature="92:373" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1196,10 +1172,7 @@
           <caret line="48" column="19" selection-start-line="48" selection-start-column="19" selection-end-line="48" selection-end-column="19" />
           <folding>
             <element signature="e#50#61#0" expanded="true" />
-            <marker date="1441453093721" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="1600:1602" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="1744:1746" placeholder="..." />
+            <marker date="1441868479955" expanded="true" signature="92:373" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1218,10 +1191,7 @@
           <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
           <folding>
             <element signature="e#50#61#0" expanded="true" />
-            <marker date="1441453093721" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="1600:1602" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="1744:1746" placeholder="..." />
+            <marker date="1441868479955" expanded="true" signature="92:373" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1262,26 +1232,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bitbots/botMethods.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="117" column="27" selection-start-line="117" selection-start-column="27" selection-end-line="117" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitattributes">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2357" column="0" selection-start-line="2357" selection-start-column="0" selection-end-line="2357" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1294,34 +1248,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bitbots/Vec2D.py">
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
-          <folding>
-            <element signature="e#50#61#0" expanded="true" />
-            <marker date="1441453093721" expanded="true" signature="92:457" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="374:376" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="1600:1602" placeholder="..." />
-            <marker date="1441453093721" expanded="true" signature="1744:1746" placeholder="..." />
-          </folding>
+        <state vertical-scroll-proportion="0.71984434">
+          <caret line="2357" column="0" selection-start-line="2357" selection-start-column="0" selection-end-line="2357" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bitbots/bitBot.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="100" column="30" selection-start-line="100" selection-start-column="30" selection-end-line="100" selection-end-column="30" />
+          <caret line="23" column="28" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bitbots/botMethods.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="32" column="46" selection-start-line="32" selection-start-column="46" selection-end-line="32" selection-end-column="46" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bitbots/gameLoop.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8398385">
-          <caret line="349" column="60" selection-start-line="349" selection-start-column="60" selection-end-line="349" selection-end-column="60" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="286" column="0" selection-start-line="286" selection-start-column="0" selection-end-line="286" selection-end-column="0" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bitbots/Vec2D.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4713217">
+          <caret line="21" column="24" selection-start-line="21" selection-start-column="24" selection-end-line="21" selection-end-column="24" />
+          <folding>
+            <element signature="e#50#61#0" expanded="true" />
+            <marker date="1441868479955" expanded="true" signature="92:373" placeholder="..." />
           </folding>
         </state>
       </provider>

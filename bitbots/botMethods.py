@@ -30,7 +30,7 @@ def makeBots(numBots, isGridMode, resX, resY, genNr):
 
 def midNodeFunction(nodeToUse):
     # This is a scaling function / sigmoid function, it may have to be changed in the future
-    nodeToUse /= sqrt(1 + nodeToUse ** 2)
+    nodeToUse /= (sqrt(1 + nodeToUse ** 2)) * 2
     return nodeToUse
 
 

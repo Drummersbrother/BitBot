@@ -12,7 +12,7 @@ class Vec2D:
         self.x = inx
         self.y = iny
 
-    def getMagnitude(self) -> float:
+    def getMagnitude(self):
         return math.sqrt((float(self.x) ** 2.0) + (float(self.y) ** 2.0))
 
     def getAddedTo(self, other):
@@ -65,11 +65,11 @@ class Vec2D:
     def setY(self, Y):
         self.y = Y
 
-    def getDotProductTo(self, other) -> float:
+    def getDotProductTo(self, other):
         dotProduct = (self.x * other.x) + (self.y * other.y)
         return dotProduct
 
-    def getDotProductFromUnitVec(self, other) -> float:
+    def getDotProductFromUnitVec(self, other):
         selfMag = self.getMagnitude()
         otherMag = other.getMagnitude()
         dotProduct = ((self.x / selfMag) * (other.x / otherMag)) + ((self.y / selfMag) * (other.y / otherMag))
