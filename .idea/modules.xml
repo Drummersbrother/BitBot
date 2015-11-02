@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../HMA/.idea/HMA.iml" filepath="$PROJECT_DIR$/../HMA/.idea/HMA.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Python Files.iml" filepath="$PROJECT_DIR$/.idea/Python Files.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../usb-serial-test/.idea/usb-serial-test.iml" filepath="$PROJECT_DIR$/../usb-serial-test/.idea/usb-serial-test.iml" />
     </modules>
   </component>
 </project>
