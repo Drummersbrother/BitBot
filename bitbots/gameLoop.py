@@ -1,23 +1,71 @@
-import sys
-
-from Vec2D import Vec2D
-
 __author__ = 'FamiljensMONSTER'
 # encoding: utf-8
+import os
 import random
+import sys
 
-import pygame
 import numpy as np
+import pygame
 
+from bitbots import Vec2D
 from bitbots import botMethods
 
-# Taking and storing input
-# It only accepts valid input
-useDefSettings = input("Use default settings?")
+
+# Method for loading (de-serializing via pickle) a saved simulation
+def loadSim() -> bool:
+    # The directory we are in
+    path = os.path.dirname(os.path.realpath(__file__))
+
+    # This will be used to check if the user should choose a new subdirectory to check
+    newSubDir = True
+
+    while newSubDir:
+        # TODO list possible subdirectories so the user can choose without knowing the internal dir structure of the program
+        # Asking the user what subdirectory they want to look for savefiles in
+        subDir = input("Please input save directory. Default is '/simsaves', use \\DIRNAME if you are on windows.")
+        print()
+
+        # Checking if the user-specified directory exists and is a directory
+
+        # Listing all the files in the user-specified subdirectory
+        filenames = next(os.walk(path + subDir))[2]
+
+        # Removing all the filenames that dont end with ".bbs"
+        for file in filenames:
+            if file.endswith(".bbs"):
+                filenames.remove(file)
+
+        # Printing the number of files in the specified directory that conform to "*.bbs" (ok thats not a real regexp but idc).
+        print("Found %d savefiles (*.bbs) in %s:" % (filenames.__len__(), path))
+
+        # Printing all the files that conform to the "*.bbs" pattern
+        for file in filenames:
+            print("\t%s" % file)
+
+            # Asking the user what file they want to load
+
+
+# Checking if the user wants to use a saved simulation
+useSavedSim = input("Load a saved simulation?")
+print()
+
+while not (useSavedSim.lower() == "y" or useSavedSim.lower() == "n"):
+    useSavedSim = input("Load a saved simulation?")
+    print()
+
+if useSavedSim.lower() == "y":
+    # We will try to load a saved simulation and if we cant we will just pretend that the user didnt want to use one
+    loadSim()
+else:
+    # We are not going to use a saved simulation
+    useSavedSim = False
+
+# Checking if the user wants to use the default settings
+useDefSettings = input("Use default settings? y/n")
 print()
 
 while not ((useDefSettings == "Y" or useDefSettings == "N") or (useDefSettings == "y" or useDefSettings == "n")):
-    useDefSettings = input("Use default settings?")
+    useDefSettings = input("Use default settings? y/n")
     print()
 
 if (useDefSettings == "N") or (useDefSettings == "n"):
@@ -25,11 +73,12 @@ if (useDefSettings == "N") or (useDefSettings == "n"):
 else:
     useDefSettings = True
 
-drawFood = input("Draw food?")
+# Checking if the user wants to draw the food grid
+drawFood = input("Draw food? y/n")
 print()
 
 while not ((drawFood == "Y" or drawFood == "N") or (drawFood == "y" or drawFood == "n")):
-    drawFood = input("Draw food?")
+    drawFood = input("Draw food? y/n")
     print()
 
 if (drawFood == "N") or (drawFood == "n"):
@@ -38,6 +87,8 @@ else:
     drawFood = True
 
 if not useDefSettings:
+
+    # Asking the user about what resolution the simulation should be run at, both dimensions must be multiples of 50 (X % 50 == 0 && Y % 50 == 0) because of the food grid having 50*50 tiles
     resX = input("X resolution? (must be  multiple of 50)")
     print()
     while not resX.isdigit() or (not float(resX) > 0) or (not float(resX) % 50 == 0):
@@ -73,11 +124,11 @@ if not useDefSettings:
         maxBots = input("What should be the maximum amount of bots that can exist?")
         print()
 
-    isGridMode = input("Should they be spawned in a grid pattern? Y/N")
+    isGridMode = input("Should they be spawned in a grid pattern? y/n")
     print()
 
     while not ((isGridMode == "Y" or isGridMode == "N") or (isGridMode == "y" or isGridMode == "n")):
-        isGridMode = input("Should they be spawned in a grid pattern? Y/N")
+        isGridMode = input("Should they be spawned in a grid pattern? y/n")
         print()
 
     if isGridMode == "Y" or isGridMode == "y":
@@ -125,6 +176,7 @@ def gameLoop():
     global maxBots
     global shouldDrawNN
     global frameDivider
+    global useSavedSim
 
     frameDivider = float(frameDivider)
     shouldDrawNN = True
@@ -342,7 +394,7 @@ def gameLoop():
 
                             # Checking if the current bot can damage the current spike bot (range within 50 and dot product less than 0.75)
                             if (relVector.getMagnitude() < (scaledSensor * 50)) and (
-                                curBot.velVector.getDotProductFromUnitVec(relVector) > 0.75):
+                                        curBot.velVector.getDotProductFromUnitVec(relVector) > 0.75):
                                 # Apply the damage
                                 curSpikeBot.health -= scaledSensor
                                 curBot.health += scaledSensor
@@ -457,9 +509,9 @@ def gameLoop():
         if drawFood and tick % frameDivider == 0:
             for index, curVal in np.ndenumerate(foodArray):
                 updateRects.append(
-                    pygame.draw.rect(curScr, ((curVal / 100) * 255, (curVal / 100) * 255, (curVal / 100) * 255),
-                                     pygame.Rect(index[0] * 50, index[1] * 50, (index[0] * 50) + 50,
-                                                 (index[1] * 50) + 50)))
+                        pygame.draw.rect(curScr, ((curVal / 100) * 255, (curVal / 100) * 255, (curVal / 100) * 255),
+                                         pygame.Rect(index[0] * 50, index[1] * 50, (index[0] * 50) + 50,
+                                                     (index[1] * 50) + 50)))
 
         if tick % frameDivider == 0:
             for curBot in bots:
@@ -519,22 +571,23 @@ def gameLoop():
             # Drawing the input nodes
             for i in range(30):
                 nodeRect = pygame.draw.circle(curScr, (
-                int((abs(drawBot.NNet[0][i]) * 50) % 255), int((abs(drawBot.NNet[0][i]) * 50) % 255),
-                int((abs(drawBot.NNet[0][i]) * 50) % 255)), (resX + 60 + i * 20, 20), 5)
+                    int((abs(drawBot.NNet[0][i]) * 50) % 255), int((abs(drawBot.NNet[0][i]) * 50) % 255),
+                    int((abs(drawBot.NNet[0][i]) * 50) % 255)), (resX + 60 + i * 20, 20), 5)
                 updateRectsNN.append(nodeRect)
 
             # Drawing the mid nodes
             for i in range(20):
                 nodeRect = pygame.draw.circle(curScr, (
-                int((abs(drawBot.NNet[2][i]) * 1000 - 200) % 255), int((abs(drawBot.NNet[2][i]) * 1000 - 200) % 255),
-                int((abs(drawBot.NNet[2][i]) * 1000 - 200) % 255)), (resX + 230 + i * 20, 220), 5)
+                    int((abs(drawBot.NNet[2][i]) * 1000 - 200) % 255),
+                    int((abs(drawBot.NNet[2][i]) * 1000 - 200) % 255),
+                    int((abs(drawBot.NNet[2][i]) * 1000 - 200) % 255)), (resX + 230 + i * 20, 220), 5)
                 updateRectsNN.append(nodeRect)
 
             # Drawing the out nodes
             for i in range(11):
                 nodeRect = pygame.draw.circle(curScr, (
-                int((abs(drawBot.NNet[4][i]) * 50) % 255), int((abs(drawBot.NNet[4][i]) * 50) % 255),
-                int((abs(drawBot.NNet[4][i]) * 50) % 255)), (resX + 140 + i * 60, 420), 5)
+                    int((abs(drawBot.NNet[4][i]) * 50) % 255), int((abs(drawBot.NNet[4][i]) * 50) % 255),
+                    int((abs(drawBot.NNet[4][i]) * 50) % 255)), (resX + 140 + i * 60, 420), 5)
                 updateRectsNN.append(nodeRect)
 
             # Drawing all the in-mid node links
@@ -550,15 +603,15 @@ def gameLoop():
             for i in range(20):
                 for i2 in range(11):
                     linkRect = pygame.draw.aaline(curScr, (
-                    int(abs(drawBot.NNet[2][i] * drawBot.NNet[3][i][i2]) * 50 % 255),
-                    int(abs(drawBot.NNet[2][i] * drawBot.NNet[3][i][i2]) * 50 % 255),
-                    int(abs(drawBot.NNet[2][i] * drawBot.NNet[3][i][i2]) * 50 % 255)), (resX + 230 + i * 20, 220),
+                        int(abs(drawBot.NNet[2][i] * drawBot.NNet[3][i][i2]) * 50 % 255),
+                        int(abs(drawBot.NNet[2][i] * drawBot.NNet[3][i][i2]) * 50 % 255),
+                        int(abs(drawBot.NNet[2][i] * drawBot.NNet[3][i][i2]) * 50 % 255)), (resX + 230 + i * 20, 220),
                                                   (resX + 140 + i2 * 60, 420))
                     updateRectsNN.append(linkRect)
 
             # Drawing all important values as red text
             updateRectsNN.append(
-                curScr.blit(smallFont.render(drawBot.displayString(), True, (255, 0, 0)), (resX + 60, 30)))
+                    curScr.blit(smallFont.render(drawBot.displayString(), True, (255, 0, 0)), (resX + 60, 30)))
 
             shouldDrawNN == True
 

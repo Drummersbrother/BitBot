@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../HMA/.idea/HMA.iml" filepath="$PROJECT_DIR$/../HMA/.idea/HMA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Basic Mail (non-git)/.idea/Basic Mail (non-git).iml" filepath="$PROJECT_DIR$/../Basic Mail (non-git)/.idea/Basic Mail (non-git).iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Python Files.iml" filepath="$PROJECT_DIR$/.idea/Python Files.iml" />
     </modules>
   </component>
