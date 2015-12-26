@@ -4,6 +4,11 @@ import os
 import random
 import sys
 
+try:
+    import cPickle as pickle
+except:
+    import pickle
+
 import numpy as np
 import pygame
 
@@ -12,37 +17,99 @@ from bitbots import botMethods
 
 
 # Method for loading (de-serializing via pickle) a saved simulation
-def loadSim() -> bool:
+def loadSim():
     # The directory we are in
     path = os.path.dirname(os.path.realpath(__file__))
 
-    # This will be used to check if the user should choose a new subdirectory to check
-    newSubDir = True
+    # Infinite loop because there is no code after it and we can break out by returning something
+    while True:
+        # Storing all the subdirectories to the root dir
+        subDirs = next(os.walk('.'))[1]
 
-    while newSubDir:
-        # TODO list possible subdirectories so the user can choose without knowing the internal dir structure of the program
-        # Asking the user what subdirectory they want to look for savefiles in
-        subDir = input("Please input save directory. Default is '/simsaves', use \\DIRNAME if you are on windows.")
+        # Printing how many subdirectories we found and the names of all the subdirectories
+        print("Found %d subdirectories in %s:" % (subDirs.__len__(), path))
+        for curSubDir in subDirs:
+            print("\t%s" % curSubDir)
         print()
 
-        # Checking if the user-specified directory exists and is a directory
+        # Asking the user what subdirectory they want to look for savefiles in
+        subDir = input("Please input save directory. Default is '/simsaves', use '\\DIRNAME' if you are on windows.")
+        print()
 
-        # Listing all the files in the user-specified subdirectory
+        # Checking if the user-specified directory exists and is a directory, if it does not pass then we will continue/redo the loop
+        if not os.path.isdir(path + subDir):
+            print("The path %s%s is not a directory or doesnt exist." % (path, subDir))
+            continue
+
+        # Putting all the files in the user-specified subdirectory in a list
         filenames = next(os.walk(path + subDir))[2]
 
         # Removing all the filenames that dont end with ".bbs"
         for file in filenames:
-            if file.endswith(".bbs"):
+            if not file.endswith(".bbs"):
                 filenames.remove(file)
 
-        # Printing the number of files in the specified directory that conform to "*.bbs" (ok thats not a real regexp but idc).
+        # Printing the number of files in the specified directory that conform to "*.bbs"
         print("Found %d savefiles (*.bbs) in %s:" % (filenames.__len__(), path))
 
         # Printing all the files that conform to the "*.bbs" pattern
         for file in filenames:
             print("\t%s" % file)
+        print()
 
-            # Asking the user what file they want to load
+        # Asking the user if they want to choose a file in the previously specified subdirectory
+        if input("Do you want to load a file in this directory? y/n").lower() == "n":
+            print()
+            # The user doesnt want to choose a file in the subdirectory they specified, so we ask them if they want to load a save file at all
+            if input("Do you want to use another subdirectory? y/n").lower() == "y":
+                # We just continue/redo the loop
+                print()
+                continue
+            else:
+                # We skip using save files at all, so we return False.
+                print()
+                print("Will now use regular settings instead of saved simulation.")
+                print()
+                return False
+        else:
+            print()
+
+            # This will be used to check if the user has specified a valid filename to load
+            newFile = True
+
+            while newFile:
+                # Asking the user what file they want to load
+                fileToLoad = input("Please input saved simulation name")
+
+                # TODO Fix file validation checking and loading so that it works on non-unix-like OSes
+                # Checking if the file is in the list of filenames, is a file, and then checking if it exists to reduce race conditions
+                if fileToLoad in filenames:
+                    if os.path.exists(path + subDir) and os.path.isfile(path + subDir + "/" + fileToLoad):
+
+                        print()
+                        print("Will now load %s" % path + subDir + "/" + fileToLoad)
+
+                        # Loading the file (via pickle)
+                        pickleIn = open(path + subDir + "/" + fileToLoad, "rb")
+                        loadedFile = pickle.load(pickleIn)
+                        pickleIn.close()
+
+                        # Return the loaded file
+                        return loadedFile
+                    else:
+                        # Giving the user an error message
+                        print("The file %s did not exist in %s or is not a file." % (fileToLoad, path + subDir))
+                        print()
+                else:
+                    # Giving the user an error message
+                    print("The file %s did not exist in %s or is not a file." % (fileToLoad, path + subDir))
+                    print()
+
+                # Asking the user if they want to choose another file, if they dont we will go to the subdirectory choosing loop
+                if input("Do you want to choose another file in this directory? y/n").lower() == "y":
+                    continue
+                else:
+                    newFile = False
 
 
 # Checking if the user wants to use a saved simulation
@@ -55,101 +122,106 @@ while not (useSavedSim.lower() == "y" or useSavedSim.lower() == "n"):
 
 if useSavedSim.lower() == "y":
     # We will try to load a saved simulation and if we cant we will just pretend that the user didnt want to use one
-    loadSim()
+    saveFile = loadSim()
+    if saveFile == False:
+        useSavedSim = False
+    else:
+        useSavedSim = True
 else:
     # We are not going to use a saved simulation
     useSavedSim = False
 
-# Checking if the user wants to use the default settings
-useDefSettings = input("Use default settings? y/n")
-print()
-
-while not ((useDefSettings == "Y" or useDefSettings == "N") or (useDefSettings == "y" or useDefSettings == "n")):
+if not useSavedSim:
+    # Checking if the user wants to use the default settings
     useDefSettings = input("Use default settings? y/n")
     print()
 
-if (useDefSettings == "N") or (useDefSettings == "n"):
-    useDefSettings = False
-else:
-    useDefSettings = True
+    while not ((useDefSettings == "Y" or useDefSettings == "N") or (useDefSettings == "y" or useDefSettings == "n")):
+        useDefSettings = input("Use default settings? y/n")
+        print()
 
-# Checking if the user wants to draw the food grid
-drawFood = input("Draw food? y/n")
-print()
+    if (useDefSettings == "N") or (useDefSettings == "n"):
+        useDefSettings = False
+    else:
+        useDefSettings = True
 
-while not ((drawFood == "Y" or drawFood == "N") or (drawFood == "y" or drawFood == "n")):
+    # Checking if the user wants to draw the food grid
     drawFood = input("Draw food? y/n")
     print()
 
-if (drawFood == "N") or (drawFood == "n"):
-    drawFood = False
-else:
-    drawFood = True
+    while not ((drawFood == "Y" or drawFood == "N") or (drawFood == "y" or drawFood == "n")):
+        drawFood = input("Draw food? y/n")
+        print()
 
-if not useDefSettings:
+    if (drawFood == "N") or (drawFood == "n"):
+        drawFood = False
+    else:
+        drawFood = True
 
-    # Asking the user about what resolution the simulation should be run at, both dimensions must be multiples of 50 (X % 50 == 0 && Y % 50 == 0) because of the food grid having 50*50 tiles
-    resX = input("X resolution? (must be  multiple of 50)")
-    print()
-    while not resX.isdigit() or (not float(resX) > 0) or (not float(resX) % 50 == 0):
+    if not useDefSettings:
+
+        # Asking the user about what resolution the simulation should be run at, both dimensions must be multiples of 50 (X % 50 == 0 && Y % 50 == 0) because of the food grid having 50*50 tiles
         resX = input("X resolution? (must be  multiple of 50)")
         print()
+        while not resX.isdigit() or (not float(resX) > 0) or (not float(resX) % 50 == 0):
+            resX = input("X resolution? (must be  multiple of 50)")
+            print()
 
-    resY = input("Y resolution? (must be  multiple of 50)")
-    print()
-    while not resY.isdigit() or (not float(resY) > 0) or (not float(resY) % 50 == 0):
         resY = input("Y resolution? (must be  multiple of 50)")
         print()
+        while not resY.isdigit() or (not float(resY) > 0) or (not float(resY) % 50 == 0):
+            resY = input("Y resolution? (must be  multiple of 50)")
+            print()
 
-    # Converting the resolution variables to be ints and not strings
-    resX = int(resX)
-    resY = int(resY)
-    # Just checking and correcting resolution so it is not below 200x200
-    if resX < 200:
-        resX = 200
-    if resY < 200:
-        resY = 200
+        # Converting the resolution variables to be ints and not strings
+        resX = int(resX)
+        resY = int(resY)
+        # Just checking and correcting resolution so it is not below 200x200
+        if resX < 200:
+            resX = 200
+        if resY < 200:
+            resY = 200
 
-    numBots = input("How many bitbots should exist?")
-    print()
-
-    while not numBots.isdigit() or (not float(numBots) > 0):
         numBots = input("How many bitbots should exist?")
         print()
 
-    maxBots = input("What should be the maximum amount of bots that can exist?")
-    print()
+        while not numBots.isdigit() or (not float(numBots) > 0):
+            numBots = input("How many bitbots should exist?")
+            print()
 
-    while not maxBots.isdigit() or (not float(maxBots) > 0):
         maxBots = input("What should be the maximum amount of bots that can exist?")
         print()
 
-    isGridMode = input("Should they be spawned in a grid pattern? y/n")
-    print()
+        while not maxBots.isdigit() or (not float(maxBots) > 0):
+            maxBots = input("What should be the maximum amount of bots that can exist?")
+            print()
 
-    while not ((isGridMode == "Y" or isGridMode == "N") or (isGridMode == "y" or isGridMode == "n")):
         isGridMode = input("Should they be spawned in a grid pattern? y/n")
         print()
 
-    if isGridMode == "Y" or isGridMode == "y":
-        isGridMode = True
-    else:
-        isGridMode = False
+        while not ((isGridMode == "Y" or isGridMode == "N") or (isGridMode == "y" or isGridMode == "n")):
+            isGridMode = input("Should they be spawned in a grid pattern? y/n")
+            print()
 
-    frameDivider = input("How many ticks per draw frame should there be?")
-    print()
+        if isGridMode == "Y" or isGridMode == "y":
+            isGridMode = True
+        else:
+            isGridMode = False
 
-    while not frameDivider.isdigit() or (not float(frameDivider) > 0):
         frameDivider = input("How many ticks per draw frame should there be?")
         print()
 
-else:
-    isGridMode = False
-    resX = 1000
-    resY = 700
-    numBots = 50
-    maxBots = 200
-    frameDivider = 1
+        while not frameDivider.isdigit() or (not float(frameDivider) > 0):
+            frameDivider = input("How many ticks per draw frame should there be?")
+            print()
+
+    else:
+        isGridMode = False
+        resX = 1000
+        resY = 700
+        numBots = 50
+        maxBots = 200
+        frameDivider = 1
 
 pygame.init()
 
@@ -162,6 +234,7 @@ pygame.display.set_caption("Bitbots")
 
 # Setting up, initializing and storing the bitbots
 bots = botMethods.makeBots(numBots, isGridMode, resX, resY, 0)
+
 
 def gameLoop():
     # Making some variables global
@@ -177,6 +250,9 @@ def gameLoop():
     global shouldDrawNN
     global frameDivider
     global useSavedSim
+    global saveFile
+
+    # TODO check if we should use a saved simulation and load it
 
     frameDivider = float(frameDivider)
     shouldDrawNN = True
@@ -642,6 +718,7 @@ def gameLoop():
 
     if shouldExit:
         print("Bitbots will now exit")
+        # TODO save the simulation if the user wants to
         pygame.quit()
         sys.exit()
         print("Bitbots has now exited")
