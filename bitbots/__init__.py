@@ -3,4 +3,4 @@ __author__ = 'FamiljensMONSTER'
 from bitbots import gameLoop
 
 if __name__ == "__main__":
-    gameLoop()
+    gameLoop.gameLoop()

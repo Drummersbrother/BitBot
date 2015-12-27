@@ -21,6 +21,9 @@ def loadSim():
     # The directory we are in
     path = os.path.dirname(os.path.realpath(__file__))
 
+    # Directory separator so we can have cross-platform compatibility
+    dirSep = os.sep
+
     # Infinite loop because there is no code after it and we can break out by returning something
     while True:
         # Storing all the subdirectories to the root dir
@@ -32,8 +35,8 @@ def loadSim():
             print("\t%s" % curSubDir)
         print()
 
-        # Asking the user what subdirectory they want to look for savefiles in
-        subDir = input("Please input save directory. Default is '/simsaves', use '\\DIRNAME' if you are on windows.")
+        # Asking the user what subdirectory they want to look for savefiles in. We use the OS dir sep (os.sep) so we dont have to care about specific OS
+        subDir = dirSep + input("Please input save directory. Default is 'simsaves'.")
         print()
 
         # Checking if the user-specified directory exists and is a directory, if it does not pass then we will continue/redo the loop
@@ -44,13 +47,13 @@ def loadSim():
         # Putting all the files in the user-specified subdirectory in a list
         filenames = next(os.walk(path + subDir))[2]
 
-        # Removing all the filenames that dont end with ".bbs"
-        for file in filenames:
+        # Removing all the filenames that dont end with ".bbs", note the use of [:] (list slice that covers the whole list) which makes the loop loop through a shallow copy of the list whilst removing the values from the real list. Using [:] prevents the loop from prematurely stopping without having processed all the entries.
+        for file in filenames[:]:
             if not file.endswith(".bbs"):
                 filenames.remove(file)
 
         # Printing the number of files in the specified directory that conform to "*.bbs"
-        print("Found %d savefiles (*.bbs) in %s:" % (filenames.__len__(), path))
+        print("Found %d savefiles (*.bbs) in %s:" % (filenames.__len__(), path + subDir))
 
         # Printing all the files that conform to the "*.bbs" pattern
         for file in filenames:
@@ -81,16 +84,15 @@ def loadSim():
                 # Asking the user what file they want to load
                 fileToLoad = input("Please input saved simulation name")
 
-                # TODO Fix file validation checking and loading so that it works on non-unix-like OSes
                 # Checking if the file is in the list of filenames, is a file, and then checking if it exists to reduce race conditions
                 if fileToLoad in filenames:
-                    if os.path.exists(path + subDir) and os.path.isfile(path + subDir + "/" + fileToLoad):
+                    if os.path.exists(path + subDir) and os.path.isfile(path + subDir + dirSep + fileToLoad):
 
                         print()
-                        print("Will now load %s" % path + subDir + "/" + fileToLoad)
+                        print("Will now load %s" % path + subDir + dirSep + fileToLoad)
 
                         # Loading the file (via pickle)
-                        pickleIn = open(path + subDir + "/" + fileToLoad, "rb")
+                        pickleIn = open(path + subDir + dirSep + fileToLoad, "rb")
                         loadedFile = pickle.load(pickleIn)
                         pickleIn.close()
 
@@ -123,7 +125,7 @@ while not (useSavedSim.lower() == "y" or useSavedSim.lower() == "n"):
 if useSavedSim.lower() == "y":
     # We will try to load a saved simulation and if we cant we will just pretend that the user didnt want to use one
     saveFile = loadSim()
-    if saveFile == False:
+    if not saveFile:
         useSavedSim = False
     else:
         useSavedSim = True
@@ -368,7 +370,8 @@ def gameLoop():
                         # Looping through all the bots to find a bot that the user can select (this has inconsistencies based on list order in some cases)
                         for i in range(bots.__len__()):
                             # The distance between the click position and the bot position
-                            botDist = Vec2D(bots[i].posX - event.pos[0], bots[i].posY - event.pos[1]).getMagnitude()
+                            botDist = Vec2D.Vec2D(bots[i].posX - event.pos[0],
+                                                  bots[i].posY - event.pos[1]).getMagnitude()
 
                             # Checking the current bot to see if it is the closest bot to the click pos
                             if botDist <= closestBotDist:
@@ -393,7 +396,7 @@ def gameLoop():
             healthDecrease = 0.001
 
             # Calculate direction vector based on the ratio of left to right output from the NN
-            workVector = Vec2D()
+            workVector = Vec2D.Vec2D()
             workVector.setX(0)
             workVector.setY(0)
 
@@ -463,7 +466,7 @@ def gameLoop():
                     if curSpikeBot != curBot:
 
                         # Setting up a vector that points from the current vector to the current spike bot
-                        relVector = Vec2D(curSpikeBot.posX - curBot.posX, curSpikeBot.posY - curBot.posY)
+                        relVector = Vec2D.Vec2D(curSpikeBot.posX - curBot.posX, curSpikeBot.posY - curBot.posY)
 
                         # We dont want any division by zero
                         if relVector.getMagnitude() != 0:
@@ -689,7 +692,7 @@ def gameLoop():
             updateRectsNN.append(
                     curScr.blit(smallFont.render(drawBot.displayString(), True, (255, 0, 0)), (resX + 60, 30)))
 
-            shouldDrawNN == True
+            shouldDrawNN = True
 
         # Display how many bots are alive (blitting a font render to the curScr)
         curScr.blit(textFont.render((str(bots.__len__())), True, (0, 255, 0)), (0, 0))
@@ -720,5 +723,5 @@ def gameLoop():
         print("Bitbots will now exit")
         # TODO save the simulation if the user wants to
         pygame.quit()
-        sys.exit()
         print("Bitbots has now exited")
+        sys.exit()
