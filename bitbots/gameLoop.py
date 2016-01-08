@@ -30,18 +30,18 @@ def loadSim():
         subDirs = next(os.walk('.'))[1]
 
         # Printing how many subdirectories we found and the names of all the subdirectories
-        print("Found %d subdirectories in %s:" % (subDirs.__len__(), path))
+        print("Found %d subdirectories in '%s':" % (subDirs.__len__(), path))
         for curSubDir in subDirs:
             print("\t%s" % curSubDir)
         print()
 
         # Asking the user what subdirectory they want to look for savefiles in. We use the OS dir sep (os.sep) so we dont have to care about specific OS
-        subDir = dirSep + input("Please input save directory. Default is 'simsaves'.")
+        subDir = dirSep + input("Please input save directory. Default is 'simsaves'. ")
         print()
 
         # Checking if the user-specified directory exists and is a directory, if it does not pass then we will continue/redo the loop
         if not os.path.isdir(path + subDir):
-            print("The path %s%s is not a directory or doesnt exist." % (path, subDir))
+            print("The path '%s%s' is not a directory or doesn't exist." % (path, subDir))
             continue
 
         # Putting all the files in the user-specified subdirectory in a list
@@ -53,7 +53,7 @@ def loadSim():
                 filenames.remove(file)
 
         # Printing the number of files in the specified directory that conform to "*.bbs"
-        print("Found %d savefiles (*.bbs) in %s:" % (filenames.__len__(), path + subDir))
+        print("Found %d savefiles (*.bbs) in '%s':" % (filenames.__len__(), path + subDir))
 
         # Printing all the files that conform to the "*.bbs" pattern
         for file in filenames:
@@ -61,10 +61,10 @@ def loadSim():
         print()
 
         # Asking the user if they want to choose a file in the previously specified subdirectory
-        if input("Do you want to load a file in this directory? y/n").lower() == "n":
+        if input("Do you want to load a file in this directory? y/n ").lower() == "n":
             print()
             # The user doesnt want to choose a file in the subdirectory they specified, so we ask them if they want to load a save file at all
-            if input("Do you want to use another subdirectory? y/n").lower() == "y":
+            if input("Do you want to use another subdirectory? y/n ").lower() == "y":
                 # We just continue/redo the loop
                 print()
                 continue
@@ -82,14 +82,14 @@ def loadSim():
 
             while newFile:
                 # Asking the user what file they want to load
-                fileToLoad = input("Please input saved simulation name")
+                fileToLoad = input("Please input saved simulation name ")
 
                 # Checking if the file is in the list of filenames, is a file, and then checking if it exists to reduce race conditions
-                if fileToLoad in filenames:
+                if filenames.__contains__(fileToLoad):
                     if os.path.exists(path + subDir) and os.path.isfile(path + subDir + dirSep + fileToLoad):
 
                         print()
-                        print("Will now load %s" % path + subDir + dirSep + fileToLoad)
+                        print("Will now load '%s'" % path + subDir + dirSep + fileToLoad)
 
                         # Loading the file (via pickle)
                         pickleIn = open(path + subDir + dirSep + fileToLoad, "rb")
@@ -100,26 +100,26 @@ def loadSim():
                         return loadedFile
                     else:
                         # Giving the user an error message
-                        print("The file %s did not exist in %s or is not a file." % (fileToLoad, path + subDir))
+                        print("The file '%s' did not exist in '%s' or is not a file." % (fileToLoad, path + subDir))
                         print()
                 else:
                     # Giving the user an error message
-                    print("The file %s did not exist in %s or is not a file." % (fileToLoad, path + subDir))
+                    print("The file '%s' did not exist in '%s' or is not a file." % (fileToLoad, path + subDir))
                     print()
 
                 # Asking the user if they want to choose another file, if they dont we will go to the subdirectory choosing loop
-                if input("Do you want to choose another file in this directory? y/n").lower() == "y":
+                if input("Do you want to choose another file in this directory? y/n ").lower() == "y":
                     continue
                 else:
                     newFile = False
 
 
 # Checking if the user wants to use a saved simulation
-useSavedSim = input("Load a saved simulation?")
+useSavedSim = input("Load a saved simulation? ")
 print()
 
 while not (useSavedSim.lower() == "y" or useSavedSim.lower() == "n"):
-    useSavedSim = input("Load a saved simulation?")
+    useSavedSim = input("Load a saved simulation? ")
     print()
 
 if useSavedSim.lower() == "y":
@@ -135,11 +135,11 @@ else:
 
 if not useSavedSim:
     # Checking if the user wants to use the default settings
-    useDefSettings = input("Use default settings? y/n")
+    useDefSettings = input("Use default settings? y/n ")
     print()
 
     while not ((useDefSettings == "Y" or useDefSettings == "N") or (useDefSettings == "y" or useDefSettings == "n")):
-        useDefSettings = input("Use default settings? y/n")
+        useDefSettings = input("Use default settings? y/n ")
         print()
 
     if (useDefSettings == "N") or (useDefSettings == "n"):
@@ -148,11 +148,11 @@ if not useSavedSim:
         useDefSettings = True
 
     # Checking if the user wants to draw the food grid
-    drawFood = input("Draw food? y/n")
+    drawFood = input("Draw food? y/n ")
     print()
 
     while not ((drawFood == "Y" or drawFood == "N") or (drawFood == "y" or drawFood == "n")):
-        drawFood = input("Draw food? y/n")
+        drawFood = input("Draw food? y/n ")
         print()
 
     if (drawFood == "N") or (drawFood == "n"):
@@ -163,16 +163,16 @@ if not useSavedSim:
     if not useDefSettings:
 
         # Asking the user about what resolution the simulation should be run at, both dimensions must be multiples of 50 (X % 50 == 0 && Y % 50 == 0) because of the food grid having 50*50 tiles
-        resX = input("X resolution? (must be  multiple of 50)")
+        resX = input("X resolution? (must be  multiple of 50) ")
         print()
         while not resX.isdigit() or (not float(resX) > 0) or (not float(resX) % 50 == 0):
-            resX = input("X resolution? (must be  multiple of 50)")
+            resX = input("X resolution? (must be  multiple of 50) ")
             print()
 
-        resY = input("Y resolution? (must be  multiple of 50)")
+        resY = input("Y resolution? (must be  multiple of 50) ")
         print()
         while not resY.isdigit() or (not float(resY) > 0) or (not float(resY) % 50 == 0):
-            resY = input("Y resolution? (must be  multiple of 50)")
+            resY = input("Y resolution? (must be  multiple of 50) ")
             print()
 
         # Converting the resolution variables to be ints and not strings
@@ -184,25 +184,25 @@ if not useSavedSim:
         if resY < 200:
             resY = 200
 
-        numBots = input("How many bitbots should exist?")
+        numBots = input("How many bitbots should exist? ")
         print()
 
         while not numBots.isdigit() or (not float(numBots) > 0):
-            numBots = input("How many bitbots should exist?")
+            numBots = input("How many bitbots should exist? ")
             print()
 
-        maxBots = input("What should be the maximum amount of bots that can exist?")
+        maxBots = input("What should be the maximum amount of bots that can exist? ")
         print()
 
         while not maxBots.isdigit() or (not float(maxBots) > 0):
-            maxBots = input("What should be the maximum amount of bots that can exist?")
+            maxBots = input("What should be the maximum amount of bots that can exist? ")
             print()
 
-        isGridMode = input("Should they be spawned in a grid pattern? y/n")
+        isGridMode = input("Should they be spawned in a grid pattern? y/n ")
         print()
 
         while not ((isGridMode == "Y" or isGridMode == "N") or (isGridMode == "y" or isGridMode == "n")):
-            isGridMode = input("Should they be spawned in a grid pattern? y/n")
+            isGridMode = input("Should they be spawned in a grid pattern? y/n ")
             print()
 
         if isGridMode == "Y" or isGridMode == "y":
@@ -210,11 +210,11 @@ if not useSavedSim:
         else:
             isGridMode = False
 
-        frameDivider = input("How many ticks per draw frame should there be?")
+        frameDivider = input("How many ticks per draw frame should there be? ")
         print()
 
         while not frameDivider.isdigit() or (not float(frameDivider) > 0):
-            frameDivider = input("How many ticks per draw frame should there be?")
+            frameDivider = input("How many ticks per draw frame should there be? ")
             print()
 
     else:
@@ -720,8 +720,144 @@ def gameLoop():
                 foodArray[randX][randY] = 100
 
     if shouldExit:
-        print("Bitbots will now exit")
-        # TODO save the simulation if the user wants to
+        # Asking the user if they want to save the simulation
+        print()
+        if input("Do you want to save the state of the simulation? y/n ") == "y":
+            print()
+
+            # The directory we are in
+            path = os.path.dirname(os.path.realpath(__file__))
+
+            # Directory separator so we can have cross-platform compatibility
+            dirSep = os.sep
+
+            # Storing all the subdirectories in the root dir
+            subDirs = next(os.walk('.'))[1]
+
+            # Printing how many subdirectories we found and the names of all the subdirectories
+            print("Found %d subdirectories in '%s':" % (subDirs.__len__(), path))
+            for curSubDir in subDirs:
+                print("\t%s" % curSubDir)
+            print()
+
+            redoSaveInte = True
+
+            # We use a while loop here so that the user can create new directories and then be directed to the existing directory part of the code
+            while redoSaveInte:
+
+                # Asking the user if they want to choose a subdirectory
+                if input("Do you want save the simulation in to one of the existing subdirectories? y/n ") == "y":
+
+                    print()
+
+                    # Asking the user which subdirectory they want to save the simulation in
+                    saveDir = input("What subdirectory do you want to save the simulation in? ")
+                    print()
+
+                    # Checking if the user specified subdirectory exists
+                    if not subDirs.__contains__(saveDir):
+                        # We tell the user that they did not specify an existing directory and then we redo the loop
+                        print("The directory '%s' does not exist in '%s'! " % (saveDir, path + dirSep))
+                        print()
+
+                        continue
+
+                    # Putting all the files in the userspecified subdirectory in a list
+                    filenames = next(os.walk(path + dirSep + saveDir))[2]
+
+                    # Giving the user info about which and how many files that were found in the user specified subdirectory
+                    print("Found %s files in %s: " % (filenames.__len__(), path + dirSep + saveDir))
+
+                    # Printing all the files in the user specified subdirectory
+                    for file in filenames:
+                        print("\t%s" % file)
+                    print()
+
+                    # Asking the user what filename they want the savefile to have
+                    saveName = input(
+                        "What filename do you want the simulation to have? (excluding the .bbs extension) ") + ".bbs"
+                    print()
+
+                    # Checking if the user specified filename already exists
+                    if filenames.__contains__(saveName):
+                        # We tell the user that they specified an already existing file and then we redo the loop
+                        print("The file '%s' already exists in '%s'! " % (saveName, path + dirSep + saveDir))
+                        print()
+
+                        continue
+
+                    # Telling the user that saving is in progress
+                    print("Saving simulation to file '%s' in '%s' in progress. " % (saveName, path + dirSep + saveDir))
+
+                    # Creating the save object
+                    # TODO Create and save the object via pickle
+
+                    print("Simulation saved. ")
+                    print()
+
+                    # We exit the while loop because of failed while conditions
+                    redoSaveInte = False
+
+                else:
+
+                    print()
+
+                    redoDirCreate = True
+
+                    # We use a loop here so the user can do infinitely many tries in creating a directory
+                    while redoDirCreate:
+
+                        # Asking the user if they want to create a new subdirectory
+                        if input("Do you want to create a new subdirectory in '%s'? y/n " % path).lower() == "y":
+
+                            print()
+
+                            # Asking the user what name they want the new subdirectory to have
+                            newSubDirName = input("What name do you want the new subdirectory to have? ")
+
+                            print()
+
+                            # Checking if the specified name for a subdirectory already exists
+                            if subDirs.__contains__(newSubDirName):
+
+                                # Telling the user that the directory already exists
+                                print("The directory '%s' already exists. " % path + dirSep + newSubDirName + dirSep)
+                                print()
+
+                                # Asking the user if they want to try creating a new directory again
+                                if input("Do you want to try to create a new directory again? y/n ").lower() == "y":
+                                    print()
+
+                                else:
+
+                                    # The user doesnt want to use save files, we stop the loop
+                                    redoDirCreate = False
+                                    print()
+
+                            else:
+
+                                # We create the subdirectory
+                                print("Will now create directory '%s' in '%s'. " % (newSubDirName, path))
+                                print()
+                                os.mkdir(path + dirSep + newSubDirName)
+
+                                # We relist the subdirectories in the root dir so they user can use the new dir
+                                subDirs = next(os.walk('.'))[1]
+
+                                # We break out of the loop so the user can choose the directory they just created
+                                redoDirCreate = False
+
+                        else:
+
+                            # The user does not want to create a new directory or save the simulation in an existing directory
+                            print("Bitbots will not save the current state of the simulation. ")
+                            print()
+
+                            # We break out of the loop here so the execution resumes to the exiting stage of the simulation
+                            redoDirCreate = False
+                            redoSaveInte = False
+
+        print("Bitbots will now exit ")
         pygame.quit()
-        print("Bitbots has now exited")
+        print("Bitbots has now exited ")
         sys.exit()
