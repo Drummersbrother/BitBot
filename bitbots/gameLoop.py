@@ -14,6 +14,7 @@ import pygame
 
 from bitbots import Vec2D
 from bitbots import botMethods
+from bitbots import saveTemplate
 
 
 # Method for loading (de-serializing via pickle) a saved simulation
@@ -36,7 +37,7 @@ def loadSim():
         print()
 
         # Asking the user what subdirectory they want to look for savefiles in. We use the OS dir sep (os.sep) so we dont have to care about specific OS
-        subDir = dirSep + input("Please input save directory. Default is 'simsaves'. ")
+        subDir = dirSep + input("Please input save directory.")
         print()
 
         # Checking if the user-specified directory exists and is a directory, if it does not pass then we will continue/redo the loop
@@ -214,7 +215,7 @@ if not useSavedSim:
         print()
 
         while not frameDivider.isdigit() or (not float(frameDivider) > 0):
-            frameDivider = input("How many ticks per draw frame should there be? ")
+            frameDivider = float(input("How many ticks per draw frame should there be? "))
             print()
 
     else:
@@ -224,18 +225,6 @@ if not useSavedSim:
         numBots = 50
         maxBots = 200
         frameDivider = 1
-
-pygame.init()
-
-textFont = pygame.font.SysFont("Monospace", 15)
-smallFont = pygame.font.SysFont("Monospace", 12)
-
-curScr = pygame.display.set_mode((resX + 800, resY))
-
-pygame.display.set_caption("Bitbots")
-
-# Setting up, initializing and storing the bitbots
-bots = botMethods.makeBots(numBots, isGridMode, resX, resY, 0)
 
 
 def gameLoop():
@@ -253,32 +242,7 @@ def gameLoop():
     global frameDivider
     global useSavedSim
     global saveFile
-
-    # TODO check if we should use a saved simulation and load it
-
-    frameDivider = float(frameDivider)
-    shouldDrawNN = True
-
-    # Storing the food amount array
-    # Food at each location will be within (0-100) represented as an float
-    # Each array entry represents a 50 x 50 area
-
-    # We use floor division here to skip type conversion and basically silently swallowing errors from the input checker
-    # We use one extra row and column to prevent errors
-    foodArray = np.zeros(((resX // 50) + 1, (resY // 50) + 1))
-
-    # Randomizing the amount of food availiable at each tile (1 tile = one 50 x 50 area)
-
-    # We use numpy's built in multidimensional iterator instead of nested for loops and then just setting the current value to a random one
-    for index, curVal in np.ndenumerate(foodArray):
-        foodArray[index[0]][index[1]] = random.randrange(0, 100)
-
-    # Storing the background color
-    bgColor = (0, 0, 0)
-
-    # Filling the background with the background color and updating the whole screen
-    curScr.fill(bgColor)
-    pygame.display.update()
+    global drawFood
 
     # Target fps BEWARE THAT THIS WILL NEVER BE REACHED, IT LIMITS FPS TO ALWAYS BE BELOW THIS
     tFps = 200
@@ -292,14 +256,63 @@ def gameLoop():
     updateRects = []
     updateRectsNN = []
 
-    # Current tick counter
-    tick = 0
+    # Checking if we should load a save file / saved simulation
+    if useSavedSim:
+        print("Bitbots is loading the specified saved simulation")
 
-    # Storing if the user is currently moving/viewing a bot
-    isControllingBot = False
+        # Loading all the saved variables/objects into the real ones
+        bots, numBots, isGridMode, resX, resY, shouldDraw, shouldDrawNN, textFont, maxBots, frameDivider, foodArray, tick, isControllingBot, controlBot, drawFood = saveFile.extractData()
 
-    # Storing which bot the player is controlling
-    controlBot = -1
+        print("Bitbots has now loaded the specified saved simulation")
+
+    else:
+
+        # Current tick counter
+        tick = 0
+
+        # Storing if the user is currently moving/viewing a bot
+        isControllingBot = False
+
+        # Storing which bot the player is controlling
+        controlBot = -1
+
+        shouldDrawNN = True
+
+        # Storing the food amount array
+        # Food at each location will be within (0-100) represented as an float
+        # Each array entry represents a 50 x 50 area
+
+        # We use floor division here to skip type conversion and basically silently swallowing errors from the input checker
+        # We use one extra row and column to prevent errors
+        foodArray = np.zeros(((resX // 50) + 1, (resY // 50) + 1))
+
+        # Randomizing the amount of food availiable at each tile (1 tile = one 50 x 50 area)
+
+        # We use numpy's built in multidimensional iterator instead of nested for loops and then just setting the current value to a random one
+        for index, curVal in np.ndenumerate(foodArray):
+            foodArray[index[0]][index[1]] = random.randrange(0, 100)
+
+    if not frameDivider:
+        frameDivider = 1
+
+    pygame.init()
+
+    textFont = pygame.font.SysFont("Monospace", 15)
+    smallFont = pygame.font.SysFont("Monospace", 12)
+
+    curScr = pygame.display.set_mode((resX + 800, resY))
+
+    pygame.display.set_caption("Bitbots")
+
+    # Storing the background color
+    bgColor = (0, 0, 0)
+
+    # Filling the background with the background color and updating the whole screen
+    curScr.fill(bgColor)
+    pygame.display.update()
+
+    # Setting up, initializing and storing the bitbots
+    bots = botMethods.makeBots(numBots, isGridMode, resX, resY, 0)
 
     print("Bitbots will now initiate game loop")
 
@@ -775,7 +788,7 @@ def gameLoop():
 
                     # Asking the user what filename they want the savefile to have
                     saveName = input(
-                        "What filename do you want the simulation to have? (excluding the .bbs extension) ") + ".bbs"
+                            "What filename do you want the simulation to have? (excluding the .bbs extension) ") + ".bbs"
                     print()
 
                     # Checking if the user specified filename already exists
@@ -791,6 +804,21 @@ def gameLoop():
 
                     # Creating the save object
                     # TODO Create and save the object via pickle
+                    # Putting all the variables we need to save in a list so we can save it
+                    saveList = [bots, numBots, isGridMode, resX, resY, shouldDraw, shouldDrawNN, textFont, maxBots,
+                                frameDivider, foodArray, tick, isControllingBot, controlBot, drawFood]
+
+                    # Putting the list into the savefile object
+                    saveObject = saveTemplate.saveFile(saveList)
+
+                    # Opening a file handle to the user specified filename (with "wb" for writing bytes to the file)
+                    pickleOut = open(saveDir + dirSep + saveName, "wb")
+
+                    # Dumping the savefile object to the file
+                    pickle.dump(saveObject, pickleOut)
+
+                    # Closing the file handle
+                    pickleOut.close()
 
                     print("Simulation saved. ")
                     print()

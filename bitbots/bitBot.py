@@ -4,9 +4,8 @@ import random
 
 import numpy as np
 
-from bitbots import Vec2D
 import bitbots
-
+from bitbots import Vec2D
 
 class bitBot:
     def __init__(self, genNr):
