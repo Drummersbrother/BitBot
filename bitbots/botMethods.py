@@ -1,12 +1,11 @@
-import math
-import random
-
-from bitbots.Vec2D import Vec2D
-
 __author__ = 'FamiljensMONSTER'
 # encoding: utf-8
+import math
+import random
 from math import sqrt
+
 from bitbots import bitBot
+from bitbots.Vec2D import Vec2D
 
 
 def makeBots(numBots, isGridMode, resX, resY, genNr):
