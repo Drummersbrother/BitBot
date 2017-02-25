@@ -4,6 +4,8 @@ import os
 import random
 import sys
 
+import matplotlib.pyplot as plt
+
 try:
     import cPickle as pickle
 except:
@@ -286,7 +288,7 @@ def gameLoop():
         # We use one extra row and column to prevent errors
         foodArray = np.zeros(((resX // 50) + 1, (resY // 50) + 1))
 
-        # Randomizing the amount of food availiable at each tile (1 tile = one 50 x 50 area)
+        # Randomizing the amount of food available at each tile (1 tile = one 50 x 50 area)
 
         # We use numpy's built in multidimensional iterator instead of nested for loops and then just setting the current value to a random one
         for index, curVal in np.ndenumerate(foodArray):
@@ -314,10 +316,38 @@ def gameLoop():
     # Setting up, initializing and storing the bitbots
     bots = botMethods.makeBots(numBots, isGridMode, resX, resY, 0)
 
+    fig = plt.figure()
+    ax1 = fig.add_subplot(1, 1, 1)
+
+    avg_gen_data = ([], [])
+    nr_bots_data = ([], [])
+
     print("Bitbots will now initiate game loop")
 
+    # The main loop
     while not shouldExit:
-        if tick % frameDivider == 0:
+
+        if tick % 10 == 0:
+            if len(avg_gen_data) > 1000:
+                del avg_gen_data[0]
+                del nr_bots_data[0]
+
+            # We plot some info
+            ax1.clear()
+
+            avg_gen_data[0].append(tick)
+            avg_gen_data[1].append(sum([x.genNr for x in bots]) / len(bots))
+
+            nr_bots_data[0].append(tick)
+            nr_bots_data[1].append(len(bots))
+
+            ax1.plot(*avg_gen_data)
+            ax1.plot(*nr_bots_data)
+
+            plt.draw()
+            plt.pause(0.0001)
+
+        if tick % int(frameDivider) == 0:
             updateRects.append(pygame.draw.rect(curScr, bgColor, pygame.Rect(0, 0, resX + 800, resY)))
 
         # wait for game tick to be at the appropriate time
@@ -381,14 +411,14 @@ def gameLoop():
                         closestBotDist = 10
 
                         # Looping through all the bots to find a bot that the user can select (this has inconsistencies based on list order in some cases)
-                        for i in range(bots.__len__()):
+                        for inx, bot in enumerate(bots):
                             # The distance between the click position and the bot position
                             botDist = Vec2D.Vec2D(bots[i].posX - event.pos[0],
                                                   bots[i].posY - event.pos[1]).getMagnitude()
 
                             # Checking the current bot to see if it is the closest bot to the click pos
                             if botDist <= closestBotDist:
-                                closestBotId = i
+                                closestBotId = inx
                                 closestBotDist = botDist
 
                         if closestBotId != -1:
@@ -451,13 +481,13 @@ def gameLoop():
                 curBot.health -= (scaledSensor / 9)
 
                 # The food logic
-                foodEaten = foodArray[curBot.posX // 50][curBot.posY // 50] * ((scaledSensor / 100) * 3)
+                foodEaten = foodArray[int(curBot.posX // 50)][int(curBot.posY // 50)] * ((scaledSensor / 100) * 3)
 
                 # Increasing the health of the current bot by the amount of food the bot ate
                 curBot.health += foodEaten
 
                 # Decreasing the amount of food available where the bot ate by the amount that the bot ate
-                foodArray[curBot.posX // 50][curBot.posY // 50] -= foodEaten
+                foodArray[int(curBot.posX // 50)][int(curBot.posY // 50)] -= foodEaten
 
                 # Telling the bot how much it has eaten
                 curBot.hasEaten(foodEaten)
@@ -501,21 +531,12 @@ def gameLoop():
                     isControllingBot = False
                     controlBot = -1
 
-        for i in range(bots.__len__()):
-            # Apply health checks again
+        # Apply health checks and remove bots that are dead
+        bots = [x for x in bots if not (x.health <= 0)]
 
-            if i < bots.__len__():
-                curBot = bots[i]
-
-                # Checking if the bot should be dead/removed
-                if curBot.health <= 0:
-                    del bots[i]
-
-
-                else:
-                    # Checking and correcting so the bot doesnt have health over 100
-                    if curBot.health > 100:
-                        curBot.health = 100
+        for bot in bots:
+            if bot.health > 100:
+                bot.health = 100
 
         for curBot in bots:
             # Apply health giving logic (health giving does not have a health toll)
@@ -598,14 +619,14 @@ def gameLoop():
         # TODO Improve bot drawing / graphics
 
         # Drawing the amount of food available if the user wanted to
-        if drawFood and tick % frameDivider == 0:
+        if drawFood and tick % int(frameDivider) == 0:
             for index, curVal in np.ndenumerate(foodArray):
                 updateRects.append(
                         pygame.draw.rect(curScr, ((curVal / 100) * 255, (curVal / 100) * 255, (curVal / 100) * 255),
                                          pygame.Rect(index[0] * 50, index[1] * 50, (index[0] * 50) + 50,
                                                      (index[1] * 50) + 50)))
 
-        if tick % frameDivider == 0:
+        if tick % int(frameDivider) == 0:
             for curBot in bots:
                 # Drawing the current bot as a circle
                 circleRect1 = pygame.draw.circle(curScr, (

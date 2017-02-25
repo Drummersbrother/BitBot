@@ -120,4 +120,4 @@ class bitBot:
         self.NNet[0][20] -= amount / 100
 
     def displayString(self):
-        return str(str(round(self.NNet[0][20], 1)) + " | " + str(round(self.health, 1)))
+        return str(round(self.NNet[0][20], 1)) + " | " + str(round(self.health, 1)) + " | Gen " + str(self.genNr)

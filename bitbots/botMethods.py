@@ -165,7 +165,7 @@ def updateSensors(bots, curTick, foodArray):
         curBot.NNet[0][10] = totalSmell
 
         # Plantfood at the current location
-        curBot.NNet[0][11] = foodArray[curBot.posX // 50][curBot.posY // 50] / 100
+        curBot.NNet[0][11] = foodArray[int(curBot.posX // 50)][int(curBot.posY // 50)] / 100
 
         # Last tick R, G, and B
         curBot.NNet[0][12] = curBot.NNet[4][2]
