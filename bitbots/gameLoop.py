@@ -273,10 +273,10 @@ def gameLoop():
         tick = 0
 
         # Storing if the user is currently moving/viewing a bot
-        isControllingBot = False
+        isControllingBot = True
 
         # Storing which bot the player is controlling
-        controlBot = -1
+        controlBot = 0
 
         shouldDrawNN = True
 
@@ -401,14 +401,14 @@ def gameLoop():
                 if event.type == pygame.K_ESCAPE:
                     shouldExit = True
             # Checking if the pygame window is focused (is the current window) or not
-            if pygame.mouse.get_focused():
+            if True: #pygame.mouse.get_focused():
                 # Checking for clicking
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1 and not isControllingBot:
                         closestBotId = -1
 
                         # This should be the drawing radius of the bots so that we get accurate clicking
-                        closestBotDist = 10
+                        closestBotDist = 40
 
                         # Looping through all the bots to find a bot that the user can select (this has inconsistencies based on list order in some cases)
                         for inx, bot in enumerate(bots):
